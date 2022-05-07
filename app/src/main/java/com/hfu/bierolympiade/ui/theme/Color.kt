@@ -2,7 +2,6 @@ package com.hfu.bierolympiade.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val RsBlue = Color(0xFF0088CE)
-val RsBlueDark1 = Color(0xFF00669B)
-val RsBlueDark2 = Color(0xFF0C4A73)
-val RsYellow = Color(0xFFDEEB32)
+val RsWhite = Color(0xFFFFFFFF)
+val RsBackground = Color(0xFFFAFCFE)
+val RsBlack = Color(0xFF000000)

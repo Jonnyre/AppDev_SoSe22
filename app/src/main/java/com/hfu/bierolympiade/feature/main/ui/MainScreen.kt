@@ -24,21 +24,9 @@ fun MainScreen() {
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route
-            TopAppBar(
-                title = {
-                    when (currentRoute) {
-                        BottomNavigationItem.Players.routeName -> Text(stringResource(BottomNavigationItem.Players.title))
-                        BottomNavigationItem.Cart.routeName -> Text(stringResource(BottomNavigationItem.Cart.title))
-                    }
-                },
-            )
-        },
         bottomBar = { MainBottomNavigation(navController) }
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+    ) {
+        Box() {
             MainNavigationGraph(navController)
         }
     }

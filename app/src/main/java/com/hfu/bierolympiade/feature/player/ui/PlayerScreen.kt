@@ -14,22 +14,22 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun PlayerScreen(viewModel: PlayersViewModel = viewModel()) {
-    val products by viewModel.bindUi(LocalContext.current).observeAsState(emptyList())
-    ProductsScreenUI(products)
+    val players by viewModel.bindUi(LocalContext.current).observeAsState(emptyList())
+    PlayersScreenUI(players)
 }
 
 @Composable
-private fun ProductsScreenUI(products: List<PlayerUI>) {
+private fun PlayersScreenUI(players: List<PlayerUI>) {
     val scrollState = rememberLazyListState()
     LazyColumn(state = scrollState) {
-        items(products) { product ->
-            PlayerItem(product)
+        items(players) { player ->
+            PlayerItem(player)
         }
     }
 }
 
 @Preview
 @Composable
-fun ProductsScreen_Preview() {
-    ProductsScreenUI(emptyList())
+fun PlayersScreen_Preview() {
+    PlayersScreenUI(emptyList())
 }

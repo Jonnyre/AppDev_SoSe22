@@ -55,8 +55,8 @@ fun PlayerItem_Preview() {
     PlayerItem(
         PlayerUI(
             PlayerId("foo"),
-            "spezi",
-            "some description",
+            "test",
+            "eine test beschreibung",
         )
     )
 }
