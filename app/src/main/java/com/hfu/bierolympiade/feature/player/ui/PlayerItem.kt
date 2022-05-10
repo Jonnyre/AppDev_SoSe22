@@ -1,51 +1,49 @@
 package com.hfu.bierolympiade.feature.player.ui
 
+import android.graphics.Paint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.PlayerId
 
 
 @Composable
 fun PlayerItem(player: PlayerUI) {
-    Card(
-        elevation = 3.dp,
-        modifier = Modifier.padding(8.dp),
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
+        Surface(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .size(80.dp)
+                .padding(5.dp),
+            shape = CircleShape,
+            color = Color(0xFFF2C299)
         ) {
-            Column(
-                modifier = Modifier.weight(1f),
-            ) {
-                Text(
-                    text = player.name,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+            Image(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_play_generic),
+                contentDescription = null,
+                modifier = Modifier.padding(10.dp)
                 )
-                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                    Text(
-                        text = player.description,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.subtitle1,
-                    )
-                }
-            }
         }
+        Text(
+            text = player.name,
+            textAlign = TextAlign.Center
+        )
     }
 }
 

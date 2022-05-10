@@ -24,6 +24,91 @@ class PlayerRepository {
             name = "Peter Pan",
             description = "Ungeschlagener Zwischenkotzer",
         ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
+        Player.create(
+            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
+            name = "Jonathan Rißler",
+            description = "Champion",
+        ),
+        Player.create(
+            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
+            name = "Peter Pan",
+            description = "Ungeschlagener Zwischenkotzer",
+        ),
     ).filterNotNull()
 
     fun getAllPlayers() = allPlayers
