@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.hfu.bierolympiade.feature.addEvent.ui.AddEventScreen
 import com.hfu.bierolympiade.feature.event.ui.EventScreen
 import com.hfu.bierolympiade.feature.leaderboard.ui.LeaderboardScreen
 import com.hfu.bierolympiade.feature.player.ui.PlayerScreen
@@ -19,6 +20,9 @@ fun MainNavigationGraph(navController: NavHostController) {
         }
         composable(BottomNavigationItem.Leaderboard.routeName) {
             LeaderboardScreen()
+        }
+        composable("addEvent") {
+            AddEventScreen()
         }
     }
 }

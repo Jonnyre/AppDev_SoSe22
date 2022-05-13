@@ -32,16 +32,21 @@ fun EventItem(event: EventUI) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(shape = RoundedCornerShape(10.dp))
+                    .background(
+                        Color(0xFFF2C299)
+                    )
+            ) {
                 Image(
                     painter = painterResource(R.drawable.ic_blank_event),
-                    contentDescription = "blank_event",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .background(Color(0xFFF2C299))
-                        .clip(RoundedCornerShape(20.dp))
-
-            )
-            
+                    contentDescription = "Event",
+                    modifier = Modifier.size(80.dp)
+                )
+            }
             Column {
                 Text(
                     text = event.name,
