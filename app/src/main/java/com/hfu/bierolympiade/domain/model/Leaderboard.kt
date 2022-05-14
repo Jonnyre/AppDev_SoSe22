@@ -1,9 +1,6 @@
 package com.hfu.bierolympiade.domain.model
 
 
-
-
-
 class Leaderboard private constructor(
     val event: EventId,
     val standings: Map<PlayerId, Int>,

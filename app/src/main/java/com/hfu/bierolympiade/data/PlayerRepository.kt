@@ -1,12 +1,18 @@
 package com.hfu.bierolympiade.data
 
+import com.hfu.bierolympiade.App
+import com.hfu.bierolympiade.data.database.*
+import com.hfu.bierolympiade.domain.model.Event
+import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Player
 import com.hfu.bierolympiade.domain.model.PlayerId
 
 
-val playerRepo = PlayerRepository()
+val playerRepo = PlayerRepository(App.database.playerDao())
 
-class PlayerRepository {
+class PlayerRepository(
+    private val dao: PlayerDao
+) {
 
     private val allPlayers = listOf(
         Player.create(
@@ -111,10 +117,11 @@ class PlayerRepository {
         ),
     ).filterNotNull()
 
-    fun getAllPlayers() = allPlayers
+    suspend fun getAllPlayers(): List<Player> = dao.getAll().mapNotNull { playerFromDb(it) }
 
+    suspend fun getPlayerById(id: PlayerId): Player? = dao.getById(id.value)?.let { playerFromDb(it) }
 
-    fun getPlayerById(id: PlayerId): Player? = allPlayers.firstOrNull {
-        it.id == id
+    suspend fun addPlayer(player: Player) {
+        dao.insert(playerToDb(player))
     }
 }

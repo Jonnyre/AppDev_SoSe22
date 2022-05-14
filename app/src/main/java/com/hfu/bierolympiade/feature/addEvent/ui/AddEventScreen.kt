@@ -17,10 +17,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.feature.event.ui.EventUI
+import com.hfu.bierolympiade.feature.event.ui.EventViewModel
 
 @Composable
-fun AddEventScreen() {
+fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
     var eventname by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
@@ -166,7 +169,16 @@ fun AddEventScreen() {
             }
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                viewModel.onAddEvent(
+                    AddEventUI(
+                        name = eventname,
+                        location = location,
+                        date = date,
+                        fees = fee.toInt()
+                    )
+                )
+            },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(0xFFEC814C),
                 contentColor = Color.White
