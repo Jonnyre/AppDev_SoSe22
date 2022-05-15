@@ -16,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hfu.bierolympiade.R
@@ -23,14 +25,14 @@ import com.hfu.bierolympiade.feature.main.navigation.BottomNavigationItem
 import com.hfu.bierolympiade.feature.main.navigation.MainBottomNavigation
 import com.hfu.bierolympiade.feature.main.navigation.MainNavigationGraph
 
-
+var navControllerGlobal: NavHostController? = null
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val currentRoute = navController
-        .currentBackStackEntryFlow
+    val currentRoute = navController.currentBackStackEntryFlow
         .collectAsState(initial = navController.currentBackStackEntry)
 
+    navControllerGlobal = navController
     Scaffold(
         floatingActionButton = {
             if (isScreenWithFloatingAction(currentRoute.value?.destination?.route)) {
@@ -38,24 +40,19 @@ fun MainScreen() {
                     onClick = {
                         when (currentRoute.value?.destination?.route) {
                             "events" -> {
-                                navController.navigate("addEvent") {
-                                    navController.graph.startDestinationRoute?.let { screen_route ->
-                                        popUpTo(screen_route) {
-                                            saveState = true
-                                        }
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
+                                navigateToRoute("addEvent")
                             }
-                            "players" -> { /* Action for Screen 2 */ }
-                            "leaderboard" -> { /* Action for Screen 3 */ }
+                            "players" -> {
+                                navigateToRoute("addPlayer")
+                            }
+                            "leaderboard" -> { /* Action for Screen 3 */
+                            }
                         }
                     },
                     backgroundColor = Color(0xFFEC814C),
                     content = {
 
-                        val iconId = when(currentRoute.value?.destination?.route) {
+                        val iconId = when (currentRoute.value?.destination?.route) {
                             "events" -> R.drawable.ic_plus
                             "players" -> R.drawable.ic_plus
                             "leaderboard" -> R.drawable.ic_refresh
@@ -89,5 +86,17 @@ fun isScreenWithFloatingAction(route: String?): Boolean {
     return when (route) {
         "events", "players", "leaderboard" -> true
         else -> false
+    }
+}
+
+fun navigateToRoute(route: String) {
+    navControllerGlobal?.navigate(route) {
+        navControllerGlobal?.graph?.startDestinationRoute?.let { screen_route ->
+            popUpTo(screen_route) {
+                saveState = true
+            }
+        }
+        launchSingleTop = true
+        restoreState = true
     }
 }

@@ -8,11 +8,13 @@ import androidx.room.TypeConverters
     version = 2,
     entities = [
         EventDb::class,
-        PlayerDb::class
+        PlayerDb::class,
+        GameDb::class
     ],
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun playerDao(): PlayerDao
+    abstract fun gameDao(): GameDao
 }

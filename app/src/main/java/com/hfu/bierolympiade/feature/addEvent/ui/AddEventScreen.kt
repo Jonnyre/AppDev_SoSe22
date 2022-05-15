@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,15 +16,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
-import com.hfu.bierolympiade.feature.event.ui.EventUI
-import com.hfu.bierolympiade.feature.event.ui.EventViewModel
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
+    AddEventScreenUi(viewModel::onAddEvent)
+}
+
+@Composable
+fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, fees: Int) -> Unit) {
     var eventname by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
-    var fee by remember { mutableStateOf("") }
+    var fees by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -74,10 +74,11 @@ fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
                 Text(text = "Choose Image")
             }
 
-            TextField(
+            OutlinedTextField(
                 value = eventname,
                 onValueChange = { eventname = it },
-                modifier = Modifier.padding(horizontal = 10.dp)
+                modifier = Modifier.padding(horizontal = 10.dp),
+                label = { Text(text = "Event Name") }
             )
         }
         Row(
@@ -91,12 +92,17 @@ fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
                     .weight(1f)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_location),
-                        contentDescription = "Location",
-                        modifier = Modifier.size(30.dp)
-                    )
-                    TextField(value = location, onValueChange = { location = it })
+                    OutlinedTextField(
+                        leadingIcon = {
+                            Image(
+                                painter = painterResource(R.drawable.ic_location),
+                                contentDescription = "Location",
+                                modifier = Modifier.size(30.dp)
+                            )
+                        },
+                        value = location,
+                        onValueChange = { location = it },
+                        label = { Text("Location") })
                 }
             }
             Box(
@@ -105,23 +111,36 @@ fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
                     .padding(start = 10.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_calendar),
-                        contentDescription = "Date",
-                        modifier = Modifier.size(30.dp)
-                    )
-                    TextField(value = date, onValueChange = { date = it })
+
+                    OutlinedTextField(
+                        leadingIcon = {
+                            Image(
+                                painter = painterResource(R.drawable.ic_calendar),
+                                contentDescription = "Date",
+                                modifier = Modifier.size(30.dp)
+                            )
+                        },
+                        value = date,
+                        onValueChange = { date = it },
+                        label = {
+                            Text("Date")
+                        })
                 }
             }
         }
         Box {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(R.drawable.ic_euro),
-                    contentDescription = "Fee",
-                    modifier = Modifier.size(30.dp)
-                )
-                TextField(value = fee, onValueChange = { fee = it })
+
+                OutlinedTextField(
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(R.drawable.ic_euro),
+                            contentDescription = "Fee"
+                        )
+                    },
+                    value = fees,
+                    onValueChange = { fees = it },
+                    label = { Text("Fees (optional)") })
             }
         }
         Button(
@@ -170,13 +189,8 @@ fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
         }
         Button(
             onClick = {
-                viewModel.onAddEvent(
-                    AddEventUI(
-                        name = eventname,
-                        location = location,
-                        date = date,
-                        fees = fee.toInt()
-                    )
+                onAddEvent(
+                    eventname, location, date, fees.toInt()
                 )
             },
             colors = ButtonDefaults.buttonColors(
@@ -196,5 +210,5 @@ fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
 @Preview
 @Composable
 fun AddEventScreen_Preview() {
-    AddEventScreen()
+    AddEventScreenUi({ _, _, _, _ -> })
 }

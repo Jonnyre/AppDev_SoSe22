@@ -1,18 +1,17 @@
 package com.hfu.bierolympiade.domain.model
 
 import java.time.ZonedDateTime
+import kotlin.math.max
+
 
 @JvmInline
-value class EventId(val value: String)
+value class GameId(val value: String)
 
 
-class Event private constructor(
-    val id: EventId,
+class Game private constructor(
+    val id: GameId,
     val name: String,
-    val location: String,
-    val date: String,
-    val participants: Int,
-    val fees: Int?,
+    val status: String,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -21,7 +20,7 @@ class Event private constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Event
+        other as Game
 
         if (id != other.id) return false
 
@@ -33,16 +32,13 @@ class Event private constructor(
 
     companion object {
         fun create(
-            id: EventId,
+            id: GameId,
             name: String,
-            location: String,
-            date: String,
-            participants: Int,
-            fees: Int?
-        ): Event? {
+            status: String,
+        ): Game? {
             if (name.isBlank()) return null
             val now = ZonedDateTime.now()
-            return Event(id, name, location, date, participants, fees, now, now, now)
+            return Game(id, name, status, now, now, now)
         }
     }
 }

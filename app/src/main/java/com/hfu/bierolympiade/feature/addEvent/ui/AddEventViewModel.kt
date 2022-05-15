@@ -6,9 +6,9 @@ import com.hfu.bierolympiade.domain.AddEventUseCase
 import kotlinx.coroutines.launch
 
 class AddEventViewModel : ViewModel() {
-    fun onAddEvent(addEventUI: AddEventUI) {
+    fun onAddEvent(name: String, location: String, date: String, fees: Int) {
         viewModelScope.launch {
-            AddEventUseCase()(addEventUI)
+            AddEventUseCase()(name, location, date, fees)
         }
     }
 }

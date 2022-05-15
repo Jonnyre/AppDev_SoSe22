@@ -10,6 +10,7 @@ fun eventToDb(event: Event): EventDb = EventDb(
     location = event.location,
     participants = event.participants,
     date = event.date,
+    fees = event.fees,
     created = event.created,
     updated = event.updated,
     deleted = event.deleted,
@@ -22,5 +23,6 @@ fun eventFromDb(event: EventDb): Event? {
         location = event.location,
         participants = event.participants,
         date = event.date,
+        fees = event.fees
     )
 }

@@ -24,8 +24,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.hfu.bierolympiade.R
 
-
-var navController: NavController? = null
 @Composable
 fun EventScreen(viewModel: EventViewModel = viewModel()) {
     val events by viewModel.bindUi(LocalContext.current).observeAsState(emptyList())
