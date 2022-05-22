@@ -24,8 +24,10 @@ import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.feature.main.navigation.BottomNavigationItem
 import com.hfu.bierolympiade.feature.main.navigation.MainBottomNavigation
 import com.hfu.bierolympiade.feature.main.navigation.MainNavigationGraph
+import com.hfu.bierolympiade.ui.theme.RsDarkOrange
 
 var navControllerGlobal: NavHostController? = null
+
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
@@ -49,7 +51,7 @@ fun MainScreen() {
                             }
                         }
                     },
-                    backgroundColor = Color(0xFFEC814C),
+                    backgroundColor = RsDarkOrange,
                     content = {
 
                         val iconId = when (currentRoute.value?.destination?.route) {
@@ -69,8 +71,8 @@ fun MainScreen() {
             } else null
         },
         bottomBar = { MainBottomNavigation(navController) }
-    ) {
-        Box() {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
             MainNavigationGraph(navController)
         }
     }

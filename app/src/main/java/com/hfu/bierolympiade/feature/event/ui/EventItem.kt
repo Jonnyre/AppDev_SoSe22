@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
@@ -54,7 +55,7 @@ fun EventItem(event: EventUI) {
                     .size(100.dp)
                     .clip(shape = RoundedCornerShape(10.dp))
                     .background(
-                        Color(0xFFF2C299)
+                        RsLightOrange
                     )
             ) {
                 Image(

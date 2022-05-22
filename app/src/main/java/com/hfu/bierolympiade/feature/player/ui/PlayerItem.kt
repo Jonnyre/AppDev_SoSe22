@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.PlayerId
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
@@ -32,7 +33,7 @@ fun PlayerItem(player: PlayerUI) {
                 .size(80.dp)
                 .padding(5.dp),
             shape = CircleShape,
-            color = Color(0xFFF2C299)
+            color = RsLightOrange
         ) {
             Image(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_play_generic),

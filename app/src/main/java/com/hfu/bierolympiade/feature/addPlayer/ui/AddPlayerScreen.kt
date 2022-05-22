@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.ui.theme.RsDarkOrange
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
 fun AddPlayerScreen(viewModel: AddPlayerViewModel = viewModel()) {
@@ -42,7 +44,7 @@ fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: St
                     .size(100.dp)
                     .clip(shape = RoundedCornerShape(10.dp))
                     .background(
-                        Color(0xFFF2C299)
+                        RsLightOrange
                     )
             ) {
                 Image(
@@ -92,7 +94,7 @@ fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: St
                 .height(150.dp)
                 .fillMaxWidth()
                 .background(
-                    Color(0xFFF2C299)
+                    RsLightOrange
                 )
         ) {
 
@@ -100,7 +102,7 @@ fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: St
         Button(
             onClick = { onAddPlayer(name, music, description) },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFEC814C),
+                backgroundColor = RsDarkOrange,
                 contentColor = Color.White
             ),
             modifier = Modifier

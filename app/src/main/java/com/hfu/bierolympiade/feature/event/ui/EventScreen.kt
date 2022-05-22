@@ -33,9 +33,7 @@ fun EventScreen(viewModel: EventViewModel = viewModel()) {
 @Composable
 private fun EventScreenUI(events: List<EventUI>) {
     val scrollState = rememberLazyListState()
-    Scaffold (
-
-    ) {
+    Scaffold() {
         Column(modifier = Modifier.padding(10.dp)) {
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -47,7 +45,8 @@ private fun EventScreenUI(events: List<EventUI>) {
                     modifier = Modifier
                         .size(100.dp)
                         .weight(1.0f)
-                        .padding(10.dp))
+                        .padding(10.dp)
+                )
                 Column(
                     modifier = Modifier.weight(2.0f)
                 ) {
@@ -58,7 +57,8 @@ private fun EventScreenUI(events: List<EventUI>) {
             Text(
                 text = "Events",
                 fontWeight = FontWeight.Bold,
-                fontSize = 20.sp)
+                fontSize = 20.sp
+            )
             LazyColumn(state = scrollState) {
                 items(events) { event ->
                     EventItem(event)

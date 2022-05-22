@@ -14,6 +14,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
@@ -38,7 +39,7 @@ fun LeaderboardItem(leaderboardItem: LeaderboardUI){
                         .size(80.dp)
                         .padding(12.dp),
                     shape = CircleShape,
-                    color = Color(0xFFF2C299)
+                    color = RsLightOrange
                 ) {
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_play_generic),

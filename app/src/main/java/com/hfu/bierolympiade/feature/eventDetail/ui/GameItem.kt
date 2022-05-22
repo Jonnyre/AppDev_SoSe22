@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.feature.event.ui.EventUI
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
@@ -39,7 +40,7 @@ fun GameItem(game: GameUI) {
                     .size(70.dp)
                     .clip(shape = RoundedCornerShape(10.dp))
                     .background(
-                        Color(0xFFF2C299)
+                        RsLightOrange
                     )
             ) {
                 Image(

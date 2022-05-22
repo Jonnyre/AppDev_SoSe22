@@ -1,5 +1,6 @@
 package com.hfu.bierolympiade.feature.main.navigation
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Badge
 import androidx.compose.material.BadgedBox
@@ -15,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
 fun MainBottomNavigation(navController: NavController) {
@@ -37,7 +39,7 @@ fun MainBottomNavigation(navController: NavController) {
                         contentDescription = navItem.routeName,
                         modifier = Modifier.size(24.dp))
                 },
-                selectedContentColor = Color(0xFFF2C299),
+                selectedContentColor = RsLightOrange,
                 unselectedContentColor = Color.Black,
                 onClick = {
                     navController.navigate(navItem.routeName) {

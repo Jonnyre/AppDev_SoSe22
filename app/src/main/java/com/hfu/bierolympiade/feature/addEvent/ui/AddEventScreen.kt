@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.ui.theme.*
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
@@ -32,7 +33,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
     Column(
         modifier = Modifier
             .padding(25.dp)
-            .background(Color(0xFFFAFCFE)),
+            .background(RsBackground),
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Row(
@@ -41,7 +42,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
             modifier = Modifier
                 .padding(vertical = 10.dp)
                 .fillMaxWidth()
-                .background(Color(0xFFFFFFFF))
+                .background(RsWhite)
         ) {
             Text(text = "Add new Event", fontSize = 20.sp)
             Button(
@@ -62,7 +63,8 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
                         .size(100.dp)
                         .clip(shape = RoundedCornerShape(10.dp))
                         .background(
-                            Color(0xFFF2C299)
+                            color =
+                            RsLightOrange
                         )
                 ) {
                     Image(
@@ -149,7 +151,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
                 .height(75.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFE1E7EE))
+            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackround)
         ) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
                 Image(
@@ -171,7 +173,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
                 .height(75.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFE1E7EE))
+            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackround)
         ) {
             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                 Image(
@@ -194,7 +196,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
                 )
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFEC814C),
+                backgroundColor = RsDarkOrange,
                 contentColor = Color.White
             ),
             modifier = Modifier
