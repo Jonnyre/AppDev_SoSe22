@@ -3,10 +3,11 @@ package com.hfu.bierolympiade.data
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Leaderboard
 import com.hfu.bierolympiade.domain.model.PlayerId
+import javax.inject.Inject
 
-val leaderboardRepo = LeaderboardRepository()
+class LeaderboardRepository @Inject constructor(
 
-class LeaderboardRepository {
+) {
 
     private val allLeaderboards = listOfNotNull(
         Leaderboard.create(

@@ -8,14 +8,19 @@ import androidx.lifecycle.liveData
 import com.hfu.bierolympiade.domain.GetLeaderboardFromEventUseCase
 import com.hfu.bierolympiade.domain.GetPlayerByIdUseCase
 import com.hfu.bierolympiade.domain.model.EventId
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class LeaderboardViewModel : ViewModel() {
+@HiltViewModel
+class LeaderboardViewModel @Inject constructor(
+    private val GetLeaderboardFromEvent: GetLeaderboardFromEventUseCase,
+    private val GetPlayerById: GetPlayerByIdUseCase
+): ViewModel() {
     fun bindUi(context: Context): LiveData<List<LeaderboardUI>> = liveData {
         val result =
-            GetLeaderboardFromEventUseCase()(eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"))?.standings?.map { board ->
+            GetLeaderboardFromEvent(eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"))?.standings?.map { board ->
                 LeaderboardUI(
-                    playerName = GetPlayerByIdUseCase()(board.key)?.name ?: "unknown",
+                    playerName = GetPlayerById(board.key)?.name ?: "unknown",
                     points = board.value
                 )
             }?.sortedBy { it.points } ?: emptyList<LeaderboardUI>()

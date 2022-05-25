@@ -7,8 +7,9 @@ import com.hfu.bierolympiade.domain.model.Player
 import com.hfu.bierolympiade.domain.model.PlayerId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AddDemoPlayerUseCase(
+class AddDemoPlayerUseCase @Inject constructor(
     private val playerRepository: PlayerRepository,
 ) {
     suspend operator fun invoke() = withContext(Dispatchers.Default) {

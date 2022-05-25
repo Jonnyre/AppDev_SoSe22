@@ -6,12 +6,9 @@ import com.hfu.bierolympiade.data.database.gameFromDb
 import com.hfu.bierolympiade.data.database.gameToDb
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
+import javax.inject.Inject
 
-
-
-val gameRepo = GameRepository(App.database.gameDao())
-
-class GameRepository(
+class GameRepository @Inject constructor(
     private val dao: GameDao
 ) {
 

@@ -6,10 +6,9 @@ import com.hfu.bierolympiade.data.database.eventFromDb
 import com.hfu.bierolympiade.data.database.eventToDb
 import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.EventId
+import javax.inject.Inject
 
-val eventRepo = EventRepository(App.database.eventDao())
-
-class EventRepository(
+class EventRepository @Inject constructor(
     private val dao: EventDao
 ) {
 

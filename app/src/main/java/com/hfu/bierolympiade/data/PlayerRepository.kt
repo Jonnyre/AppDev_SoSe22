@@ -6,11 +6,9 @@ import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Player
 import com.hfu.bierolympiade.domain.model.PlayerId
+import javax.inject.Inject
 
-
-val playerRepo = PlayerRepository(App.database.playerDao())
-
-class PlayerRepository(
+class PlayerRepository @Inject constructor(
     private val dao: PlayerDao
 ) {
 

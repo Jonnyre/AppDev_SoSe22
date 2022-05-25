@@ -5,10 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.ViewModel
 import com.hfu.bierolympiade.domain.GetEventsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class EventViewModel : ViewModel() {
+@HiltViewModel
+class EventViewModel @Inject constructor(
+    private val GetEvents: GetEventsUseCase
+) : ViewModel() {
     fun bindUi(context: Context): LiveData<List<EventUI>> = liveData {
-        val result = GetEventsUseCase()().map { event ->
+        val result = GetEvents().map { event ->
                 EventUI(
                     id = event.id,
                     name = event.name,

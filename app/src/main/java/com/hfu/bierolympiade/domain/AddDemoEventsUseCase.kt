@@ -5,8 +5,9 @@ import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.EventId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AddDemoEventsUseCase(
+class AddDemoEventsUseCase @Inject constructor(
     private val eventRepository: EventRepository,
 ) {
     suspend operator fun invoke() = withContext(Dispatchers.Default) {
