@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AddDemoGamesUseCase @Inject constructor(
+/* class AddDemoGamesUseCase @Inject constructor(
     private val gameRepository: GameRepository,
 ) {
     suspend operator fun invoke() = withContext(Dispatchers.Default) {
@@ -28,9 +28,10 @@ class AddDemoGamesUseCase @Inject constructor(
                 id = GameId("f16cdf15-6528-6a0b-993c-24d5bf8007a7"),
                 name = "Bierpong",
                 status = "Not yet started",
+
             ),
         ).forEach {
             gameRepository.addGame(it)
         }
     }
-}
+} */

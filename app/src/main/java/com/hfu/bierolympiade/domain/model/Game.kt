@@ -12,6 +12,8 @@ class Game private constructor(
     val id: GameId,
     val name: String,
     val status: String,
+    val matches: List<Match>,
+    val eventId: EventId,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -35,10 +37,14 @@ class Game private constructor(
             id: GameId,
             name: String,
             status: String,
+            matches: List<Match>,
+            eventId: EventId,
+            created: ZonedDateTime = ZonedDateTime.now(),
+            updated: ZonedDateTime = ZonedDateTime.now(),
+            deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Game? {
             if (name.isBlank()) return null
-            val now = ZonedDateTime.now()
-            return Game(id, name, status, now, now, now)
+            return Game(id, name, status, matches, eventId, created, updated, deleted)
         }
     }
 }

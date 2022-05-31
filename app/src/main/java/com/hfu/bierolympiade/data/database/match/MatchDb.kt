@@ -1,16 +1,19 @@
-package com.hfu.bierolympiade.data.database
+package com.hfu.bierolympiade.data.database.match
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.ZonedDateTime
 
 
-@Entity(tableName = "game")
-data class GameDb(
+@Entity(tableName = "matchTable")
+data class MatchDb(
     @PrimaryKey
     val id: String,
-    val name: String,
-    val status: String,
+    val eventId: String,
+    val gameId: String,
+    val date: ZonedDateTime,
+    val type: Int,
+    val state: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,

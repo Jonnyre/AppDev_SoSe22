@@ -3,9 +3,10 @@ package com.hfu.bierolympiade
 import android.content.Context
 import androidx.room.Room
 import com.hfu.bierolympiade.data.database.AppDatabase
-import com.hfu.bierolympiade.data.database.EventDao
-import com.hfu.bierolympiade.data.database.GameDao
-import com.hfu.bierolympiade.data.database.PlayerDao
+import com.hfu.bierolympiade.data.database.event.EventDao
+import com.hfu.bierolympiade.data.database.game.GameDao
+import com.hfu.bierolympiade.data.database.match.MatchDao
+import com.hfu.bierolympiade.data.database.player.PlayerDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,4 +43,9 @@ object PersistenceModule {
     fun providePlayersDao(
         database: AppDatabase,
     ): PlayerDao = database.playerDao()
+
+    @Provides
+    fun provideMatchDao(
+        database: AppDatabase,
+    ): MatchDao = database.matchDao()
 }

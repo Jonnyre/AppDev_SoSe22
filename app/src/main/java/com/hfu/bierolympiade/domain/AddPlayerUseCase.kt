@@ -17,7 +17,8 @@ class AddPlayerUseCase @Inject constructor(
         val newPlayer = Player.create(
             PlayerId(uniqueID),
             name = name,
-            description = description
+            description = description,
+            events = emptyList()
         )
         if(newPlayer != null)  {
             playerRepository.addPlayer(newPlayer)

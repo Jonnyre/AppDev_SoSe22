@@ -1,9 +1,8 @@
 package com.hfu.bierolympiade.data
 
-import com.hfu.bierolympiade.App
-import com.hfu.bierolympiade.data.database.GameDao
-import com.hfu.bierolympiade.data.database.gameFromDb
-import com.hfu.bierolympiade.data.database.gameToDb
+import com.hfu.bierolympiade.data.database.game.GameDao
+import com.hfu.bierolympiade.data.database.game.gameFromDb
+import com.hfu.bierolympiade.data.database.game.gameToDb
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
 import javax.inject.Inject
@@ -12,11 +11,13 @@ class GameRepository @Inject constructor(
     private val dao: GameDao
 ) {
 
-    private val allGames = listOf(
+    /*private val allGames = listOf(
         Game.create(
             id = GameId("a59c0e7b-3a58-4859-934d-1b0393831637"),
             name = "Flunkyball",
             status = "On Going",
+            matches = emptyList(),
+            eventId =
         ),
         Game.create(
             id = GameId("867e5af2-aa53-4e46-9cfd-a1bc982929cb"),
@@ -28,7 +29,7 @@ class GameRepository @Inject constructor(
             name = "Bierpong",
             status = "Not yet started",
         ),
-    ).filterNotNull()
+    ).filterNotNull()*/
 
     suspend fun getAllGames(): List<Game> = dao.getAll().mapNotNull { gameFromDb(it) }
 

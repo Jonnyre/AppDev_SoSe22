@@ -18,8 +18,11 @@ class AddEventUseCase @Inject constructor(
             name = name,
             date = date,
             location = location,
-            participants = 10,
-            fees = fees
+            fees = fees,
+            matches = emptyList(),
+            // TODO
+            players = emptyList(),
+            games = emptyList()
         )
         if(newEvent != null)  {
             eventRepository.addEvent(newEvent)

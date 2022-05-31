@@ -12,6 +12,7 @@ class Player private constructor(
     val id: PlayerId,
     val name: String,
     val description: String,
+    val events: List<Event>,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -35,10 +36,13 @@ class Player private constructor(
             id: PlayerId,
             name: String,
             description: String,
+            events: List<Event>,
+            created: ZonedDateTime = ZonedDateTime.now(),
+            updated: ZonedDateTime = ZonedDateTime.now(),
+            deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Player? {
             if (name.isBlank()) return null
-            val now = ZonedDateTime.now()
-            return Player(id, name, description, now, now, now)
+            return Player(id, name, description, events, created, updated, deleted)
         }
     }
 }

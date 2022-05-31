@@ -3,18 +3,16 @@ package com.hfu.bierolympiade.domain.model
 import java.time.ZonedDateTime
 
 @JvmInline
-value class EventId(val value: String)
+value class MatchId(val value: String)
 
 
-class Event private constructor(
-    val id: EventId,
-    val name: String,
-    val location: String,
-    val date: String,
-    val fees: Int?,
-    val matches: List<Match>,
-    val games: List<Game>,
-    val players: List<Player>,
+class Match private constructor(
+    val id: MatchId,
+    val eventId: EventId,
+    val gameId: GameId,
+    val date: ZonedDateTime,
+    val type: Int,
+    val state: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -23,7 +21,7 @@ class Event private constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Event
+        other as Match
 
         if (id != other.id) return false
 
@@ -35,20 +33,17 @@ class Event private constructor(
 
     companion object {
         fun create(
-            id: EventId,
-            name: String,
-            location: String,
-            date: String,
-            fees: Int?,
-            matches: List<Match>,
-            games: List<Game>,
-            players: List<Player>,
+            id: MatchId,
+            eventId: EventId,
+            gameId: GameId,
+            date: ZonedDateTime,
+            state: Int,
+            type: Int,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
-        ): Event? {
-            if (name.isBlank()) return null
-            return Event(id, name, location, date, fees, matches, games, players, created, updated, deleted)
+        ): Match? {
+            return Match(id, eventId, gameId,date, state, type, created, updated, deleted)
         }
     }
 }

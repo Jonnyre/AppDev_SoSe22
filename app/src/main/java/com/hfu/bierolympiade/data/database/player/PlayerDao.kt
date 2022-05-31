@@ -1,4 +1,4 @@
-package com.hfu.bierolympiade.data.database
+package com.hfu.bierolympiade.data.database.player
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,8 +10,8 @@ interface PlayerDao {
     suspend fun insert(player: PlayerDb)
 
     @Query("SELECT * FROM player")
-    suspend fun getAll(): List<PlayerDb>
+    suspend fun getAll(): List<PlayerWithEvent>
 
     @Query("SELECT * FROM player WHERE id = :id")
-    suspend fun getById(id: String): PlayerDb?
+    suspend fun getById(id: String): PlayerWithEvent?
 }

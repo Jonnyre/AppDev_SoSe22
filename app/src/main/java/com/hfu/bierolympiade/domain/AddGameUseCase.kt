@@ -1,6 +1,7 @@
 package com.hfu.bierolympiade.domain
 
 import com.hfu.bierolympiade.data.GameRepository
+import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,10 @@ class AddGameUseCase @Inject constructor(
         val newGame = Game.create(
             GameId(uniqueID),
             name = name,
-            status = status
+            status = status,
+            // TODO Parameter übergeben
+            eventId = EventId("ösdjhgfljkdsjgflkdjg"),
+            matches = emptyList(),
         )
         if(newGame != null)  {
             gameRepository.addGame(newGame)
