@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.hfu.bierolympiade.data.database.AppDatabase
 import com.hfu.bierolympiade.data.database.event.EventDao
 import com.hfu.bierolympiade.data.database.game.GameDao
+import com.hfu.bierolympiade.data.database.gameType.GameTypeDao
 import com.hfu.bierolympiade.data.database.match.MatchDao
 import com.hfu.bierolympiade.data.database.player.PlayerDao
 import dagger.Module
@@ -48,4 +49,9 @@ object PersistenceModule {
     fun provideMatchDao(
         database: AppDatabase,
     ): MatchDao = database.matchDao()
+
+    @Provides
+    fun provideGameTypeDao(
+        database: AppDatabase,
+    ): GameTypeDao = database.gameTypeDao()
 }

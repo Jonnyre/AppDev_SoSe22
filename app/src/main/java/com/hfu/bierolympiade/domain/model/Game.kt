@@ -1,7 +1,6 @@
 package com.hfu.bierolympiade.domain.model
 
 import java.time.ZonedDateTime
-import kotlin.math.max
 
 
 @JvmInline
@@ -11,9 +10,12 @@ value class GameId(val value: String)
 class Game private constructor(
     val id: GameId,
     val name: String,
+    val icon: String,
+    val rules: String,
     val status: String,
     val matches: List<String>,
     val eventId: EventId,
+    val gameTypeId: GameTypeId,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -36,15 +38,33 @@ class Game private constructor(
         fun create(
             id: GameId,
             name: String,
+            icon: String,
+            rules: String,
             status: String,
             matches: List<String>,
             eventId: EventId,
+            gameTypeId: GameTypeId,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Game? {
-            if (name.isBlank()) return null
-            return Game(id, name, status, matches, eventId, created, updated, deleted)
+            if (gameTypeId.value.isBlank()) return null
+            return Game(id, name, icon, rules, status, matches, eventId, gameTypeId, created, updated, deleted)
+        }
+
+        fun create(
+            id: GameId,
+            status: String,
+            matches: List<String>,
+            eventId: EventId,
+            gameTypeId: GameTypeId,
+            created: ZonedDateTime = ZonedDateTime.now(),
+            updated: ZonedDateTime = ZonedDateTime.now(),
+            deleted: ZonedDateTime = ZonedDateTime.now(),
+        ): Game? {
+            if (gameTypeId.value.isBlank()) return null
+            return Game(id, name = "", icon = "", rules = "", status, matches, eventId, gameTypeId, created, updated, deleted)
         }
     }
+
 }

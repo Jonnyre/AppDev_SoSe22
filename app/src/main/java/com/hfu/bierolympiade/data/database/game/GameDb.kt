@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.hfu.bierolympiade.data.database.gameType.GameTypeDb
 import com.hfu.bierolympiade.data.database.match.MatchDb
 import java.time.ZonedDateTime
 
@@ -13,7 +14,7 @@ data class GameDb(
     @PrimaryKey
     val gameId: String,
     val eventId: String,
-    val name: String,
+    val gameTypeId: String,
     val status: String,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
@@ -26,5 +27,15 @@ data class GameWithMatches(
         parentColumn = "gameId",
         entityColumn = "gameId"
     )
-    val matches: List<MatchDb>,
+    val matches: List<MatchDb>
+)
+
+data class GameWithMatchesAndType(
+    @Embedded val game: GameWithMatches,
+    @Relation(
+        entity = GameTypeDb::class,
+        parentColumn = "gameTypeId",
+        entityColumn = "gameTypeId"
+    )
+    val gameType: GameTypeDb
 )

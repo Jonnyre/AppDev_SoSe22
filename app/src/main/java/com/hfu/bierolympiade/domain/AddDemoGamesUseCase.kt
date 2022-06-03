@@ -4,6 +4,7 @@ import com.hfu.bierolympiade.data.GameRepository
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
+import com.hfu.bierolympiade.domain.model.GameTypeId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -17,21 +18,21 @@ class AddDemoGamesUseCase @Inject constructor(
         listOfNotNull(
             Game.create(
                 id = GameId("a59c0e7b-3a58-4859-934d-1b0393831637"),
-                name = "Flunkyball",
+                gameTypeId = GameTypeId("a59c0e7b-3a58-4859-934d-1b0393821637"),
                 status = "On Going",
                 matches = emptyList(),
                 eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637")
             ),
             Game.create(
                 id = GameId("867e5af2-aa53-4e46-9cfd-a1bc982929cb"),
-                name = "Flip Cup",
+                gameTypeId = GameTypeId("a59c0e7b-3a58-4859-934d-1b0393821637"),
                 status = "Finished",
                 matches = emptyList(),
                 eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637")
             ),
             Game.create(
                 id = GameId("f16cdf15-6528-6a0b-993c-24d5bf8007a7"),
-                name = "Bierpong",
+                gameTypeId = GameTypeId("a59c0e7b-3a58-4859-934d-1b0393821637"),
                 status = "Not yet started",
                 matches = emptyList(),
                 eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637")

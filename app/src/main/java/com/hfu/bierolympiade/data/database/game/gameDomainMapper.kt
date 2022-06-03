@@ -4,10 +4,11 @@ import com.hfu.bierolympiade.data.database.match.matchFromDb
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
+import com.hfu.bierolympiade.domain.model.GameTypeId
 
 fun gameToDb(game: Game): GameDb = GameDb(
     gameId = game.id.value,
-    name = game.name,
+    gameTypeId = game.gameTypeId.value,
     eventId = game.eventId.value,
     status = game.status,
     created = game.created,
@@ -15,15 +16,18 @@ fun gameToDb(game: Game): GameDb = GameDb(
     deleted = game.deleted,
 )
 
-fun gameFromDb(gameWithMatches: GameWithMatches): Game? {
+fun gameFromDb(gameWithMatches: GameWithMatchesAndType): Game? {
     return Game.create(
-        id = GameId(gameWithMatches.game.gameId),
-        name = gameWithMatches.game.name,
-        status = gameWithMatches.game.status,
-        matches = gameWithMatches.matches.mapNotNull { it.matchId },
-        eventId = EventId(gameWithMatches.game.eventId),
-        created = gameWithMatches.game.created,
-        updated = gameWithMatches.game.updated,
-        deleted = gameWithMatches.game.deleted,
+        id = GameId(gameWithMatches.game.game.gameId),
+        gameTypeId = GameTypeId(gameWithMatches.game.game.gameTypeId),
+        name = gameWithMatches.gameType.name,
+        icon = gameWithMatches.gameType.icon,
+        rules = gameWithMatches.gameType.rules,
+        status = gameWithMatches.game.game.status,
+        matches = gameWithMatches.game.matches.mapNotNull { it.matchId },
+        eventId = EventId(gameWithMatches.game.game.eventId),
+        created = gameWithMatches.game.game.created,
+        updated = gameWithMatches.game.game.updated,
+        deleted = gameWithMatches.game.game.deleted,
     )
 }
