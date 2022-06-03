@@ -15,6 +15,6 @@ interface GameDao {
     suspend fun getAll(): List<GameWithMatches>
 
     @Transaction
-    @Query("SELECT * FROM game WHERE id = :id")
+    @Query("SELECT * FROM game WHERE gameId = :id")
     suspend fun getById(id: String): GameWithMatches?
 }

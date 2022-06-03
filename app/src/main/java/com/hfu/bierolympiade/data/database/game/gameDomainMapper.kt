@@ -6,7 +6,7 @@ import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
 
 fun gameToDb(game: Game): GameDb = GameDb(
-    id = game.id.value,
+    gameId = game.id.value,
     name = game.name,
     eventId = game.eventId.value,
     status = game.status,
@@ -17,10 +17,10 @@ fun gameToDb(game: Game): GameDb = GameDb(
 
 fun gameFromDb(gameWithMatches: GameWithMatches): Game? {
     return Game.create(
-        id = GameId(gameWithMatches.game.id),
+        id = GameId(gameWithMatches.game.gameId),
         name = gameWithMatches.game.name,
         status = gameWithMatches.game.status,
-        matches = gameWithMatches.matches.mapNotNull { matchFromDb(it) },
+        matches = gameWithMatches.matches.mapNotNull { it.matchId },
         eventId = EventId(gameWithMatches.game.eventId),
         created = gameWithMatches.game.created,
         updated = gameWithMatches.game.updated,

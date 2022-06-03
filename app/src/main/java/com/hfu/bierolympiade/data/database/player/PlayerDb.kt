@@ -1,7 +1,7 @@
 package com.hfu.bierolympiade.data.database.player
 
 import androidx.room.*
-import com.hfu.bierolympiade.data.database.event.EventWithEverything
+import com.hfu.bierolympiade.data.database.event.EventDb
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDb
 import java.time.ZonedDateTime
 
@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 @Entity(tableName = "player")
 data class PlayerDb(
     @PrimaryKey
-    val id: String,
+    val playerId: String,
     val name: String,
     val description: String,
     val created: ZonedDateTime,
@@ -20,9 +20,9 @@ data class PlayerDb(
 data class PlayerWithEvent(
     @Embedded val player: PlayerDb,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "playerId",
+        parentColumn = "playerId",
+        entityColumn = "eventId",
         associateBy = Junction(PlayerEventCrossRefDb::class)
     )
-    val events: List<EventWithEverything>
+    val events: List<EventDb>
 )

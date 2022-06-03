@@ -7,5 +7,4 @@ class EventUI(
     val name: String,
     val location: String,
     val date: String,
-    val participants: Int,
 )

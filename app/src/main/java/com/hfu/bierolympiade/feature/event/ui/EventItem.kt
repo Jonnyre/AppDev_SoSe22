@@ -113,7 +113,7 @@ fun EventItem(event: EventUI) {
                     )
                     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                         Text(
-                            text = event.participants.toString() + " Participiants",
+                            text = "2 Participiants",
                             style = MaterialTheme.typography.subtitle1,
                             modifier = Modifier.padding(end = 5.dp)
                         )
@@ -132,8 +132,7 @@ fun EventItem_Preview() {
             EventId("foo"),
             "test",
             "eine test beschreibung",
-            "22.02.22",
-            14
+            "22.02.22"
         )
     )
 }

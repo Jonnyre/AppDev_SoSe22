@@ -12,6 +12,6 @@ interface PlayerDao {
     @Query("SELECT * FROM player")
     suspend fun getAll(): List<PlayerWithEvent>
 
-    @Query("SELECT * FROM player WHERE id = :id")
+    @Query("SELECT * FROM player WHERE playerId = :id")
     suspend fun getById(id: String): PlayerWithEvent?
 }

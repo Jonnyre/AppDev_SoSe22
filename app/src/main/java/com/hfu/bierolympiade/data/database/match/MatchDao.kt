@@ -14,6 +14,6 @@ interface MatchDao {
     @Query("SELECT * FROM matchTable")
     suspend fun getAll(): List<MatchDb>
 
-    @Query("SELECT * FROM matchTable WHERE id = :id")
+    @Query("SELECT * FROM matchTable WHERE matchId = :id")
     suspend fun getById(id: String): MatchDb?
 }

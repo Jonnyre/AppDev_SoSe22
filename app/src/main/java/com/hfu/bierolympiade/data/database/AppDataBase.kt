@@ -14,7 +14,7 @@ import com.hfu.bierolympiade.data.database.player.PlayerDb
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDb
 
 @Database(
-    version = 6,
+    version = 9,
     entities = [
         EventDb::class,
         PlayerDb::class,

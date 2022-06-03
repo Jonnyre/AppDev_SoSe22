@@ -11,7 +11,7 @@ import java.time.ZonedDateTime
 @Entity(tableName = "game")
 data class GameDb(
     @PrimaryKey
-    val id: String,
+    val gameId: String,
     val eventId: String,
     val name: String,
     val status: String,
@@ -23,7 +23,7 @@ data class GameDb(
 data class GameWithMatches(
     @Embedded val game: GameDb,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "gameId",
         entityColumn = "gameId"
     )
     val matches: List<MatchDb>,

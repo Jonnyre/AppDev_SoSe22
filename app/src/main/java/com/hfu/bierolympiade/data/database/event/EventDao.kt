@@ -13,10 +13,10 @@ interface EventDao {
     suspend fun insert(event: EventDb)
 
     @Transaction
-    @Query("SELECT * FROM event WHERE id = :id")
-    suspend fun getById(id: String): EventWithEverything?
+    @Query("SELECT * FROM event WHERE eventId = :id")
+    suspend fun getById(id: String): EventWithMatchesAndGamesAndPlayers?
 
     @Transaction
     @Query("SELECT * FROM event")
-    suspend fun getAll(): List<EventWithEverything>
+    suspend fun getAll(): List<EventWithMatchesAndGamesAndPlayers>
 }

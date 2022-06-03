@@ -19,7 +19,6 @@ class EventViewModel @Inject constructor(
                     name = event.name,
                     location = event.location,
                     date = event.date,
-                    participants = event.participants
                 )
             }.sortedBy { it.name }
         emit(result)

@@ -8,7 +8,7 @@ import java.time.ZonedDateTime
 @Entity(tableName = "matchTable")
 data class MatchDb(
     @PrimaryKey
-    val id: String,
+    val matchId: String,
     val eventId: String,
     val gameId: String,
     val date: ZonedDateTime,
