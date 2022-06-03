@@ -41,7 +41,7 @@ fun MainNavigationGraph(navController: NavHostController) {
             val vm = hiltViewModel<AddPlayerViewModel>()
             AddPlayerScreen(vm)
         }
-        composable("eventDetail") {
+        composable("eventDetail/{id}") {
             val vm = hiltViewModel<GameViewModel>()
             EventDetailScreen()
         }

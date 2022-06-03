@@ -2,6 +2,7 @@ package com.hfu.bierolympiade
 
 import android.app.Application
 import com.hfu.bierolympiade.domain.AddDemoEventsUseCase
+import com.hfu.bierolympiade.domain.AddDemoGamesUseCase
 import com.hfu.bierolympiade.domain.AddDemoPlayerUseCase
 import com.hfu.bierolympiade.domain.AddPlayerUseCase
 import dagger.hilt.android.HiltAndroidApp
@@ -17,6 +18,9 @@ class App : Application() {
     @Inject
     lateinit var addDemoPlayerUseCase: AddDemoPlayerUseCase
 
+    @Inject
+    lateinit var addDemoGamesUseCase: AddDemoGamesUseCase
+
     override fun onCreate() {
         super.onCreate()
         if(BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
@@ -24,6 +28,7 @@ class App : Application() {
         runBlocking {
             addDemoPlayerUseCase()
             addDemoEventsUseCase()
+            addDemoGamesUseCase()
         }
     }
 }

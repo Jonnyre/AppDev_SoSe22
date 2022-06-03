@@ -31,7 +31,7 @@ fun EventItem(event: EventUI) {
         modifier = Modifier
             .padding(8.dp)
             .clickable {
-                navControllerGlobal?.navigate("eventDetail") {
+                navControllerGlobal?.navigate("eventDetail/${event.id.value}" ) {
                     navControllerGlobal?.graph?.startDestinationRoute?.let { screen_route ->
                         popUpTo(screen_route) {
                             saveState = true
