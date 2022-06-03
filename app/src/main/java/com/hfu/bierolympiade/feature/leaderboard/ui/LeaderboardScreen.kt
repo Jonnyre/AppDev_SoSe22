@@ -2,6 +2,7 @@ package com.hfu.bierolympiade.feature.leaderboard.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,8 +24,8 @@ fun LeaderboardScreen(viewModel: LeaderboardViewModel = viewModel()) {
 private fun LeaderboardScreenUI(leaderBoardItems: List<LeaderboardUI>) {
     val scrollState = rememberLazyListState()
     LazyColumn(state = scrollState) {
-        items(leaderBoardItems) { leaderboardItem ->
-            LeaderboardItem(leaderboardItem, )
+        itemsIndexed(leaderBoardItems) { index, leaderboardItem ->
+            LeaderboardItem(leaderboardItem, index+1)
         }
     }
 }

@@ -23,7 +23,7 @@ class LeaderboardViewModel @Inject constructor(
                     playerName = GetPlayerById(board.key)?.name ?: "unknown",
                     points = board.value
                 )
-            }?.sortedBy { it.points } ?: emptyList<LeaderboardUI>()
+            }?.sortedByDescending { it.points } ?: emptyList<LeaderboardUI>()
         emit(result)
     }
 }

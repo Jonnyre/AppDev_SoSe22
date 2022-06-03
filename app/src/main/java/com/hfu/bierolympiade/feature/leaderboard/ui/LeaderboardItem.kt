@@ -18,7 +18,7 @@ import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
-fun LeaderboardItem(leaderboardItem: LeaderboardUI){
+fun LeaderboardItem(leaderboardItem: LeaderboardUI, index: Int){
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -31,7 +31,7 @@ fun LeaderboardItem(leaderboardItem: LeaderboardUI){
                 verticalAlignment = Alignment.CenterVertically,
             ){
                 Text(
-                    text = "1",
+                    text = index.toString(),
                     modifier = Modifier.padding(end = 10.dp)
                 )
                 Surface(
@@ -66,7 +66,7 @@ fun LeaderboardItemPreview() {
     LeaderboardItem(
         LeaderboardUI(
             playerName = "Felix",
-            points = 5
-        )
+            points = 5,
+        ), 5
     )
 }

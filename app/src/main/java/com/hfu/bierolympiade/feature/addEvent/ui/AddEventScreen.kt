@@ -168,7 +168,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
             }
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { /* TODO*/ },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
