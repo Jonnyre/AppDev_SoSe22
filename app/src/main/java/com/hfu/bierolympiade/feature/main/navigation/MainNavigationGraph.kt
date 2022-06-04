@@ -9,6 +9,8 @@ import com.hfu.bierolympiade.feature.addEvent.ui.AddEventScreen
 import com.hfu.bierolympiade.feature.addEvent.ui.AddEventViewModel
 import com.hfu.bierolympiade.feature.addPlayer.ui.AddPlayerScreen
 import com.hfu.bierolympiade.feature.addPlayer.ui.AddPlayerViewModel
+import com.hfu.bierolympiade.feature.addplayertoevent.ui.AddPlayerToEventScreen
+import com.hfu.bierolympiade.feature.addplayertoevent.ui.AddPlayerToEventViewModel
 import com.hfu.bierolympiade.feature.event.ui.EventScreen
 import com.hfu.bierolympiade.feature.event.ui.EventViewModel
 import com.hfu.bierolympiade.feature.eventDetail.ui.EventDetailScreen
@@ -45,7 +47,12 @@ fun MainNavigationGraph(navController: NavHostController) {
         }
         composable("eventDetail/{id}") {
             val vm = hiltViewModel<GameViewModel>()
-            EventDetailScreen()
+            EventDetailScreen(vm)
+        }
+
+        composable("addPlayerToEvent") {
+            val vm = hiltViewModel<AddPlayerToEventViewModel>()
+            AddPlayerToEventScreen(vm)
         }
 
         composable("pickGameType") {

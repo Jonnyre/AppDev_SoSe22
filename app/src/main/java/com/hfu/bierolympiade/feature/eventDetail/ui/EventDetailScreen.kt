@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
-import com.hfu.bierolympiade.ui.theme.RsButtonBackround
+import com.hfu.bierolympiade.ui.theme.RsButtonBackground
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
@@ -65,7 +65,7 @@ fun EventDetailScreenUi(games: List<GameUI>) {
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
                 .height(75.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackround)
+            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackground)
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,

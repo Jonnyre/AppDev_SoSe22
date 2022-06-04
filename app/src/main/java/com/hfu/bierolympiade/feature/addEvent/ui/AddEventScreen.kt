@@ -1,16 +1,20 @@
 package com.hfu.bierolympiade.feature.addEvent.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
+import timber.log.Timber
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
@@ -30,6 +35,11 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
     var fees by remember { mutableStateOf("") }
+
+    val addedPlayerString = navControllerGlobal?.currentBackStackEntry
+        ?.savedStateHandle
+        ?.getLiveData<String>("players")?.observeAsState()
+    val addedPlayerArray = addedPlayerString?.value?.split(";")
 
     Column(
         modifier = Modifier
@@ -146,26 +156,43 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
                     label = { Text("Fees (optional)") })
             }
         }
-        Button(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 15.dp)
-                .height(75.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackround)
-        ) {
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                Image(
-                    painter = painterResource(R.drawable.ic_users),
-                    contentDescription = "user",
-                    modifier = Modifier.size(25.dp)
-                )
-                Text(text = "Choose Participants", modifier = Modifier.padding(horizontal = 10.dp))
-                Image(
-                    painter = painterResource(R.drawable.ic_chevron_right),
-                    contentDescription = "gamepad",
-                    modifier = Modifier.size(25.dp)
-                )
+        Box {
+            if (addedPlayerArray != null) {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    Text(
+                        text = "Participants " + (addedPlayerArray.size - 1),
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+            Button(
+                onClick = {
+                    navControllerGlobal?.navigate("addPlayerToEvent")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 15.dp)
+                    .height(75.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackground)
+            ) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_users),
+                        contentDescription = "user",
+                        modifier = Modifier.size(25.dp)
+                    )
+                    Text(
+                        text = "Choose Participants", modifier = Modifier
+                            .padding(horizontal = 10.dp)
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_chevron_right),
+                        contentDescription = "gamepad",
+                        modifier = Modifier.size(25.dp)
+                    )
+                }
             }
         }
         Button(
@@ -174,7 +201,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
                 .height(75.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackround)
+            colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackground)
         ) {
             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                 Image(

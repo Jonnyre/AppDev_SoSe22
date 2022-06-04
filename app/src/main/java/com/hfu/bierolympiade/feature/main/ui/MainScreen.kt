@@ -92,13 +92,5 @@ fun isScreenWithFloatingAction(route: String?): Boolean {
 }
 
 fun navigateToRoute(route: String) {
-    navControllerGlobal?.navigate(route) {
-        navControllerGlobal?.graph?.startDestinationRoute?.let { screen_route ->
-            popUpTo(screen_route) {
-                saveState = true
-            }
-        }
-        launchSingleTop = true
-        restoreState = true
-    }
+    navControllerGlobal?.navigate(route)
 }
