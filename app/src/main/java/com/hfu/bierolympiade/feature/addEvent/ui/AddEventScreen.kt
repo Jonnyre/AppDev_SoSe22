@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
 
 @Composable
@@ -168,7 +169,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
             }
         }
         Button(
-            onClick = { /* TODO*/ },
+            onClick = { navControllerGlobal?.navigate("pickGameType")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
