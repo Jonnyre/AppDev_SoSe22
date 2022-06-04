@@ -21,7 +21,14 @@ class App : Application() {
     @Inject
     lateinit var addDemoGameTypes: AddDemoGameTypes
 
+    @Inject
+    lateinit var addDemoTeamsUseCase: AddDemoTeamsUseCase
 
+    @Inject
+    lateinit var addDemoMatchParticipants: AddDemoMatchParticipants
+
+    @Inject
+    lateinit var addDemoMatchesUseCase: AddDemoMatchesUseCase
 
     override fun onCreate() {
         super.onCreate()
@@ -32,6 +39,9 @@ class App : Application() {
             addDemoEventsUseCase()
             addDemoGamesUseCase()
             addDemoGameTypes()
+            addDemoTeamsUseCase()
+            addDemoMatchParticipants()
+            addDemoMatchesUseCase()
         }
     }
 }

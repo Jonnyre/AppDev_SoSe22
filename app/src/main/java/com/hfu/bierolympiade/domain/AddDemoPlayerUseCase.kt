@@ -36,7 +36,25 @@ class AddDemoPlayerUseCase @Inject constructor(
             ),
             Player.create(
                 id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929c2"),
-                name = "Jonathan Rißler",
+                name = "Weiterer Spieler",
+                description = "Champion",
+                events = emptyList()
+            ),
+            Player.create(
+                id = PlayerId("cc5703cb-b449-48fd-8d6c-6f2446f5cf80"),
+                name = "Noch einen",
+                description = "Champion",
+                events = emptyList()
+            ),
+            Player.create(
+                id = PlayerId("21a407cc-a199-4886-a47e-481896862106"),
+                name = "Hier ist ein Spieler",
+                description = "Champion",
+                events = emptyList()
+            ),
+            Player.create(
+                id = PlayerId("77556c1e-3000-4460-b77c-35867192bc69"),
+                name = "TestSpieler",
                 description = "Champion",
                 events = emptyList()
             ),
