@@ -24,6 +24,8 @@ class AddGameUseCase @Inject constructor(
             // TODO Parameter übergeben
             eventId = EventId("ösdjhgfljkdsjgflkdjg"),
             matches = emptyList(),
+            teamSize = 4,
+            winCondition = 4
         )
         if(newGame != null)  {
             gameRepository.addGame(newGame)

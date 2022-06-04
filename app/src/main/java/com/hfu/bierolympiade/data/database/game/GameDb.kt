@@ -16,6 +16,8 @@ data class GameDb(
     val eventId: String,
     val gameTypeId: String,
     val status: String,
+    val teamSize: Int,
+    val winCondition: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,

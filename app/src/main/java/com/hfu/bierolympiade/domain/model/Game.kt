@@ -16,6 +16,8 @@ class Game private constructor(
     val matches: List<String>,
     val eventId: EventId,
     val gameTypeId: GameTypeId,
+    val teamSize: Int,
+    val winCondition: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -44,12 +46,14 @@ class Game private constructor(
             matches: List<String>,
             eventId: EventId,
             gameTypeId: GameTypeId,
+            teamSize: Int,
+            winCondition: Int,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Game? {
             if (gameTypeId.value.isBlank()) return null
-            return Game(id, name, icon, rules, status, matches, eventId, gameTypeId, created, updated, deleted)
+            return Game(id, name, icon, rules, status, matches, eventId, gameTypeId, teamSize, winCondition,created, updated, deleted)
         }
 
         fun create(
@@ -58,12 +62,14 @@ class Game private constructor(
             matches: List<String>,
             eventId: EventId,
             gameTypeId: GameTypeId,
+            teamSize: Int,
+            winCondition: Int,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Game? {
             if (gameTypeId.value.isBlank()) return null
-            return Game(id, name = "", icon = "", rules = "", status, matches, eventId, gameTypeId, created, updated, deleted)
+            return Game(id, name = "", icon = "", rules = "", status, matches, eventId, gameTypeId, teamSize, winCondition,created, updated, deleted)
         }
     }
 
