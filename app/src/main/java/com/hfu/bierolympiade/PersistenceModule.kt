@@ -10,8 +10,10 @@ import com.hfu.bierolympiade.data.database.event.EventDao
 import com.hfu.bierolympiade.data.database.game.GameDao
 import com.hfu.bierolympiade.data.database.gameType.GameTypeDao
 import com.hfu.bierolympiade.data.database.match.MatchDao
+import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDao
 import com.hfu.bierolympiade.data.database.player.PlayerDao
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDao
+import com.hfu.bierolympiade.data.database.team.TeamDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,4 +65,14 @@ object PersistenceModule {
     fun providePlayerEventCrossRefDao(
         database: AppDatabase,
     ): PlayerEventCrossRefDao = database.playerEventCrossRefDao()
+
+    @Provides
+    fun provideMatchParticipantDao(
+        database: AppDatabase,
+    ): MatchParticipantDao = database.matchParticipantDao()
+
+    @Provides
+    fun provideTeamDao(
+        database: AppDatabase,
+    ): TeamDao = database.teamDao()
 }

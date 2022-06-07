@@ -32,6 +32,7 @@ fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
     Column(
         Modifier
             .padding(25.dp),
+
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Text(text = "Choose your participants", fontSize = 20.sp)

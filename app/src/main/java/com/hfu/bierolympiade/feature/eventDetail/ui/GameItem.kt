@@ -2,6 +2,7 @@ package com.hfu.bierolympiade.feature.eventDetail.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.feature.event.ui.EventUI
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
@@ -25,7 +27,11 @@ import com.hfu.bierolympiade.ui.theme.RsLightOrange
 fun GameItem(game: GameUI) {
     Card(
         elevation = 3.dp,
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable {
+                navControllerGlobal?.navigate("gameDetail/${game.id.value}")
+            }
     ) {
         Row(
             modifier = Modifier
@@ -53,9 +59,12 @@ fun GameItem(game: GameUI) {
                 Text(
                     text = game.name,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(all = 5.dp))
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(all = 5.dp)) {
+                    modifier = Modifier.padding(all = 5.dp)
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(all = 5.dp)
+                ) {
                     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                         Text(
                             text = "Status: " + game.status,

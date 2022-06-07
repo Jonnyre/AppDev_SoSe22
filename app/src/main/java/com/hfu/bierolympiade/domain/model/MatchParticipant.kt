@@ -1,20 +1,16 @@
 package com.hfu.bierolympiade.domain.model
 
-import com.hfu.bierolympiade.data.database.team.TeamWithMatchParticipant
 import java.time.ZonedDateTime
 
 @JvmInline
-value class MatchId(val value: String)
+value class MatchParticipantId(val value: String)
 
 
-class Match private constructor(
-    val id: MatchId,
-    val eventId: EventId,
-    val gameId: GameId,
-    val date: ZonedDateTime,
-    val type: Int,
-    val state: Int,
-    val matchParticipant: List<String>,
+class MatchParticipant private constructor(
+    val id: MatchParticipantId,
+    val matchId: MatchId,
+    val playerId: PlayerId,
+    val teamId: TeamId,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -23,7 +19,7 @@ class Match private constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Match
+        other as MatchParticipant
 
         if (id != other.id) return false
 
@@ -35,18 +31,15 @@ class Match private constructor(
 
     companion object {
         fun create(
-            id: MatchId,
-            eventId: EventId,
-            gameId: GameId,
-            date: ZonedDateTime,
-            state: Int,
-            type: Int,
-            matchParticipant: List<String>,
+            id: MatchParticipantId,
+            matchId: MatchId,
+            playerId: PlayerId,
+            teamId: TeamId,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
-        ): Match? {
-            return Match(id, eventId, gameId,date, state, type, matchParticipant,created, updated, deleted)
+        ): MatchParticipant? {
+            return MatchParticipant(id, matchId, playerId, teamId, created, updated, deleted)
         }
     }
 }
