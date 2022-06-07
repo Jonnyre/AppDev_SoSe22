@@ -92,5 +92,7 @@ fun isScreenWithFloatingAction(route: String?): Boolean {
 }
 
 fun navigateToRoute(route: String) {
-    navControllerGlobal?.navigate(route)
+    navControllerGlobal?.navigate(route){
+        launchSingleTop = true
+    }
 }

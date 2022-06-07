@@ -11,7 +11,7 @@ import javax.inject.Inject
 class AddEventUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ){
-    suspend operator fun invoke(name: String, location: String, date: String, fees: Int): Boolean = withContext(Dispatchers.Default) {
+    suspend operator fun invoke(name: String, location: String, date: String, fees: Int, isTemporary: Int): String? = withContext(Dispatchers.Default) {
         val uniqueID: String = UUID.randomUUID().toString()
         val newEvent = Event.create(
             EventId(uniqueID),
@@ -20,14 +20,15 @@ class AddEventUseCase @Inject constructor(
             location = location,
             fees = fees,
             matches = emptyList(),
+            isTemporary = isTemporary,
             // TODO
             players = emptyList(),
             games = emptyList()
         )
         if(newEvent != null)  {
             eventRepository.addEvent(newEvent)
-            return@withContext true
+            return@withContext uniqueID
         }
-        return@withContext false
+        return@withContext null
     }
 }

@@ -1,5 +1,6 @@
 package com.hfu.bierolympiade.feature.pickGameType.ui
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.GridCells
@@ -12,6 +13,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.hfu.bierolympiade.domain.model.Game
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
+import timber.log.Timber
 
 @Composable
 fun PickGameTypeScreen(viewModel: pickGameTypeViewModel = viewModel()) {
@@ -22,6 +26,7 @@ fun PickGameTypeScreen(viewModel: pickGameTypeViewModel = viewModel()) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PickGameTypeUI(gameTypeItems: List<pickGameTypeUI>) {
+
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
         contentPadding = PaddingValues(8.dp)

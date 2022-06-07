@@ -19,6 +19,7 @@ data class EventDb(
     val location: String,
     val date: String,
     val fees: Int?,
+    val isTemporary: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,

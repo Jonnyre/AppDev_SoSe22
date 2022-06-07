@@ -1,9 +1,7 @@
 package com.hfu.bierolympiade.feature.addEvent.ui
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -13,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,15 +21,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
-import timber.log.Timber
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
-    AddEventScreenUi(viewModel::onAddEvent)
+    val eventId by viewModel.initialAddEvent(LocalContext.current,"", "", "", 0).observeAsState()
+    AddEventScreenUi(eventId, viewModel::onSaveEvent)
 }
 
 @Composable
-fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, fees: Int) -> Unit) {
+fun AddEventScreenUi(eventId: String?, onSaveEvent: () -> Unit) {
     var eventname by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
@@ -169,7 +168,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
             }
             Button(
                 onClick = {
-                    navControllerGlobal?.navigate("addPlayerToEvent")
+                    navControllerGlobal?.navigate("addPlayerToEvent/${eventId}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -219,9 +218,7 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
         }
         Button(
             onClick = {
-                onAddEvent(
-                    eventname, location, date, fees.toInt()
-                )
+                //TODO
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = RsDarkOrange,
@@ -240,5 +237,5 @@ fun AddEventScreenUi(onAddEvent: (name: String, location: String, date: String, 
 @Preview
 @Composable
 fun AddEventScreen_Preview() {
-    AddEventScreenUi({ _, _, _, _ -> })
+    AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7"){}
 }

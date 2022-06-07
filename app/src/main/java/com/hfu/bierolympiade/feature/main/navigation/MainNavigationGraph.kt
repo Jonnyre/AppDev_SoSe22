@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.hfu.bierolympiade.feature.addEvent.ui.AddEventScreen
 import com.hfu.bierolympiade.feature.addEvent.ui.AddEventViewModel
+import com.hfu.bierolympiade.feature.addGame.ui.AddGameScreen
+import com.hfu.bierolympiade.feature.addGame.ui.AddGameViewModel
 import com.hfu.bierolympiade.feature.addPlayer.ui.AddPlayerScreen
 import com.hfu.bierolympiade.feature.addPlayer.ui.AddPlayerViewModel
 import com.hfu.bierolympiade.feature.addplayertoevent.ui.AddPlayerToEventScreen
@@ -50,7 +52,7 @@ fun MainNavigationGraph(navController: NavHostController) {
             EventDetailScreen(vm)
         }
 
-        composable("addPlayerToEvent") {
+        composable("addPlayerToEvent/{id}") {
             val vm = hiltViewModel<AddPlayerToEventViewModel>()
             AddPlayerToEventScreen(vm)
         }
@@ -58,6 +60,11 @@ fun MainNavigationGraph(navController: NavHostController) {
         composable("pickGameType") {
             val vm = hiltViewModel<pickGameTypeViewModel>()
             PickGameTypeScreen(vm)
+        }
+
+        composable("addGame/{id}") {
+            val vm = hiltViewModel<AddGameViewModel>()
+            AddGameScreen(vm)
         }
     }
 }

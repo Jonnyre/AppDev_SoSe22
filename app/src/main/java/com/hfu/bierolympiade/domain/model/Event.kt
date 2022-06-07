@@ -12,6 +12,7 @@ class Event private constructor(
     val location: String,
     val date: String,
     val fees: Int?,
+    val isTemporary: Int,
     val matches: List<String>,
     val games: List<String>,
     val players: List<String>,
@@ -40,6 +41,7 @@ class Event private constructor(
             location: String,
             date: String,
             fees: Int?,
+            isTemporary: Int,
             matches: List<String>,
             games: List<String>,
             players: List<String>,
@@ -48,7 +50,7 @@ class Event private constructor(
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Event? {
             if (name.isBlank()) return null
-            return Event(id, name, location, date, fees, matches, games, players, created, updated, deleted)
+            return Event(id, name, location, date, fees, isTemporary, matches, games, players, created, updated, deleted)
         }
     }
 }

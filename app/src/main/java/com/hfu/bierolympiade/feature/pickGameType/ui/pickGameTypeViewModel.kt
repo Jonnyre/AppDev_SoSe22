@@ -29,14 +29,5 @@ class pickGameTypeViewModel @Inject constructor(
                 )
             }
         emit(result)
-
-
-        /*?.standings?.map { board ->
-        LeaderboardUI(
-            playerName = GetPlayerById(board.key)?.name ?: "unknown",
-            points = board.value
-        )
-    }?.sortedByDescending { it.points } ?: emptyList<LeaderboardUI>()
-emit(result)*/
     }
 }

@@ -13,6 +13,7 @@ import com.hfu.bierolympiade.data.database.match.MatchDao
 import com.hfu.bierolympiade.data.database.match.MatchDb
 import com.hfu.bierolympiade.data.database.player.PlayerDao
 import com.hfu.bierolympiade.data.database.player.PlayerDb
+import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDao
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDb
 
 @Database(
@@ -33,4 +34,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao
     abstract fun matchDao(): MatchDao
     abstract fun gameTypeDao(): GameTypeDao
+    abstract fun playerEventCrossRefDao(): PlayerEventCrossRefDao
 }

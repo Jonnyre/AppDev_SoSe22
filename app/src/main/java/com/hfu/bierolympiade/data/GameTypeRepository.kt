@@ -9,6 +9,7 @@ import com.hfu.bierolympiade.data.database.gameType.gameTypeToDb
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.domain.model.GameType
+import com.hfu.bierolympiade.domain.model.GameTypeId
 import javax.inject.Inject
 
 class GameTypeRepository @Inject constructor(
@@ -17,7 +18,7 @@ class GameTypeRepository @Inject constructor(
 
     suspend fun getAllGameTypes(): List<GameType> = dao.getAll().mapNotNull { gameTypeFromDb(it) }
 
-    suspend fun getGameTypeById(id: GameId): GameType? = dao.getById(id.value)?.let { gameTypeFromDb(it) }
+    suspend fun getGameTypeById(id: GameTypeId): GameType? = dao.getById(id.value)?.let { gameTypeFromDb(it) }
 
     suspend fun addGameType(gameType: GameType) {
         dao.insert(gameTypeToDb(gameType))

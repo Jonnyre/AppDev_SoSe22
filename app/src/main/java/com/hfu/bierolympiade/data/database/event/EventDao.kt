@@ -9,8 +9,8 @@ import androidx.room.Transaction
 @Dao
 interface EventDao {
 
-    @Insert
-    suspend fun insert(event: EventDb)
+@Insert
+suspend fun insert(event: EventDb)
 
     @Transaction
     @Query("SELECT * FROM event WHERE eventId = :id")

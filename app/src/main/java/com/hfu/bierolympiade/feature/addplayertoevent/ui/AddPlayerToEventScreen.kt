@@ -28,6 +28,7 @@ fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
     val scrollState = rememberLazyListState()
     var playerList: MutableState<List<String>> = remember { mutableStateOf(emptyList()) }
 
+
     Column(
         Modifier
             .padding(25.dp),
@@ -48,6 +49,7 @@ fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
                 contentColor = Color.White
             ),
             onClick = {
+                viewModel.addPlayersToEvent(playerList.value);
                 Timber.log(Log.INFO, "Alle Spieler")
                 var playerListString = ""
                 playerList.value.map {

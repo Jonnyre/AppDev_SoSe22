@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/felix/StudioProjects/AppDev_SoSe22/app/src/main/res/drawable/ic_minus.xml" value="0.14" />
+        <entry key="..\:/Users/felix/StudioProjects/AppDev_SoSe22/app/src/main/res/drawable/ic_minus_3108.xml" value="0.162" />
+        <entry key="..\:/Users/felix/StudioProjects/AppDev_SoSe22/app/src/main/res/drawable/ic_plus.xml" value="0.162" />
+        <entry key="..\:/Users/felix/StudioProjects/AppDev_SoSe22/app/src/main/res/drawable/ic_users.xml" value="0.14" />
         <entry key="..\:/Users/jonat/OneDrive/Dokumente/Studium/6_Semester/AppDev/Projects/AppDev_SoSe22/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1425" />
       </map>
     </option>
