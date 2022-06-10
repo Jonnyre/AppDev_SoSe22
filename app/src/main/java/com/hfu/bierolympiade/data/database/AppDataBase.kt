@@ -21,7 +21,7 @@ import com.hfu.bierolympiade.data.database.team.TeamDao
 import com.hfu.bierolympiade.data.database.team.TeamDb
 
 @Database(
-    version = 14,
+    version = 16,
     entities = [
         EventDb::class,
         PlayerDb::class,

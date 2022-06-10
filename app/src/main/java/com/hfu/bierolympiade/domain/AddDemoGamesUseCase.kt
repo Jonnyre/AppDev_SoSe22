@@ -48,6 +48,16 @@ class AddDemoGamesUseCase @Inject constructor(
                 winCondition = 4,
                 rules = ""
             ),
+            Game.create(
+                id = GameId("593eebe4-c4a9-4834-a2b3-fed59f4b65a8"),
+                gameTypeId = GameTypeId("a59c0e7b-3a58-4859-934d-1b0393821637"),
+                status = "Not yet started",
+                matches = emptyList(),
+                eventId = EventId("a6dc7e9e-d5a2-4f96-93b1-349aa24395aa"),
+                teamSize = 4,
+                winCondition = 4,
+                rules = ""
+            ),
         ).forEach {
             gameRepository.addGame(it)
         }

@@ -49,7 +49,6 @@ class Event private constructor(
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Event? {
-            if (name.isBlank()) return null
             return Event(id, name, location, date, fees, isTemporary, matches, games, players, created, updated, deleted)
         }
     }

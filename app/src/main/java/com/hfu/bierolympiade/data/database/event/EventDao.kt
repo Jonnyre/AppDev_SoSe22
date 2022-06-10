@@ -1,16 +1,24 @@
 package com.hfu.bierolympiade.data.database.event
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 
 
 @Dao
 interface EventDao {
 
-@Insert
-suspend fun insert(event: EventDb)
+    @Transaction
+    suspend fun upsert(event: EventDb) {
+        val rowId = insert(event)
+        if (rowId == -1L) {
+            update(event)
+        }
+    }
+
+    @Insert
+    suspend fun insert(event: EventDb): Long
+
+    @Update
+    suspend fun update(event: EventDb)
 
     @Transaction
     @Query("SELECT * FROM event WHERE eventId = :id")

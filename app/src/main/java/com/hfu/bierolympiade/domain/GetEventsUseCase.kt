@@ -11,7 +11,6 @@ class GetEventsUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ){
     suspend operator fun invoke() = withContext(Dispatchers.Default) {
-        Timber.log(Log.INFO, "Get All Events")
         eventRepository.getAllEvents()
     }
 }

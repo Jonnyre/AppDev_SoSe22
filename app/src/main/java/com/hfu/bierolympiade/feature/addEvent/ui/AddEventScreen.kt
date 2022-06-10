@@ -17,20 +17,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
+import kotlinx.coroutines.launch
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
-    val eventId by viewModel.initialAddEvent(LocalContext.current,"", "", "", 0).observeAsState()
-    AddEventScreenUi(eventId, viewModel::onSaveEvent)
+    AddEventScreenUi(viewModel.eventId, viewModel::onSaveEvent)
 }
 
 @Composable
-fun AddEventScreenUi(eventId: String?, onSaveEvent: () -> Unit) {
-    var eventname by remember { mutableStateOf("") }
+fun AddEventScreenUi(eventId: String?, onSaveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int) -> Unit) {
+    var name by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
     var fees by remember { mutableStateOf("") }
@@ -87,8 +91,8 @@ fun AddEventScreenUi(eventId: String?, onSaveEvent: () -> Unit) {
             }
 
             OutlinedTextField(
-                value = eventname,
-                onValueChange = { eventname = it },
+                value = name,
+                onValueChange = { name = it },
                 modifier = Modifier.padding(horizontal = 10.dp),
                 label = { Text(text = "Event Name") }
             )
@@ -218,7 +222,8 @@ fun AddEventScreenUi(eventId: String?, onSaveEvent: () -> Unit) {
         }
         Button(
             onClick = {
-                //TODO
+                eventId?.let { EventId(it) }
+                    ?.let { onSaveEvent(it, name, location, date, fees.toInt()) }
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = RsDarkOrange,
@@ -237,5 +242,23 @@ fun AddEventScreenUi(eventId: String?, onSaveEvent: () -> Unit) {
 @Preview
 @Composable
 fun AddEventScreen_Preview() {
-    AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7"){}
+    AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7") { _, _, _, _, _ -> }
+}
+
+fun <T> LiveData<T>.observeOnce(observer: (T) -> Unit) {
+    observeForever(object: Observer<T> {
+        override fun onChanged(value: T) {
+            removeObserver(this)
+            observer(value)
+        }
+    })
+}
+
+fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
+    observe(owner, object: Observer<T> {
+        override fun onChanged(value: T) {
+            removeObserver(this)
+            observer(value)
+        }
+    })
 }

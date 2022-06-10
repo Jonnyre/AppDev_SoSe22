@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AddMatchUseCase @Inject constructor(
     private val matchRepository: MatchRepository
 ) {
-    suspend operator fun invoke(eventId: EventId, gameId: GameId): Boolean = withContext(
+    suspend operator fun invoke(eventId: EventId, gameId: GameId): String? = withContext(
         Dispatchers.Default) {
         val uniqueID: String = UUID.randomUUID().toString()
         val newMatch = Match.create(
@@ -26,8 +26,8 @@ class AddMatchUseCase @Inject constructor(
         )
         if(newMatch != null)  {
             matchRepository.addMatch(newMatch)
-            return@withContext true
+            return@withContext uniqueID
         }
-        return@withContext false
+        return@withContext null
     }
 }
