@@ -22,7 +22,8 @@ class AddMatchUseCase @Inject constructor(
             type = 0,
             state = 0,
             date = ZonedDateTime.now(),
-            matchParticipant = emptyList()
+            matchParticipant = emptyList(),
+            matchScores = emptyList()
         )
         if(newMatch != null)  {
             matchRepository.addMatch(newMatch)

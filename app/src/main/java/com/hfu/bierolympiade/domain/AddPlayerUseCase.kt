@@ -18,7 +18,8 @@ class AddPlayerUseCase @Inject constructor(
             PlayerId(uniqueID),
             name = name,
             description = description,
-            events = emptyList()
+            events = emptyList(),
+            matchScores = emptyList()
         )
         if(newPlayer != null)  {
             playerRepository.addPlayer(newPlayer)

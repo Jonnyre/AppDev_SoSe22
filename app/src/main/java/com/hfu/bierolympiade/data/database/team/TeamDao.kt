@@ -12,9 +12,9 @@ interface TeamDao {
 
     @Transaction
     @Query("SELECT * FROM team")
-    suspend fun getAll(): List<TeamWithMatchParticipant>
+    suspend fun getAll(): List<TeamWithMatchParticipantAndMatchScore>
 
     @Transaction
     @Query("SELECT * FROM team WHERE teamId = :id")
-    suspend fun getById(id: String): TeamWithMatchParticipant?
+    suspend fun getById(id: String): TeamWithMatchParticipantAndMatchScore?
 }

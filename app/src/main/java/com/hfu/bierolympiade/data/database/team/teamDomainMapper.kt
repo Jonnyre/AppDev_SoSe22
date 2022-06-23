@@ -10,8 +10,9 @@ fun teamToDb(team: Team): TeamDb = TeamDb(
     deleted = team.deleted,
 )
 
-fun teamFromDb(team: TeamWithMatchParticipant): Team? {
+fun teamFromDb(team: TeamWithMatchParticipantAndMatchScore): Team? {
     return Team.create(
-        id = TeamId(team.teamDb.teamId)
+        id = TeamId(team.team.teamDb.teamId),
+        matchScores = team.matchScores.mapNotNull { it.matchScoreId }
     )
 }

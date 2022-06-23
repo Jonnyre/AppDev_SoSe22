@@ -1,19 +1,17 @@
 package com.hfu.bierolympiade.domain.model
 
 import java.time.ZonedDateTime
-import kotlin.math.max
-
 
 @JvmInline
-value class PlayerId(val value: String)
+value class MatchScoreId(val value: String)
 
 
-class Player private constructor(
-    val id: PlayerId,
-    val name: String,
-    val description: String,
-    val events: List<String>,
-    val matchScores: List<String>,
+class MatchScore private constructor(
+    val id: MatchScoreId,
+    val matchId: MatchId,
+    val playerId: PlayerId,
+    val teamId: TeamId,
+    val value: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -22,7 +20,7 @@ class Player private constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Player
+        other as MatchScore
 
         if (id != other.id) return false
 
@@ -34,17 +32,16 @@ class Player private constructor(
 
     companion object {
         fun create(
-            id: PlayerId,
-            name: String,
-            description: String,
-            events: List<String>,
-            matchScores: List<String>,
+            id: MatchScoreId,
+            matchId: MatchId,
+            playerId: PlayerId,
+            teamId: TeamId,
+            value: Int,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
-        ): Player? {
-            if (name.isBlank()) return null
-            return Player(id, name, description, events, matchScores, created, updated, deleted)
+        ): MatchScore? {
+            return MatchScore(id, matchId, playerId,teamId, value, created, updated, deleted)
         }
     }
 }

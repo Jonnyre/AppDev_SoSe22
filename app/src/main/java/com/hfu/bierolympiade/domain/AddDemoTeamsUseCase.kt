@@ -19,9 +19,11 @@ class AddDemoTeamsUseCase @Inject constructor(
         listOfNotNull(
             Team.create(
                 id = TeamId("6e3cd742-61cc-4cf4-a203-b7d9a65b8618"),
+                matchScores = emptyList()
             ),
             Team.create(
                 id = TeamId("8c3568e1-a466-41f6-9255-0ff62350adbd"),
+                matchScores = emptyList()
             ),
         ).forEach {
             teamRepository.addTeam(it)

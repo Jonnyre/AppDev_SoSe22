@@ -18,17 +18,18 @@ fun matchToDb(match: Match): MatchDb = MatchDb(
     deleted = match.deleted,
 )
 
-fun matchFromDb(match: MatchWithPlayer): Match? {
+fun matchFromDb(match: MatchWithPlayerAndMatchScore): Match? {
     return Match.create(
-        id = MatchId(match.matchDb.matchId),
-        eventId = EventId(match.matchDb.eventId),
-        gameId = GameId(match.matchDb.gameId),
-        date = match.matchDb.date,
-        type = match.matchDb.type,
-        state = match.matchDb.state,
-        matchParticipant = match.matchParticipants.mapNotNull { it.matchParticipantId },
-        created = match.matchDb.created,
-        updated = match.matchDb.updated,
-        deleted = match.matchDb.deleted,
+        id = MatchId(match.match.matchDb.matchId),
+        eventId = EventId(match.match.matchDb.eventId),
+        gameId = GameId(match.match.matchDb.gameId),
+        date = match.match.matchDb.date,
+        type = match.match.matchDb.type,
+        state = match.match.matchDb.state,
+        matchParticipant = match.match.matchParticipants.mapNotNull { it.matchParticipantId },
+        matchScores = match.matchScores.mapNotNull { it.matchScoreId },
+        created = match.match.matchDb.created,
+        updated = match.match.matchDb.updated,
+        deleted = match.match.matchDb.deleted,
     )
 }

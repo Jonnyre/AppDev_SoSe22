@@ -15,6 +15,7 @@ class Match private constructor(
     val type: Int,
     val state: Int,
     val matchParticipant: List<String>,
+    val matchScores: List<String>,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -42,11 +43,12 @@ class Match private constructor(
             state: Int,
             type: Int,
             matchParticipant: List<String>,
+            matchScores: List<String>,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Match? {
-            return Match(id, eventId, gameId,date, state, type, matchParticipant,created, updated, deleted)
+            return Match(id, eventId, gameId,date, state, type, matchParticipant, matchScores, created, updated, deleted)
         }
     }
 }

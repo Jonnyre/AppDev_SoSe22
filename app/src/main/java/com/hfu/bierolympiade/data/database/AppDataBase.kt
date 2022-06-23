@@ -11,6 +11,8 @@ import com.hfu.bierolympiade.data.database.gameType.GameTypeDao
 import com.hfu.bierolympiade.data.database.gameType.GameTypeDb
 import com.hfu.bierolympiade.data.database.match.MatchDao
 import com.hfu.bierolympiade.data.database.match.MatchDb
+import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDao
+import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDb
 import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDao
 import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDb
 import com.hfu.bierolympiade.data.database.player.PlayerDao
@@ -31,6 +33,7 @@ import com.hfu.bierolympiade.data.database.team.TeamDb
         GameTypeDb::class,
         MatchParticipantDb::class,
         TeamDb::class,
+        MatchScoreDb::class
     ],
 )
 @TypeConverters(Converters::class)
@@ -43,4 +46,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun playerEventCrossRefDao(): PlayerEventCrossRefDao
     abstract fun matchParticipantDao(): MatchParticipantDao
     abstract fun teamDao(): TeamDao
+    abstract fun matchScoreDao(): MatchScoreDao
 }

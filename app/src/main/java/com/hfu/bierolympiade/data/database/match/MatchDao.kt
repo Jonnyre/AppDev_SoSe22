@@ -14,9 +14,9 @@ interface MatchDao {
 
     @Transaction
     @Query("SELECT * FROM matchTable")
-    suspend fun getAll(): List<MatchWithPlayer>
+    suspend fun getAll(): List<MatchWithPlayerAndMatchScore>
 
     @Transaction
     @Query("SELECT * FROM matchTable WHERE matchId = :id")
-    suspend fun getById(id: String): MatchWithPlayer?
+    suspend fun getById(id: String): MatchWithPlayerAndMatchScore?
 }

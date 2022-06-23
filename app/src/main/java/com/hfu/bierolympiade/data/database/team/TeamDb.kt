@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.hfu.bierolympiade.data.database.match.MatchDb
+import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDb
 import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDb
+import com.hfu.bierolympiade.data.database.player.PlayerWithEvent
 import java.time.ZonedDateTime
 
 @Entity(tableName = "team")
@@ -24,4 +26,13 @@ data class TeamWithMatchParticipant(
         entityColumn = "teamId"
     )
     val matchParticipants: List<MatchParticipantDb>
+)
+
+data class TeamWithMatchParticipantAndMatchScore(
+    @Embedded val team: TeamWithMatchParticipant,
+    @Relation(
+        parentColumn = "teamId",
+        entityColumn = "teamId",
+    )
+    val matchScores: List<MatchScoreDb>
 )
