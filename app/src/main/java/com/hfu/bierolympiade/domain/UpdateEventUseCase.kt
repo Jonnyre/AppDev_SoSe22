@@ -10,7 +10,7 @@ import javax.inject.Inject
 class UpdateEventUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ){
-    suspend operator fun invoke(eventId: EventId, name: String, location: String, date: String, fees: Int): Boolean = withContext(
+    suspend operator fun invoke(eventId: EventId, name: String, location: String, date: String, fees: Int, isTemporary: Boolean): Boolean = withContext(
         Dispatchers.Default) {
         val newEvent = Event.create(
             id = eventId,
@@ -19,7 +19,7 @@ class UpdateEventUseCase @Inject constructor(
             location = location,
             fees = fees,
             matches = emptyList(),
-            isTemporary = true,
+            isTemporary = isTemporary,
             players = emptyList(),
             games = emptyList()
         )

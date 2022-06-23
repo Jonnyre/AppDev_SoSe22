@@ -13,13 +13,15 @@ class EventRepository @Inject constructor(
 
     suspend fun getAllEvents(): List<Event> = dao.getAll().mapNotNull { eventFromDb(it) }
 
+    suspend fun getAllEventsWithoutTemporary(): List<Event> = dao.getAll().filterNot { it.event.event.event.isTemporary }.mapNotNull { eventFromDb(it) }
+
     suspend fun getEventById(id: EventId): Event? = dao.getById(id.value)?.let { eventFromDb(it) }
 
     suspend fun updateEvent(newEvent: Event) {
-        dao.upsert(eventToDb(newEvent))
+        dao.update(eventToDb(newEvent))
     }
 
     suspend fun addEvent(event: Event) {
-        dao.upsert(eventToDb(event))
+        dao.insert(eventToDb(event))
     }
 }
