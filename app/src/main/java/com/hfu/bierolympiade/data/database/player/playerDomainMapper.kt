@@ -12,11 +12,12 @@ fun playerToDb(player: Player): PlayerDb = PlayerDb(
     deleted = player.deleted,
 )
 
-fun playerFromDb(playerWithEvent: PlayerWithEvent): Player? {
+fun playerFromDb(playerWithEventAndMatches: PlayerWithEventAndMatchScore): Player? {
     return Player.create(
-        id = PlayerId(playerWithEvent.player.playerId),
-        name = playerWithEvent.player.name,
-        description = playerWithEvent.player.description,
-        events = playerWithEvent.events.mapNotNull { it.eventId },
+        id = PlayerId(playerWithEventAndMatches.player.player.playerId),
+        name = playerWithEventAndMatches.player.player.name,
+        description = playerWithEventAndMatches.player.player.description,
+        events = playerWithEventAndMatches.player.events.mapNotNull { it.eventId },
+        matchScores = playerWithEventAndMatches.matchScores.mapNotNull { it.matchScoreId }
     )
 }

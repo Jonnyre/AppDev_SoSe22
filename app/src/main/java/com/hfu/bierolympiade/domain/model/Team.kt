@@ -8,6 +8,7 @@ value class TeamId(val value: String)
 
 class Team private constructor(
     val id: TeamId,
+    val matchScores: List<String>,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -29,11 +30,12 @@ class Team private constructor(
     companion object {
         fun create(
             id: TeamId,
+            matchScores: List<String>,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Team? {
-            return Team(id, created, updated, deleted)
+            return Team(id, matchScores, created, updated, deleted)
         }
     }
 }

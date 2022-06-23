@@ -11,39 +11,6 @@ class PlayerRepository @Inject constructor(
     private val dao: PlayerDao
 ) {
 
-    private val allPlayers = listOf(
-        Player.create(
-            id = PlayerId("a59c0e7b-3a58-4859-934d-1a0393831637"),
-            name = "Felix Lütte",
-            description = "Absoluter Versager",
-            events = emptyList()
-        ),
-        Player.create(
-            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
-            name = "Jonathan Rißler",
-            description = "Champion",
-            events = emptyList()
-        ),
-        Player.create(
-            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
-            name = "Peter Pan",
-            description = "Ungeschlagener Zwischenkotzer",
-            events = emptyList()
-        ),
-        Player.create(
-            id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
-            name = "Jonathan Rißler",
-            description = "Champion",
-            events = emptyList()
-        ),
-        Player.create(
-            id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
-            name = "Peter Pan",
-            description = "Ungeschlagener Zwischenkotzer",
-            events = emptyList()
-        ),
-    ).filterNotNull()
-
     suspend fun getAllPlayers(): List<Player> = dao.getAll().mapNotNull { playerFromDb(it) }
 
     suspend fun getPlayerById(id: PlayerId): Player? = dao.getById(id.value)?.let { playerFromDb(it) }

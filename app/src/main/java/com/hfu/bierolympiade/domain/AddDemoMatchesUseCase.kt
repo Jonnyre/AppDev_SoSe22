@@ -26,7 +26,8 @@ class AddDemoMatchesUseCase @Inject constructor(
                 date = ZonedDateTime.now(),
                 type = 0,
                 state = 0,
-                matchParticipant = matchParticipant
+                matchParticipant = matchParticipant,
+                matchScores = emptyList()
             ),
         ).forEach {
             matchRepository.addMatch(it)

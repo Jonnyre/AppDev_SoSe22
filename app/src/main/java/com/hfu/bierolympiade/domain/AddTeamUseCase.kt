@@ -16,6 +16,7 @@ class AddTeamUseCase @Inject constructor(
         val uniqueID: String = UUID.randomUUID().toString()
         val newTeam = Team.create(
             TeamId(uniqueID),
+            matchScores = emptyList()
         )
         if(newTeam != null)  {
             teamRepository.addTeam(newTeam)

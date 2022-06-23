@@ -10,6 +10,7 @@ import com.hfu.bierolympiade.data.database.event.EventDao
 import com.hfu.bierolympiade.data.database.game.GameDao
 import com.hfu.bierolympiade.data.database.gameType.GameTypeDao
 import com.hfu.bierolympiade.data.database.match.MatchDao
+import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDao
 import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDao
 import com.hfu.bierolympiade.data.database.player.PlayerDao
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDao
@@ -75,4 +76,9 @@ object PersistenceModule {
     fun provideTeamDao(
         database: AppDatabase,
     ): TeamDao = database.teamDao()
+
+    @Provides
+    fun provideMatchScoreDao(
+        database: AppDatabase,
+    ): MatchScoreDao = database.matchScoreDao()
 }
