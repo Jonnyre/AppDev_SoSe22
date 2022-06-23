@@ -20,7 +20,8 @@ class AddEventViewModel @Inject constructor(
     private val addTeam: AddTeamUseCase,
     private val addMatch: AddMatchUseCase,
     private val addMatchParticipant: AddMatchParticipantUseCase,
-    private val updateEvent: UpdateEventUseCase
+    private val updateEvent: UpdateEventUseCase,
+    private val deleteEventById: DeleteEventByIdUseCase
 ) : ViewModel() {
 
     var eventId: String? = ""
@@ -78,4 +79,11 @@ class AddEventViewModel @Inject constructor(
     }
 
     /*TODO onSaveEvent -> Update Event */
+    fun onDiscard(){
+        val safeId = eventId ?: "";
+        viewModelScope.launch{
+            if(safeId != "")
+                deleteEventById(EventId(safeId))
+        }
+    }
 }

@@ -20,6 +20,9 @@ interface EventDao {
     @Update
     suspend fun update(event: EventDb)
 
+    @Query("DELETE FROM event WHERE eventId = :id")
+    suspend fun deleteById(id: String)
+
     @Transaction
     @Query("SELECT * FROM event WHERE eventId = :id")
     suspend fun getById(id: String): EventWithMatchesAndGamesAndPlayers?

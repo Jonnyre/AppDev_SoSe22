@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.EventId
@@ -31,11 +32,15 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
-    AddEventScreenUi(viewModel.eventId, viewModel::onSaveEvent)
+    AddEventScreenUi(viewModel.eventId, viewModel::onSaveEvent, viewModel::onDiscard)
 }
 
 @Composable
-fun AddEventScreenUi(eventId: String?, onSaveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int) -> Unit) {
+fun AddEventScreenUi(
+    eventId: String?,
+    onSaveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int) -> Unit,
+    onDiscard: () -> Unit
+) {
     var name by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
@@ -62,7 +67,10 @@ fun AddEventScreenUi(eventId: String?, onSaveEvent: (eventId: EventId, name: Str
         ) {
             Text(text = "Add new Event", fontSize = 20.sp)
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    onDiscard()
+                    navControllerGlobal?.popBackStack()
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
             ) {
                 Text(text = "Discard")
@@ -202,7 +210,7 @@ fun AddEventScreenUi(eventId: String?, onSaveEvent: (eventId: EventId, name: Str
             }
         }
         Button(
-            onClick = { navControllerGlobal?.navigate("pickGameType")},
+            onClick = { navControllerGlobal?.navigate("pickGameType") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
@@ -245,29 +253,10 @@ fun AddEventScreenUi(eventId: String?, onSaveEvent: (eventId: EventId, name: Str
             Text(text = "Save Event")
         }
     }
-
 }
 
 @Preview
 @Composable
 fun AddEventScreen_Preview() {
-    AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7") { _, _, _, _, _ -> }
-}
-
-fun <T> LiveData<T>.observeOnce(observer: (T) -> Unit) {
-    observeForever(object: Observer<T> {
-        override fun onChanged(value: T) {
-            removeObserver(this)
-            observer(value)
-        }
-    })
-}
-
-fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
-    observe(owner, object: Observer<T> {
-        override fun onChanged(value: T) {
-            removeObserver(this)
-            observer(value)
-        }
-    })
+    AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7", { _, _, _, _, _ -> }, {})
 }

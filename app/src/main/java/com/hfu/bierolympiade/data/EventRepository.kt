@@ -24,4 +24,9 @@ class EventRepository @Inject constructor(
     suspend fun addEvent(event: Event) {
         dao.insert(eventToDb(event))
     }
+
+    suspend fun deleteEventById(id: EventId){
+        dao.deleteById(id.value)
+    }
+
 }
