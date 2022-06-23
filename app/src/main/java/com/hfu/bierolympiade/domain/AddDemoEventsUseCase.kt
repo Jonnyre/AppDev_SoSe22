@@ -20,7 +20,7 @@ class AddDemoEventsUseCase @Inject constructor(
                 location = "Furtwangen",
                 date = "06.05.22",
                 fees = 10,
-                isTemporary = 1,
+                isTemporary = false,
                 matches = emptyList(),
                 games = emptyList(),
                 players = emptyList(),
@@ -31,7 +31,7 @@ class AddDemoEventsUseCase @Inject constructor(
                 location = "Speicher",
                 date = "01.01.2222",
                 fees = null,
-                isTemporary = 1,
+                isTemporary = false,
                 matches = emptyList(),
                 games = emptyList(),
                 players = emptyList()
@@ -42,7 +42,7 @@ class AddDemoEventsUseCase @Inject constructor(
                 location = "Zuhause",
                 date = "01.01.2222",
                 fees = null,
-                isTemporary = 1,
+                isTemporary = false,
                 matches = emptyList(),
                 games = emptyList(),
                 players = emptyList()
@@ -53,7 +53,7 @@ class AddDemoEventsUseCase @Inject constructor(
                 location = "Alte Cafete",
                 date = "05.05.22",
                 fees = 15,
-                isTemporary = 1,
+                isTemporary = false,
                 matches = emptyList(),
                 games = emptyList(),
                 players = emptyList()

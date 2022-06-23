@@ -13,7 +13,7 @@ import javax.inject.Inject
 class AddEventUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ){
-    suspend operator fun invoke(name: String, location: String, date: String, fees: Int, isTemporary: Int): String? = withContext(Dispatchers.Default) {
+    suspend operator fun invoke(name: String, location: String, date: String, fees: Int, isTemporary: Boolean): String? = withContext(Dispatchers.Default) {
         val uniqueID: String = UUID.randomUUID().toString()
         val newEvent = Event.create(
             EventId(uniqueID),

@@ -19,7 +19,7 @@ class UpdateEventUseCase @Inject constructor(
             location = location,
             fees = fees,
             matches = emptyList(),
-            isTemporary = 0,
+            isTemporary = true,
             players = emptyList(),
             games = emptyList()
         )

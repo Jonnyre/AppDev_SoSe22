@@ -37,7 +37,7 @@ class AddEventViewModel @Inject constructor(
     ) {
         eventId = withContext(viewModelScope.coroutineContext) {
 
-            addEvent(name, location, date, fees, 1)
+            addEvent(name, location, date, fees, true)
         }
     }
 
