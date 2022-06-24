@@ -1,9 +1,6 @@
 package com.hfu.bierolympiade.feature.gameDetail.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Card
 import androidx.compose.material.OutlinedTextField
@@ -12,21 +9,33 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfu.bierolympiade.domain.model.MatchId
+import com.hfu.bierolympiade.domain.model.TeamId
 
 @Composable
-fun MatchItem(match: MatchUI, index: Int) {
-    var score1 by remember { mutableStateOf("") }
-    var score2 by remember { mutableStateOf("") }
+fun MatchItem(
+    match: MatchUI,
+    index: Int,
+    updateMatchScoreValue: (teamId: TeamId, value: Int) -> Unit
+) {
+    var score1 by remember { mutableStateOf(match.score1.toString()) }
+    var score2 by remember { mutableStateOf(match.score2.toString()) }
+
+    if (match.score1 == null && score1 != null) {
+        score1 = match.score1.toString();
+    }
+    if (match.score2 == null && score2 != null) {
+        score2 = match.score2.toString();
+    }
+
     Card(
         elevation = 3.dp,
         modifier = Modifier
-            .padding(8.dp).
-        height(140.dp),
+            .padding(8.dp)
+            .height(140.dp),
     ) {
         Row(modifier = Modifier.padding(bottom = 25.dp)) {
             Text(
@@ -42,28 +51,34 @@ fun MatchItem(match: MatchUI, index: Int) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column() {
+            Column {
                 match.playerNamesTeam1.map {
                     Text(text = it)
                 }
             }
 
             OutlinedTextField(
-                value = score1, onValueChange = {score1 = it},
+                value = score1, onValueChange = {
+                    score1 = it
+                    if(it.isNotEmpty()) updateMatchScoreValue(match.team1, it.toInt())
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.widthIn(
                     1.dp,
                     55.dp
                 )
             )
-            Column() {
+            Column {
                 match.playerNamesTeam2.map {
                     Text(text = it)
                 }
             }
 
             OutlinedTextField(
-                value = score2, onValueChange = {score2 = it},
+                value = score2, onValueChange = {
+                    score2 = it
+                    if(it.isNotEmpty()) updateMatchScoreValue(match.team2, it.toInt())
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.widthIn(
                     1.dp,
@@ -83,8 +98,12 @@ fun MatchItem_Preview() {
             type = 0,
             state = 0,
             playerNamesTeam1 = emptyList(),
-            playerNamesTeam2 = emptyList()
+            playerNamesTeam2 = emptyList(),
+            team1 = TeamId("foo"),
+            team2 = TeamId("foo"),
+            score1 = 0,
+            score2 = 0
         ),
         0
-    )
+    ) { _, _ -> }
 }

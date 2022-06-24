@@ -20,17 +20,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.domain.model.TeamId
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
 fun GameDetailScreen(viewModel: GameDetailViewModel = viewModel()) {
     val matches by viewModel.bindUi(LocalContext.current).observeAsState(emptyList())
-    GameDetailScreenUi(matches)
+    GameDetailScreenUi(matches, viewModel::updateMatchScoreValue)
 }
 
 @Composable
-fun GameDetailScreenUi(matches: List<MatchUI>) {
+fun GameDetailScreenUi(matches: List<MatchUI>, updateMatchScoreValue: (teamId: TeamId, value: Int) -> Unit) {
     val scrollState = rememberLazyListState()
     Column(
         modifier = Modifier
@@ -56,7 +57,7 @@ fun GameDetailScreenUi(matches: List<MatchUI>) {
         }
         LazyColumn(state = scrollState) {
             itemsIndexed(matches) { index, match ->
-                MatchItem(match, index + 1)
+                MatchItem(match, index + 1, updateMatchScoreValue)
             }
         }
     }
@@ -65,6 +66,6 @@ fun GameDetailScreenUi(matches: List<MatchUI>) {
 @Preview
 @Composable
 fun GameDetailScreen_Preview() {
-    GameDetailScreenUi(emptyList())
+    GameDetailScreenUi(emptyList()) { _, _, -> }
 }
 

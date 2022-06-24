@@ -1,8 +1,10 @@
 package com.hfu.bierolympiade.data
 
+import com.hfu.bierolympiade.data.database.event.eventToDb
 import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDao
 import com.hfu.bierolympiade.data.database.matchScore.matchScoreFromDb
 import com.hfu.bierolympiade.data.database.matchScore.matchScoreToDb
+import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.MatchScore
 import com.hfu.bierolympiade.domain.model.MatchScoreId
 import javax.inject.Inject
@@ -17,5 +19,9 @@ class MatchScoreRepository @Inject constructor(
 
     suspend fun addMatchScore(matchScore: MatchScore) {
         dao.insert(matchScoreToDb(matchScore))
+    }
+
+    suspend fun updateMatchScore(newMatchScore: MatchScore) {
+        dao.update(matchScoreToDb(newMatchScore))
     }
 }

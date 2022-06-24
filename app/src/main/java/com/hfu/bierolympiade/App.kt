@@ -30,6 +30,9 @@ class App : Application() {
     @Inject
     lateinit var addDemoMatchesUseCase: AddDemoMatchesUseCase
 
+    @Inject
+    lateinit var addDemoMatchScoresUseCase: AddDemoMatchScoresUseCase
+
     override fun onCreate() {
         super.onCreate()
         if(BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
@@ -42,6 +45,7 @@ class App : Application() {
             addDemoTeamsUseCase()
             addDemoMatchParticipants()
             addDemoMatchesUseCase()
+            addDemoMatchScoresUseCase()
         }
     }
 }

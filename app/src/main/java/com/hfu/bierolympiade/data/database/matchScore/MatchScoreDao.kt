@@ -1,15 +1,15 @@
 package com.hfu.bierolympiade.data.database.matchScore
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 
 @Dao
 interface MatchScoreDao {
 
     @Insert
     suspend fun insert(matchScoreDb: MatchScoreDb)
+
+    @Update
+    suspend fun update(matchScoreDb: MatchScoreDb)
 
     @Transaction
     @Query("SELECT * FROM matchScore")
