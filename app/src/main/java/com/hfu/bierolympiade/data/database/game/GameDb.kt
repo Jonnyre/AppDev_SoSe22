@@ -19,6 +19,7 @@ data class GameDb(
     val rules: String,
     val teamSize: Int,
     val winCondition: Int,
+    val points: Int,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,

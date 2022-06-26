@@ -1,7 +1,7 @@
 package com.hfu.bierolympiade.domain
 
 import com.hfu.bierolympiade.data.MatchScoreRepository
-import com.hfu.bierolympiade.domain.model.*
+import com.hfu.bierolympiade.domain.model.MatchScore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

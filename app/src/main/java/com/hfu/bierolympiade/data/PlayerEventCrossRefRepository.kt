@@ -1,12 +1,7 @@
 package com.hfu.bierolympiade.data
 
-import com.hfu.bierolympiade.data.database.game.GameDao
-import com.hfu.bierolympiade.data.database.game.gameFromDb
-import com.hfu.bierolympiade.data.database.game.gameToDb
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDao
 import com.hfu.bierolympiade.data.database.player_event_crossref.playerEventCrossRefToDb
-import com.hfu.bierolympiade.domain.model.Game
-import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.domain.model.PlayerEventCrossRef
 import javax.inject.Inject
 

@@ -1,13 +1,8 @@
 package com.hfu.bierolympiade.data
 
-import com.hfu.bierolympiade.data.database.game.GameDao
-import com.hfu.bierolympiade.data.database.game.gameFromDb
-import com.hfu.bierolympiade.data.database.game.gameToDb
 import com.hfu.bierolympiade.data.database.gameType.GameTypeDao
 import com.hfu.bierolympiade.data.database.gameType.gameTypeFromDb
 import com.hfu.bierolympiade.data.database.gameType.gameTypeToDb
-import com.hfu.bierolympiade.domain.model.Game
-import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.domain.model.GameType
 import com.hfu.bierolympiade.domain.model.GameTypeId
 import javax.inject.Inject

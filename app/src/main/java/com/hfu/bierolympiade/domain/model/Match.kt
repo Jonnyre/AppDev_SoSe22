@@ -1,6 +1,5 @@
 package com.hfu.bierolympiade.domain.model
 
-import com.hfu.bierolympiade.data.database.team.TeamWithMatchParticipant
 import java.time.ZonedDateTime
 
 @JvmInline

@@ -41,7 +41,7 @@ fun MainNavigationGraph(navController: NavHostController) {
             val vm = hiltViewModel<LeaderboardViewModel>()
             LeaderboardScreen(vm)
         }
-        composable("addEvent") {
+        composable("addEvent?eventId={eventId}") {
             val vm = hiltViewModel<AddEventViewModel>()
             AddEventScreen(vm)
         }
@@ -59,12 +59,12 @@ fun MainNavigationGraph(navController: NavHostController) {
             AddPlayerToEventScreen(vm)
         }
 
-        composable("pickGameType") {
+        composable("pickGameType?eventId={eventId}") {
             val vm = hiltViewModel<pickGameTypeViewModel>()
             PickGameTypeScreen(vm)
         }
 
-        composable("addGame/{id}") {
+        composable("addGame?eventId={eventId}&gameTypeId={gameTypeId}") {
             val vm = hiltViewModel<AddGameViewModel>()
             AddGameScreen(vm)
         }

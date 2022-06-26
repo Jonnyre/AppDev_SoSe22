@@ -8,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,7 +17,7 @@ import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
 @Composable
-fun LeaderboardItem(leaderboardItem: LeaderboardUI, index: Int){
+fun LeaderboardItem(leaderboardItem: LeaderBoardItemUI, index: Int){
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -64,7 +63,7 @@ fun LeaderboardItem(leaderboardItem: LeaderboardUI, index: Int){
 @Composable
 fun LeaderboardItemPreview() {
     LeaderboardItem(
-        LeaderboardUI(
+        LeaderBoardItemUI(
             playerName = "Felix",
             points = 5,
         ), 5

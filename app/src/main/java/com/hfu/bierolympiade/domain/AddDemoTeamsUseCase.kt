@@ -1,9 +1,6 @@
 package com.hfu.bierolympiade.domain
 
-import com.hfu.bierolympiade.data.GameTypeRepository
 import com.hfu.bierolympiade.data.TeamRepository
-import com.hfu.bierolympiade.domain.model.GameType
-import com.hfu.bierolympiade.domain.model.GameTypeId
 import com.hfu.bierolympiade.domain.model.Team
 import com.hfu.bierolympiade.domain.model.TeamId
 import kotlinx.coroutines.Dispatchers

@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDb
 import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDb
-import com.hfu.bierolympiade.data.database.player.PlayerWithEvent
 import java.time.ZonedDateTime
 
 

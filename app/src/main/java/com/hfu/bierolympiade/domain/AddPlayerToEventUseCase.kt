@@ -1,13 +1,11 @@
 package com.hfu.bierolympiade.domain
 
-import com.hfu.bierolympiade.data.MatchRepository
 import com.hfu.bierolympiade.data.PlayerEventCrossRefRepository
-import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDb
-import com.hfu.bierolympiade.domain.model.*
+import com.hfu.bierolympiade.domain.model.EventId
+import com.hfu.bierolympiade.domain.model.PlayerEventCrossRef
+import com.hfu.bierolympiade.domain.model.PlayerId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.ZonedDateTime
-import java.util.*
 import javax.inject.Inject
 
 class AddPlayerToEventUseCase @Inject constructor(

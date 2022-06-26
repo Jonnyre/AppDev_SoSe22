@@ -2,9 +2,8 @@ package com.hfu.bierolympiade.feature.event.ui
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import androidx.lifecycle.ViewModel
-import com.hfu.bierolympiade.domain.GetEventsUseCase
+import androidx.lifecycle.liveData
 import com.hfu.bierolympiade.domain.GetEventsWithoutTemporaryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,6 +19,7 @@ class EventViewModel @Inject constructor(
                     name = event.name,
                     location = event.location,
                     date = event.date,
+                    participant = event.players.count()
                 )
             }.sortedBy { it.name }
         emit(result)

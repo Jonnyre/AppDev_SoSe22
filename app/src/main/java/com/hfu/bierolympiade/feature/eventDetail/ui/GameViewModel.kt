@@ -1,7 +1,6 @@
 package com.hfu.bierolympiade.feature.eventDetail.ui
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,6 @@ import com.hfu.bierolympiade.domain.GetEventByIdUseCase
 import com.hfu.bierolympiade.domain.GetGamesFromEventUseCase
 import com.hfu.bierolympiade.domain.model.EventId
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

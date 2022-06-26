@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.RsDarkOrange
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
@@ -100,7 +104,11 @@ fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: St
 
         }
         Button(
-            onClick = { onAddPlayer(name, music, description) },
+            onClick = {
+                onAddPlayer(name, music, description)
+                navControllerGlobal?.popBackStack()
+                navControllerGlobal?.navigate("players")
+            },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = RsDarkOrange,
                 contentColor = Color.White

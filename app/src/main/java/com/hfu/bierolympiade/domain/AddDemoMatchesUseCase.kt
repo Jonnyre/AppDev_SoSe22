@@ -1,8 +1,10 @@
 package com.hfu.bierolympiade.domain
 
 import com.hfu.bierolympiade.data.MatchRepository
-import com.hfu.bierolympiade.data.TeamRepository
-import com.hfu.bierolympiade.domain.model.*
+import com.hfu.bierolympiade.domain.model.EventId
+import com.hfu.bierolympiade.domain.model.GameId
+import com.hfu.bierolympiade.domain.model.Match
+import com.hfu.bierolympiade.domain.model.MatchId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime

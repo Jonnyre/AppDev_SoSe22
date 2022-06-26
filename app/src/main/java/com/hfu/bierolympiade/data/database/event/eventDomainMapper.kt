@@ -1,6 +1,5 @@
 package com.hfu.bierolympiade.data.database.event
 
-import com.hfu.bierolympiade.data.database.player.playerFromDb
 import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.EventId
 

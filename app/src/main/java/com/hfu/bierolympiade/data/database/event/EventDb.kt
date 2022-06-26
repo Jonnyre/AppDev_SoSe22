@@ -5,9 +5,7 @@ import com.hfu.bierolympiade.data.database.game.GameDb
 import com.hfu.bierolympiade.data.database.game.GameWithMatches
 import com.hfu.bierolympiade.data.database.match.MatchDb
 import com.hfu.bierolympiade.data.database.player.PlayerDb
-import com.hfu.bierolympiade.data.database.player.PlayerWithEvent
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDb
-import com.hfu.bierolympiade.domain.model.Player
 import java.time.ZonedDateTime
 
 

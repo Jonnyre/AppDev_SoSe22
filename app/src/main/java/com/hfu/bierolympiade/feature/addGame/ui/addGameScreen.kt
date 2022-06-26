@@ -1,8 +1,5 @@
 package com.hfu.bierolympiade.feature.addGame.ui
 
-import android.util.Log
-import com.hfu.bierolympiade.domain.model.GameTypeId
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,7 +11,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -26,27 +22,26 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.EventId
-import com.hfu.bierolympiade.domain.model.Game
-import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
-import com.hfu.bierolympiade.ui.theme.*
-import timber.log.Timber
-import java.util.*
+import com.hfu.bierolympiade.ui.theme.RsDarkOrange
+import com.hfu.bierolympiade.ui.theme.RsLightOrange
+import com.hfu.bierolympiade.ui.theme.RsWhite
 
 @Composable
 fun AddGameScreen(viewModel: AddGameViewModel = viewModel()) {
-    val rulesDefault by viewModel.bindUi(LocalContext.current).observeAsState()
-    AddGameScreenUi(rulesDefault)
+    val addGameUi by viewModel.bindUi(LocalContext.current).observeAsState()
+    addGameUi?.let { AddGameScreenUi(it, viewModel::onSaveGame) }
 }
 
 @Composable
-fun AddGameScreenUi(rulesDefault: String?) {
+fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winCondition: Int, points: Int, rules: String) -> Unit) {
     var teamSize by remember { mutableStateOf(1) }
-    var windCondition by remember { mutableStateOf(0) }
-    var rules: String? by remember { mutableStateOf(rulesDefault) }
+    var winCondition by remember { mutableStateOf(0) }
+    var points by remember { mutableStateOf(0) }
+    var rules: String? by remember { mutableStateOf(addGameUI.rules) }
 
-    if (rules == null && rulesDefault != null) {
-        rules = rulesDefault;
+    if (rules == null && addGameUI.rules != null) {
+        rules = addGameUI.rules;
     }
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -104,9 +99,26 @@ fun AddGameScreenUi(rulesDefault: String?) {
             horizontalArrangement = Arrangement.Center
         ) {
             plusMinusCounter(
-                windCondition,
-                { windCondition += 1 },
-                { if (windCondition > 1) windCondition -= 1 else return@plusMinusCounter })
+                winCondition,
+                { winCondition += 1 },
+                { if (winCondition > 1) winCondition -= 1 else return@plusMinusCounter })
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Points For Winner", fontSize = 20.sp)
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            plusMinusCounter(
+                points,
+                { points += 1 },
+                { if (points > 1) points -= 1 else return@plusMinusCounter })
         }
 
         Row(
@@ -128,7 +140,8 @@ fun AddGameScreenUi(rulesDefault: String?) {
         }
         Button(
             onClick = {
-               //TODO
+                rules?.let { onSaveGame(teamSize, winCondition, points, it) }
+                navControllerGlobal?.navigate("addEvent?eventId=${addGameUI.eventId.value}")
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = RsDarkOrange,
@@ -148,7 +161,7 @@ fun AddGameScreenUi(rulesDefault: String?) {
 @Preview
 @Composable
 fun AddGameScreen_Preview() {
-    AddGameScreenUi("Lol")
+    AddGameScreenUi(AddGameUI(EventId("foo"), "test")) { _, _, _, _ -> }
 }
 
 @Composable

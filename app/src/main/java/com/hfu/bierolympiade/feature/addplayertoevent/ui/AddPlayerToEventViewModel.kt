@@ -3,11 +3,9 @@ package com.hfu.bierolympiade.feature.addplayertoevent.ui
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.domain.AddPlayerToEventUseCase
 import com.hfu.bierolympiade.domain.GetPlayersUseCase
 import com.hfu.bierolympiade.domain.model.EventId
-import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.domain.model.PlayerId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,6 +22,7 @@ class AddPlayerToEventViewModel @Inject constructor(
         val result = GetPlayers().map { player ->
             AddPlayerToEventUI(
                 id = player.id,
+                eventId = EventId(savedStateHandle.get<String>("id")?:""),
                 name = player.name,
             )
         }.sortedBy { it.name }

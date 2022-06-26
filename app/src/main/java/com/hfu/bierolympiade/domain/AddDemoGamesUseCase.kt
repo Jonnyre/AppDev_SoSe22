@@ -26,6 +26,7 @@ class AddDemoGamesUseCase @Inject constructor(
                 eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"),
                 teamSize = 10,
                 winCondition = 10,
+                points = 3,
                 rules = ""
             ),
             Game.create(
@@ -36,6 +37,7 @@ class AddDemoGamesUseCase @Inject constructor(
                 eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"),
                 teamSize = 6,
                 winCondition = 6,
+                points = 2,
                 rules = ""
             ),
             Game.create(
@@ -46,6 +48,7 @@ class AddDemoGamesUseCase @Inject constructor(
                 eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"),
                 teamSize = 4,
                 winCondition = 4,
+                points = 1,
                 rules = ""
             ),
             Game.create(
@@ -56,6 +59,7 @@ class AddDemoGamesUseCase @Inject constructor(
                 eventId = EventId("a6dc7e9e-d5a2-4f96-93b1-349aa24395aa"),
                 teamSize = 4,
                 winCondition = 4,
+                points = 8,
                 rules = ""
             ),
         ).forEach {

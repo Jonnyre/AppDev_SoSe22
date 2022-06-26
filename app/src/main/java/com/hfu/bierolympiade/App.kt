@@ -38,14 +38,18 @@ class App : Application() {
         if(BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
 
         runBlocking {
-            addDemoPlayerUseCase()
-            addDemoEventsUseCase()
-            addDemoGamesUseCase()
             addDemoGameTypes()
+
+            addDemoPlayerUseCase()
+
+            /*addDemoGamesUseCase()
+            addDemoEventsUseCase()
+
+
             addDemoTeamsUseCase()
             addDemoMatchParticipants()
             addDemoMatchesUseCase()
-            addDemoMatchScoresUseCase()
+            addDemoMatchScoresUseCase()*/
         }
     }
 }

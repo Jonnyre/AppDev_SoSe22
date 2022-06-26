@@ -1,6 +1,5 @@
 package com.hfu.bierolympiade.feature.addplayertoevent.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,8 +17,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.RsDarkOrange
-import timber.log.Timber
-import kotlin.math.log
 
 @Composable
 fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
@@ -36,7 +33,7 @@ fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Text(text = "Choose your participants", fontSize = 20.sp)
-        LazyColumn(state = scrollState) {
+        LazyColumn(state = scrollState, modifier = Modifier.height(520.dp)) {
             items(players) { player ->
                 PlayerItem(player, playerList)
             }
@@ -51,19 +48,19 @@ fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
             ),
             onClick = {
                 viewModel.addPlayersToEvent(playerList.value);
-                Timber.log(Log.INFO, "Alle Spieler")
+                /*Timber.log(Log.INFO, "Alle Spieler")
                 var playerListString = ""
                 playerList.value.map {
                     playerListString = playerListString.plus("$it;")
                     Timber.log(Log.INFO, it)
-                }
-
-                navControllerGlobal?.previousBackStackEntry
+                }*/
+                navControllerGlobal?.navigate("addEvent?eventId=${players[0].eventId.value}")
+                /*navControllerGlobal?.previousBackStackEntry
                     ?.savedStateHandle
                     ?.set("players", playerListString)
-                navControllerGlobal?.popBackStack()
-        }) {
-Text(text = "Save Participants")
+                navControllerGlobal?.popBackStack()*/
+            }) {
+            Text(text = "Save Participants")
         }
     }
 }

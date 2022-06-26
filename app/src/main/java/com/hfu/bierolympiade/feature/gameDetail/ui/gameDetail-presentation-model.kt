@@ -1,8 +1,6 @@
 package com.hfu.bierolympiade.feature.gameDetail.ui
 
-import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.domain.model.MatchId
-import com.hfu.bierolympiade.domain.model.Team
 import com.hfu.bierolympiade.domain.model.TeamId
 
 class MatchUI(

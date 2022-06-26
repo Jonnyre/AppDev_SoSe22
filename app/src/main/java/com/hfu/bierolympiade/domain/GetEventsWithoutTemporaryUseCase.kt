@@ -1,10 +1,8 @@
 package com.hfu.bierolympiade.domain
 
-import android.util.Log
 import com.hfu.bierolympiade.data.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class GetEventsWithoutTemporaryUseCase @Inject constructor(

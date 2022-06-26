@@ -2,9 +2,14 @@ package com.hfu.bierolympiade.feature.pickGameType.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.GameTypeId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
@@ -27,7 +33,7 @@ fun PickGameTypeItem(gameType: pickGameTypeUI) {
     Card(
         modifier = Modifier.padding(4.dp),
         onClick = {
-            navControllerGlobal?.navigate("addGame/${gameType.id.value}" )
+            navControllerGlobal?.navigate("addGame?eventId=${gameType.eventId.value}&gameTypeId=${gameType.id.value}" )
         }
     ) {
         Box(
@@ -68,6 +74,7 @@ fun PickGameTypeItem_Preview() {
     PickGameTypeItem(
         pickGameTypeUI(
             GameTypeId("foo"),
+            EventId("foo"),
             "Flunkyball",
             "eine test beschreibung"
         )

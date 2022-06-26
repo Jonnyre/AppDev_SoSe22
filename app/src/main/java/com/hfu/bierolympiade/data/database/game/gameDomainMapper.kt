@@ -1,6 +1,5 @@
 package com.hfu.bierolympiade.data.database.game
 
-import com.hfu.bierolympiade.data.database.match.matchFromDb
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
@@ -14,6 +13,7 @@ fun gameToDb(game: Game): GameDb = GameDb(
     teamSize = game.teamSize,
     rules = game.rules,
     winCondition = game.winCondition,
+    points = game.points,
     created = game.created,
     updated = game.updated,
     deleted = game.deleted,
@@ -31,6 +31,7 @@ fun gameFromDb(gameWithMatches: GameWithMatchesAndType): Game? {
         eventId = EventId(gameWithMatches.game.game.eventId),
         teamSize = gameWithMatches.game.game.teamSize,
         winCondition = gameWithMatches.game.game.winCondition,
+        points = gameWithMatches.game.game.points,
         created = gameWithMatches.game.game.created,
         updated = gameWithMatches.game.game.updated,
         deleted = gameWithMatches.game.game.deleted,

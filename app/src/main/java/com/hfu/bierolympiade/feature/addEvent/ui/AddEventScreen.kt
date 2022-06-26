@@ -12,23 +12,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
-import kotlinx.coroutines.launch
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
@@ -183,6 +177,7 @@ fun AddEventScreenUi(
             }
             Button(
                 onClick = {
+                    navControllerGlobal?.popBackStack()
                     navControllerGlobal?.navigate("addPlayerToEvent/${eventId}")
                 },
                 modifier = Modifier
@@ -210,7 +205,7 @@ fun AddEventScreenUi(
             }
         }
         Button(
-            onClick = { navControllerGlobal?.navigate("pickGameType") },
+            onClick = { navControllerGlobal?.navigate("pickGameType?eventId=${eventId}") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
@@ -241,6 +236,7 @@ fun AddEventScreenUi(
                             onSaveEvent(it, name, location, date, 0);
                         }
                     }
+                navControllerGlobal?.navigate("events")
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = RsDarkOrange,

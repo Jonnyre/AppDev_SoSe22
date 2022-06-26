@@ -1,29 +1,63 @@
 package com.hfu.bierolympiade.feature.leaderboard.ui
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.hfu.bierolympiade.domain.GetLeaderboardFromEventUseCase
-import com.hfu.bierolympiade.domain.GetPlayerByIdUseCase
+import androidx.lifecycle.*
+import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.EventId
+import com.hfu.bierolympiade.domain.model.MatchScoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LeaderboardViewModel @Inject constructor(
-    private val GetLeaderboardFromEvent: GetLeaderboardFromEventUseCase,
-    private val GetPlayerById: GetPlayerByIdUseCase
-): ViewModel() {
+    private val getEventsWithoutTemporary: GetEventsWithoutTemporaryUseCase,
+    private val getPlayersForEvent: GetPlayersForEventUseCase,
+    private val getEventById: GetEventByIdUseCase,
+    private val getMatchScoreById: GetMatchScoreByIdUseCase,
+    private val getGamesFromEvent: GetGamesFromEventUseCase,
+    private val getMatchesFromGame: GetMatchesFromGameUseCase
+) : ViewModel() {
     fun bindUi(context: Context): LiveData<List<LeaderboardUI>> = liveData {
-        val result =
-            GetLeaderboardFromEvent(eventId = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"))?.standings?.map { board ->
-                LeaderboardUI(
-                    playerName = GetPlayerById(board.key)?.name ?: "unknown",
-                    points = board.value
-                )
-            }?.sortedByDescending { it.points } ?: emptyList<LeaderboardUI>()
+        val result = getEventsWithoutTemporary().mapNotNull {
+            LeaderboardUI(
+                eventId = it.id,
+                name = it.name
+            )
+        }.sortedBy { it.name }
         emit(result)
+    }
+
+    val leaderBoardItems = MutableLiveData<List<LeaderBoardItemUI>>()
+
+    fun getLeaderBoardForEvent(eventId: EventId) {
+        viewModelScope.launch {
+            var points = 0
+            val event = getEventById(eventId)
+            if (event != null) {
+                leaderBoardItems.value =
+                getPlayersForEvent(event).mapNotNull { player ->
+                    points = 0
+                    getGamesFromEvent(event).mapNotNull { game ->
+                        if (game != null) {
+                            val matches = getMatchesFromGame(game)
+                            matches.map { match ->
+                                val matchScores =
+                                    match?.matchScores?.mapNotNull { getMatchScoreById(MatchScoreId(it)) }
+                                val winnerMatchScores =
+                                    matchScores?.filter { score -> score.value == game.winCondition }
+                                winnerMatchScores?.map {
+                                    if (player != null) {
+                                        if (it.playerId == player.id)
+                                            points += game.points
+                                    }
+                                } ?: ""
+                            }
+                        }
+                    }
+                    player?.let { it1 -> LeaderBoardItemUI(it1.name, points) }
+                }.sortedByDescending { it.points }
+            }
+        }
     }
 }

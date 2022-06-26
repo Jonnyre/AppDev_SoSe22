@@ -14,7 +14,7 @@ import javax.inject.Inject
 class AddGameUseCase @Inject constructor(
     private val gameRepository: GameRepository
 ) {
-    suspend operator fun invoke(name: String, status: String, gameTypeId: GameTypeId, teamSize: Int, windCondition: Int, rules: String): Boolean = withContext(
+    suspend operator fun invoke(eventId: EventId, status: String, gameTypeId: GameTypeId, teamSize: Int, winCondition: Int, points: Int, rules: String): Boolean = withContext(
         Dispatchers.Default) {
         val uniqueID: String = UUID.randomUUID().toString()
         val newGame = Game.create(
@@ -22,10 +22,11 @@ class AddGameUseCase @Inject constructor(
             gameTypeId = gameTypeId,
             status = status,
             // TODO Parameter übergeben
-            eventId = EventId("ösdjhgfljkdsjgflkdjg"),
+            eventId = eventId,
             matches = emptyList(),
             teamSize = teamSize,
-            winCondition = windCondition,
+            winCondition = winCondition,
+            points = points,
             rules = rules,
         )
         if(newGame != null)  {

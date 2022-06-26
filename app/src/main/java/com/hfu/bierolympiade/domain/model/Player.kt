@@ -1,7 +1,6 @@
 package com.hfu.bierolympiade.domain.model
 
 import java.time.ZonedDateTime
-import kotlin.math.max
 
 
 @JvmInline

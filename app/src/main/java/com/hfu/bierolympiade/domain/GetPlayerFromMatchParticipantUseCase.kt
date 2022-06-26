@@ -1,7 +1,10 @@
 package com.hfu.bierolympiade.domain
 
 import com.hfu.bierolympiade.data.MatchParticipantRepository
-import com.hfu.bierolympiade.domain.model.*
+import com.hfu.bierolympiade.domain.model.MatchParticipant
+import com.hfu.bierolympiade.domain.model.MatchParticipantId
+import com.hfu.bierolympiade.domain.model.Player
+import com.hfu.bierolympiade.domain.model.TeamId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
