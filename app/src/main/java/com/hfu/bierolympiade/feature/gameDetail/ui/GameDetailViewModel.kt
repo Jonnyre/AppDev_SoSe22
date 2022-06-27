@@ -46,6 +46,7 @@ class GameDetailViewModel @Inject constructor(
                                         id = it.id,
                                         state = match.state,
                                         type = match.type,
+                                        winCondition = game.winCondition,
                                         playerNamesTeam1 = playerWithTeam1.mapNotNull { player ->
                                             player?.player?.name
                                         },

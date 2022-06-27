@@ -1,7 +1,9 @@
 package com.hfu.bierolympiade.feature.addEvent.ui
 
+import android.widget.CalendarView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,11 +20,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
@@ -40,6 +48,7 @@ fun AddEventScreenUi(
     var date by remember { mutableStateOf("") }
     var fees by remember { mutableStateOf("") }
 
+    var showDatePicker by remember { mutableStateOf(false) }
     val addedPlayerString = navControllerGlobal?.currentBackStackEntry
         ?.savedStateHandle
         ?.getLiveData<String>("players")?.observeAsState()
@@ -51,6 +60,9 @@ fun AddEventScreenUi(
             .background(RsBackground),
         verticalArrangement = Arrangement.SpaceAround
     ) {
+        if(showDatePicker) {
+            DatePicker(onDateSelected = {date = it.toString()},onDismissRequest = {showDatePicker = false})
+        }
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -137,7 +149,11 @@ fun AddEventScreenUi(
                             Image(
                                 painter = painterResource(R.drawable.ic_calendar),
                                 contentDescription = "Date",
-                                modifier = Modifier.size(30.dp)
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .clickable {
+                                        showDatePicker = true
+                                    }
                             )
                         },
                         value = date,
@@ -233,7 +249,7 @@ fun AddEventScreenUi(
                         try {
                             onSaveEvent(it, name, location, date, fees.toInt())
                         } catch (e: NumberFormatException) {
-                            onSaveEvent(it, name, location, date, 0);
+                            onSaveEvent(it, name, location, date, 0)
                         }
                     }
                 navControllerGlobal?.navigate("events")
@@ -255,4 +271,99 @@ fun AddEventScreenUi(
 @Composable
 fun AddEventScreen_Preview() {
     AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7", { _, _, _, _, _ -> }, {})
+}
+
+@Composable
+fun DatePicker(onDateSelected: (LocalDate) -> Unit, onDismissRequest: () -> Unit) {
+    val selDate = remember { mutableStateOf(LocalDate.now()) }
+
+    Dialog(onDismissRequest = { onDismissRequest() }, properties = DialogProperties()) {
+        Column(
+            modifier = Modifier
+                .wrapContentSize()
+                .background(
+                    color = MaterialTheme.colors.surface,
+                    shape = RoundedCornerShape(size = 16.dp)
+                )
+        ) {
+            Column(
+                Modifier
+                    .defaultMinSize(minHeight = 72.dp)
+                    .fillMaxWidth()
+                    .background(
+                        color = MaterialTheme.colors.primary,
+                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                    )
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = "Select date".uppercase(Locale.ENGLISH),
+                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colors.onPrimary
+                )
+
+                Spacer(modifier = Modifier.size(24.dp))
+
+                Text(
+                    text = selDate.value.format(DateTimeFormatter.ofPattern("MMM d, YYYY")),
+                    style = MaterialTheme.typography.h4,
+                    color = MaterialTheme.colors.onPrimary
+                )
+
+                Spacer(modifier = Modifier.size(16.dp))
+            }
+
+            CustomCalendarView(onDateSelected = {
+                selDate.value = it
+            })
+
+            Spacer(modifier = Modifier.size(8.dp))
+
+            Row(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(bottom = 16.dp, end = 16.dp)
+            ) {
+                TextButton(
+                    onClick = onDismissRequest
+                ) {
+                    Text(
+                        text = "Cancel",
+                    )
+                }
+
+                TextButton(
+                    onClick = {
+                        onDateSelected(selDate.value)
+                        onDismissRequest()
+                    }
+                ) {
+                    Text(
+                        text = "OK",
+                    )
+                }
+
+            }
+        }
+    }
+}
+
+@Composable
+fun CustomCalendarView(onDateSelected: (LocalDate) -> Unit) {
+    // Adds view to Compose
+    AndroidView(
+        { CalendarView(it) },
+        modifier = Modifier.wrapContentSize(),
+        update = { views ->
+            views.setOnDateChangeListener { _, year, month, dayOfMonth ->
+                    onDateSelected(
+                        LocalDate
+                            .now()
+                            .withMonth(month + 1)
+                            .withYear(year)
+                            .withDayOfMonth(dayOfMonth)
+                    )
+                }
+        }
+    )
 }

@@ -7,6 +7,7 @@ class MatchUI(
     val id: MatchId,
     val state: Int,
     val type: Int,
+    val winCondition: Int,
     val playerNamesTeam1: List<String>,
     val playerNamesTeam2: List<String>,
     val team1: TeamId,

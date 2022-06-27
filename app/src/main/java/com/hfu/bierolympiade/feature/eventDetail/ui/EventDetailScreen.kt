@@ -60,7 +60,10 @@ fun EventDetailScreenUi(games: List<GameUI>) {
             }
         }
         Button(
-            onClick = { navControllerGlobal?.navigate("leaderboard") },
+            onClick = {
+                navControllerGlobal?.popBackStack()
+                navControllerGlobal?.navigate("leaderboard")
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)

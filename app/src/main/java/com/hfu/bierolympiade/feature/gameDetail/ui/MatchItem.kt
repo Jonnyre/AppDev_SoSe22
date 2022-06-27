@@ -5,10 +5,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Card
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,10 +27,10 @@ fun MatchItem(
     var score2 by remember { mutableStateOf(match.score2.toString()) }
 
     if (match.score1 == null && score1 != null) {
-        score1 = match.score1.toString();
+        score1 = match.score1.toString()
     }
     if (match.score2 == null && score2 != null) {
-        score2 = match.score2.toString();
+        score2 = match.score2.toString()
     }
 
     Card(
@@ -37,10 +39,20 @@ fun MatchItem(
             .padding(8.dp)
             .height(140.dp),
     ) {
-        Row(modifier = Modifier.padding(bottom = 25.dp)) {
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth()
+        ) {
             Text(
                 text = "Match $index",
-                fontSize = 20.sp
+                fontSize = 20.sp,
+            )
+            Text(
+                text = "Win: ${match.winCondition}",
+                fontSize = 15.sp
             )
         }
 
@@ -53,14 +65,18 @@ fun MatchItem(
         ) {
             Column {
                 match.playerNamesTeam1.map {
-                    Text(text = it)
+                    Text(
+                        text = it,
+                        modifier = Modifier.width(100.dp),
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
 
             OutlinedTextField(
                 value = score1, onValueChange = {
                     score1 = it
-                    if(it.isNotEmpty()) updateMatchScoreValue(match.team1, it.toInt())
+                    if (it.isNotEmpty()) updateMatchScoreValue(match.team1, it.toInt())
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.widthIn(
@@ -70,14 +86,14 @@ fun MatchItem(
             )
             Column {
                 match.playerNamesTeam2.map {
-                    Text(text = it)
+                    Text(text = it, Modifier.width(100.dp), overflow = TextOverflow.Ellipsis)
                 }
             }
 
             OutlinedTextField(
                 value = score2, onValueChange = {
                     score2 = it
-                    if(it.isNotEmpty()) updateMatchScoreValue(match.team2, it.toInt())
+                    if (it.isNotEmpty()) updateMatchScoreValue(match.team2, it.toInt())
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.widthIn(
@@ -97,6 +113,7 @@ fun MatchItem_Preview() {
             MatchId("foo"),
             type = 0,
             state = 0,
+            winCondition = 0,
             playerNamesTeam1 = emptyList(),
             playerNamesTeam2 = emptyList(),
             team1 = TeamId("foo"),
