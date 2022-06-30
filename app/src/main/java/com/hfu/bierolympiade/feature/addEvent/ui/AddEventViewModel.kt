@@ -1,14 +1,12 @@
 package com.hfu.bierolympiade.feature.addEvent.ui
 
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.hfu.bierolympiade.data.database.event.EventWithMatchesAndGamesAndPlayers
 import com.hfu.bierolympiade.domain.*
-import com.hfu.bierolympiade.domain.model.EventId
-import com.hfu.bierolympiade.domain.model.MatchId
-import com.hfu.bierolympiade.domain.model.PlayerId
-import com.hfu.bierolympiade.domain.model.TeamId
+import com.hfu.bierolympiade.domain.model.*
+import com.hfu.bierolympiade.feature.addplayertoevent.ui.AddPlayerToEventUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,12 +27,18 @@ class AddEventViewModel @Inject constructor(
     private val addMatchScore: AddMatchScoreUseCase
 ) : ViewModel() {
 
-    var eventId: String? = ""
+    var eventId: String? = savedStateHandle.get<String>("eventId")
 
     init {
-        eventId = savedStateHandle.get("eventId");
-        if (eventId == null)
+        val eventId = savedStateHandle.get<String>("eventId")
+        if (eventId == null){
             viewModelScope.launch { initialAddEvent("", "", "", 0) }
+        }
+    }
+
+    fun bindUi(context: Context): LiveData<Event?> = liveData {
+        val result = getEventById(EventId(eventId ?: ""))
+        emit(result)
     }
 
     private suspend fun initialAddEvent(
@@ -102,5 +106,10 @@ class AddEventViewModel @Inject constructor(
         }
     }
 
-    fun roundLowerEven(value: Double): Int = (kotlin.math.floor(value / 2) * 2).toInt()
+    private fun roundLowerEven(value: Double): Int = (kotlin.math.floor(value / 2) * 2).toInt()
+
+    suspend fun getEvent(eventId: String): Event?{
+        return getEventById(EventId(eventId))
+    }
+
 }
