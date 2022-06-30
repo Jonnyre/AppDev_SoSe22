@@ -12,7 +12,6 @@ class GetEventByIdUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ){
     suspend operator fun invoke(eventId: EventId) = withContext(Dispatchers.Default) {
-        Timber.log(Log.INFO, "Get Event By Id")
         eventRepository.getEventById(eventId)
     }
 }

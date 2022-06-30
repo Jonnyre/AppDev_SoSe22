@@ -16,4 +16,8 @@ class PlayerEventCrossRefRepository @Inject constructor(
     suspend fun addPlayerEventCrossRef(playerEventCrossRef: PlayerEventCrossRef) {
         dao.insert(playerEventCrossRefToDb(playerEventCrossRef))
     }
+
+    suspend fun deleteAllFromEventId(id: String){
+        dao.deleteAllFromEventId(id)
+    }
 }

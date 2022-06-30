@@ -19,7 +19,7 @@ import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
 fun PlayerItem(player: AddPlayerToEventUI, addedPlayers: MutableState<List<String>>) {
-    var isAdded by remember { mutableStateOf(false) }
+    var isAdded by remember { mutableStateOf(addedPlayers.value.contains(player.id.value)) }
     Card(
         elevation = 3.dp,
         modifier = Modifier
@@ -56,11 +56,11 @@ fun PlayerItem(player: AddPlayerToEventUI, addedPlayers: MutableState<List<Strin
                 }
             ) {
                 if(isAdded)
-                Icon(
-                    painterResource(R.drawable.ic_close),
-                    contentDescription = "add player",
-                    tint = RsLightOrange
-                )
+                    Icon(
+                        painterResource(R.drawable.ic_close),
+                        contentDescription = "add player",
+                        tint = RsLightOrange
+                    )
                 else
                     Icon(
                         painterResource(R.drawable.ic_plus),

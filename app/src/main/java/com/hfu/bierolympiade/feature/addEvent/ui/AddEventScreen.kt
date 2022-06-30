@@ -57,17 +57,13 @@ fun AddEventScreenUi(
     var fees by remember { mutableStateOf("") }
 
     if (event != null && name == "") {
-        name = event?.name ?: ""
-        location = event?.location ?: ""
-        date = event?.date ?:""
-        fees = event?.fees?.toString() ?: ""
+        name = event.name
+        location = event.location
+        date = event.date
+        fees = event.fees.toString()
     }
 
     var showDatePicker by remember { mutableStateOf(false) }
-    val addedPlayerString = navControllerGlobal?.currentBackStackEntry
-        ?.savedStateHandle
-        ?.getLiveData<String>("players")?.observeAsState()
-    val addedPlayerArray = addedPlayerString?.value?.split(";")
 
     Column(
         modifier = Modifier
@@ -196,7 +192,7 @@ fun AddEventScreenUi(
             }
         }
         Box {
-            if (addedPlayerArray != null) {
+            /*if (addedPlayerArray != null) {
                 CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(
                         text = "Participants " + (addedPlayerArray.size - 1),
@@ -205,7 +201,7 @@ fun AddEventScreenUi(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-            }
+            }*/
             Button(
                 onClick = {
                     eventId?.let { EventId(it) }
@@ -300,7 +296,7 @@ fun AddEventScreenUi(
     }
 }
 
-/*@Preview
+@Preview
 @Composable
 fun AddEventScreen_Preview() {
     AddEventScreenUi("a59c0e7b-3a58-4859-934d-1a0393835637", Event.create(
@@ -314,7 +310,7 @@ fun AddEventScreen_Preview() {
         games = emptyList(),
         players = emptyList(),
     ), { _, _, _, _, _ -> }, {})
-}*/
+}
 
 @Composable
 fun DatePicker(onDateSelected: (LocalDate) -> Unit, onDismissRequest: () -> Unit) {
