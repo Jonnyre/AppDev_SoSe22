@@ -111,5 +111,4 @@ class AddEventViewModel @Inject constructor(
     suspend fun getEvent(eventId: String): Event?{
         return getEventById(EventId(eventId))
     }
-
 }
