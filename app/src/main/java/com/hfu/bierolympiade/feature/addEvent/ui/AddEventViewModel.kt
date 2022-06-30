@@ -107,9 +107,12 @@ class AddEventViewModel @Inject constructor(
     }
 
     private fun roundLowerEven(value: Double): Int = (kotlin.math.floor(value / 2) * 2).toInt()
+<<<<<<< Updated upstream
 
     suspend fun getEvent(eventId: String): Event?{
         return getEventById(EventId(eventId))
     }
 
+=======
+>>>>>>> Stashed changes
 }
