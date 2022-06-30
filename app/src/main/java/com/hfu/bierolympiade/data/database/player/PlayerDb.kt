@@ -3,6 +3,7 @@ package com.hfu.bierolympiade.data.database.player
 import androidx.room.*
 import com.hfu.bierolympiade.data.database.event.EventDb
 import com.hfu.bierolympiade.data.database.matchScore.MatchScoreDb
+import com.hfu.bierolympiade.data.database.matchparticipant.MatchParticipantDb
 import com.hfu.bierolympiade.data.database.player_event_crossref.PlayerEventCrossRefDb
 import java.time.ZonedDateTime
 
@@ -35,4 +36,13 @@ data class PlayerWithEventAndMatchScore(
         entityColumn = "playerId",
     )
     val matchScores: List<MatchScoreDb>
+)
+
+data class PlayerWithEventAndMatchScoreAndMatches(
+    @Embedded val player: PlayerWithEventAndMatchScore,
+    @Relation(
+        parentColumn = "playerId",
+        entityColumn = "playerId",
+    )
+    val matchParticipants: List<MatchParticipantDb>
 )

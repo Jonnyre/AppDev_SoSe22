@@ -19,49 +19,56 @@ class AddDemoPlayerUseCase @Inject constructor(
                 name = "Felix Lütte",
                 description = "Absoluter Versager",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
             Player.create(
                 id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929cb"),
                 name = "Jonathan Rißler",
                 description = "Champion",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
             Player.create(
                 id = PlayerId("f16cdf15-6528-4a0b-993c-24d5bf8007a7"),
                 name = "Peter Pan",
                 description = "Ungeschlagener Zwischenkotzer",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
             Player.create(
                 id = PlayerId("867e5af2-aa53-4e46-9cfd-a1bc9b2929c2"),
                 name = "Weiterer Spieler",
                 description = "Champion",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
             Player.create(
                 id = PlayerId("cc5703cb-b449-48fd-8d6c-6f2446f5cf80"),
                 name = "Noch einen",
                 description = "Champion",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
             Player.create(
                 id = PlayerId("21a407cc-a199-4886-a47e-481896862106"),
                 name = "Hier ist ein Spieler",
                 description = "Champion",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
             Player.create(
                 id = PlayerId("77556c1e-3000-4460-b77c-35867192bc69"),
                 name = "TestSpieler",
                 description = "Champion",
                 events = emptyList(),
-                matchScores = emptyList()
+                matchScores = emptyList(),
+                matchParticipants = emptyList()
             ),
         ).forEach {
             playerRepository.addPlayer(it)

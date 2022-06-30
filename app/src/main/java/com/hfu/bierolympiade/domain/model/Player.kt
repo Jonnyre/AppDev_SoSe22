@@ -13,6 +13,7 @@ class Player private constructor(
     val description: String,
     val events: List<String>,
     val matchScores: List<String>,
+    val matchParticipants: List<String>,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,
     val deleted: ZonedDateTime,
@@ -38,12 +39,13 @@ class Player private constructor(
             description: String,
             events: List<String>,
             matchScores: List<String>,
+            matchParticipants: List<String>,
             created: ZonedDateTime = ZonedDateTime.now(),
             updated: ZonedDateTime = ZonedDateTime.now(),
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Player? {
             if (name.isBlank()) return null
-            return Player(id, name, description, events, matchScores, created, updated, deleted)
+            return Player(id, name, description, events, matchScores, matchParticipants, created, updated, deleted)
         }
     }
 }

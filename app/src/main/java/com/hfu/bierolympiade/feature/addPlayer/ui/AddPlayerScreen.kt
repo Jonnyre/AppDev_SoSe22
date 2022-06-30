@@ -9,10 +9,12 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,14 +27,21 @@ import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
 fun AddPlayerScreen(viewModel: AddPlayerViewModel = viewModel()) {
-    AddPlayerScreenUi(viewModel::onAddPlayer)
+    val player by viewModel.bindUi(LocalContext.current).observeAsState()
+    AddPlayerScreenUi(player, viewModel::onSavePlayer)
 }
 
 @Composable
-fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: String) -> Unit) {
+fun AddPlayerScreenUi(player: AddPlayerUI?, onSavePlayer: (name: String, music: String, description: String) -> Unit) {
     var name by remember { mutableStateOf("") }
     var music by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+
+    if(player != null && name == "") {
+        name = player.name
+        music = player.music
+        description = player.description
+    }
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -93,19 +102,11 @@ fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: St
 
 
         Text(text = "Stats", fontSize = 20.sp)
-        Box(
-            modifier = Modifier
-                .height(150.dp)
-                .fillMaxWidth()
-                .background(
-                    RsLightOrange
-                )
-        ) {
-
-        }
+        Text(text = "Wins" + player?.winningMatches)
+        Text(text = "Loses" + player?.losingMatches)
         Button(
             onClick = {
-                onAddPlayer(name, music, description)
+                onSavePlayer(name, music, description)
                 navControllerGlobal?.popBackStack()
                 navControllerGlobal?.navigate("players")
             },
@@ -126,5 +127,7 @@ fun AddPlayerScreenUi(onAddPlayer: (name: String, music: String, description: St
 @Preview
 @Composable
 fun AddPlayerScreen_Preview() {
-    AddPlayerScreenUi({ _, _, _ -> })
+    AddPlayerScreenUi(AddPlayerUI(
+        null, "Test", "TestMusik", "TestDescr", 0, 0
+    )) { _, _, _ -> }
 }

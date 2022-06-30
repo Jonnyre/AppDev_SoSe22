@@ -1,6 +1,7 @@
 package com.hfu.bierolympiade.feature.player.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
 import com.hfu.bierolympiade.domain.model.PlayerId
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 
@@ -28,7 +30,11 @@ fun PlayerItem(player: PlayerUI) {
         Surface(
             modifier = Modifier
                 .size(80.dp)
-                .padding(5.dp),
+                .padding(5.dp)
+                .clickable {
+                    navControllerGlobal?.navigate("addPlayer?playerId=${player.id.value}")
+                }
+            ,
             shape = CircleShape,
             color = RsLightOrange
         ) {

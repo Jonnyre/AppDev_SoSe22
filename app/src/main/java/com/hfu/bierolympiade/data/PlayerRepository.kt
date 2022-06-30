@@ -18,4 +18,8 @@ class PlayerRepository @Inject constructor(
     suspend fun addPlayer(player: Player) {
         dao.insert(playerToDb(player))
     }
+
+    suspend fun updatePlayer(newPlayer: Player) {
+        dao.update(playerToDb(newPlayer))
+    }
 }

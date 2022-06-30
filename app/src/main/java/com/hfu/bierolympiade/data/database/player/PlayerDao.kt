@@ -1,20 +1,20 @@
 package com.hfu.bierolympiade.data.database.player
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 
 @Dao
 interface PlayerDao {
     @Insert
     suspend fun insert(player: PlayerDb)
 
+    @Update
+    suspend fun update(player: PlayerDb)
+
     @Transaction
     @Query("SELECT * FROM player")
-    suspend fun getAll(): List<PlayerWithEventAndMatchScore>
+    suspend fun getAll(): List<PlayerWithEventAndMatchScoreAndMatches>
 
     @Transaction
     @Query("SELECT * FROM player WHERE playerId = :id")
-    suspend fun getById(id: String): PlayerWithEventAndMatchScore?
+    suspend fun getById(id: String): PlayerWithEventAndMatchScoreAndMatches?
 }

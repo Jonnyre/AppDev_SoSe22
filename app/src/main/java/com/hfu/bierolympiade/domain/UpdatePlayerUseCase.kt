@@ -5,25 +5,23 @@ import com.hfu.bierolympiade.domain.model.Player
 import com.hfu.bierolympiade.domain.model.PlayerId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 import javax.inject.Inject
 
-class AddPlayerUseCase @Inject constructor(
+class UpdatePlayerUseCase @Inject constructor(
     private val playerRepository: PlayerRepository
 ) {
-    suspend operator fun invoke(name: String, music: String, description: String): Boolean = withContext(
+    suspend operator fun invoke(playerId: PlayerId, name: String, description: String): Boolean = withContext(
         Dispatchers.Default) {
-        val uniqueID: String = UUID.randomUUID().toString()
         val newPlayer = Player.create(
-            PlayerId(uniqueID),
+            id = playerId,
             name = name,
             description = description,
-            events = emptyList(),
             matchScores = emptyList(),
+            events = emptyList(),
             matchParticipants = emptyList()
         )
         if(newPlayer != null)  {
-            playerRepository.addPlayer(newPlayer)
+            playerRepository.updatePlayer(newPlayer)
             return@withContext true
         }
         return@withContext false
