@@ -36,4 +36,6 @@ class AddPlayerToEventViewModel @Inject constructor(
             }
         }
     }
+
+    fun getEventId() = savedStateHandle.get<String>("id")
 }

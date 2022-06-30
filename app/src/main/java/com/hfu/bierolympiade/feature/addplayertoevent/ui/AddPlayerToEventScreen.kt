@@ -54,7 +54,7 @@ fun AddPlayerToEventScreen(viewModel: AddPlayerToEventViewModel = viewModel()) {
                     playerListString = playerListString.plus("$it;")
                     Timber.log(Log.INFO, it)
                 }*/
-                navControllerGlobal?.navigate("addEvent?eventId=${players[0].eventId.value}")
+                navControllerGlobal?.navigate("addEvent?eventId=${viewModel.getEventId()}")
                 /*navControllerGlobal?.previousBackStackEntry
                     ?.savedStateHandle
                     ?.set("players", playerListString)

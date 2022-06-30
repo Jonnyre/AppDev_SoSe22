@@ -1,5 +1,6 @@
 package com.hfu.bierolympiade.feature.addEvent.ui
 
+import android.util.Log
 import android.widget.CalendarView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -23,30 +25,43 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.data.database.event.EventWithMatchesAndGamesAndPlayers
+import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
+import timber.log.Timber
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Composable
 fun AddEventScreen(viewModel: AddEventViewModel = viewModel()) {
-    AddEventScreenUi(viewModel.eventId, viewModel::onSaveEvent, viewModel::onDiscard)
+    val event by viewModel.bindUi(LocalContext.current).observeAsState()
+    AddEventScreenUi(viewModel.eventId, event, viewModel::onSaveEvent, viewModel::onDiscard)
 }
 
 @Composable
 fun AddEventScreenUi(
     eventId: String?,
+    event: Event?,
     onSaveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int) -> Unit,
     onDiscard: () -> Unit
 ) {
-    var name by remember { mutableStateOf("") }
+    var name: String by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
     var fees by remember { mutableStateOf("") }
+
+    if (event != null && name == "") {
+        name = event?.name ?: ""
+        location = event?.location ?: ""
+        date = event?.date ?:""
+        fees = event?.fees?.toString() ?: ""
+    }
 
     var showDatePicker by remember { mutableStateOf(false) }
     val addedPlayerString = navControllerGlobal?.currentBackStackEntry
@@ -193,6 +208,14 @@ fun AddEventScreenUi(
             }
             Button(
                 onClick = {
+                    eventId?.let { EventId(it) }
+                        ?.let {
+                            try {
+                                onSaveEvent(it, name, location, date, fees.toInt())
+                            } catch (e: NumberFormatException) {
+                                onSaveEvent(it, name, location, date, 0)
+                            }
+                        }
                     navControllerGlobal?.popBackStack()
                     navControllerGlobal?.navigate("addPlayerToEvent/${eventId}")
                 },
@@ -221,7 +244,17 @@ fun AddEventScreenUi(
             }
         }
         Button(
-            onClick = { navControllerGlobal?.navigate("pickGameType?eventId=${eventId}") },
+            onClick = {
+                eventId?.let { EventId(it) }
+                    ?.let {
+                        try {
+                            onSaveEvent(it, name, location, date, fees.toInt())
+                        } catch (e: NumberFormatException) {
+                            onSaveEvent(it, name, location, date, 0)
+                        }
+                    }
+                navControllerGlobal?.navigate("pickGameType?eventId=${eventId}")
+                      },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 15.dp)
@@ -267,11 +300,21 @@ fun AddEventScreenUi(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun AddEventScreen_Preview() {
-    AddEventScreenUi("f16cdf15-6528-4a0b-993c-24d5bf8045a7", { _, _, _, _, _ -> }, {})
-}
+    AddEventScreenUi("a59c0e7b-3a58-4859-934d-1a0393835637", Event.create(
+        id = EventId("a59c0e7b-3a58-4859-934d-1a0393835637"),
+        name = "Bierolympiade",
+        location = "Furtwangen",
+        date = "06.05.22",
+        fees = 10,
+        isTemporary = false,
+        matches = emptyList(),
+        games = emptyList(),
+        players = emptyList(),
+    ), { _, _, _, _, _ -> }, {})
+}*/
 
 @Composable
 fun DatePicker(onDateSelected: (LocalDate) -> Unit, onDismissRequest: () -> Unit) {
