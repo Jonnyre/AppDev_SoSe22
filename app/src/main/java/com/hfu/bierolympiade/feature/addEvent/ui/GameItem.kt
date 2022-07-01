@@ -58,7 +58,7 @@ fun GameItem(gameName: String, gameId: GameId, deleteFunction: (gameId: GameId) 
         }
         Button(
             onClick = {
-                games.value = games.value.dropWhile { it.id.value == gameId.value }
+                games.value = games.value.filterNot { it.id.value == gameId.value }
                 deleteFunction(gameId)
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackground),
