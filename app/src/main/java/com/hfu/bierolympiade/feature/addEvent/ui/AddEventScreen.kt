@@ -55,7 +55,7 @@ fun AddEventScreenUi(
     eventId: String?,
     event: Event?,
     games: List<Game>?,
-    saveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int, isTemporary: Boolean) -> Unit,
+    saveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int, isTemporary: Boolean, route: String) -> Unit,
     onSaveEvent: (eventId: EventId, name: String, location: String, date: String, fees: Int) -> Unit,
     deleteGameById: (gameId: GameId) -> Unit,
     onDiscard: () -> Unit
@@ -66,7 +66,7 @@ fun AddEventScreenUi(
     var fees by remember { mutableStateOf("") }
 
     val gamesList: MutableState<List<Game>> = remember { mutableStateOf(emptyList()) }
-    if(games != null){
+    if (games != null) {
         gamesList.value = games
     }
 
@@ -242,13 +242,11 @@ fun AddEventScreenUi(
                         eventId?.let { EventId(it) }
                             ?.let {
                                 try {
-                                    saveEvent(it, name, location, date, fees.toInt(), true)
+                                    saveEvent(it, name, location, date, fees.toInt(), true, "addPlayerToEvent/${eventId}")
                                 } catch (e: NumberFormatException) {
-                                    saveEvent(it, name, location, date, 0, true)
+                                    saveEvent(it, name, location, date, 0, true, "addPlayerToEvent/${eventId}")
                                 }
                             }
-                        navControllerGlobal?.popBackStack()
-                        navControllerGlobal?.navigate("addPlayerToEvent/${eventId}")
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -284,12 +282,27 @@ fun AddEventScreenUi(
                     eventId?.let { EventId(it) }
                         ?.let {
                             try {
-                                saveEvent(it, name, location, date, fees.toInt(), true)
+                                saveEvent(
+                                    it,
+                                    name,
+                                    location,
+                                    date,
+                                    fees.toInt(),
+                                    true,
+                                    "pickGameType?eventId=${eventId}"
+                                )
                             } catch (e: NumberFormatException) {
-                                saveEvent(it, name, location, date, 0, true)
+                                saveEvent(
+                                    it,
+                                    name,
+                                    location,
+                                    date,
+                                    0,
+                                    true,
+                                    "pickGameType?eventId=${eventId}"
+                                )
                             }
                         }
-                    navControllerGlobal?.navigate("pickGameType?eventId=${eventId}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -341,8 +354,6 @@ fun AddEventScreenUi(
                                 onSaveEvent(it, name, location, date, 0)
                             }
                         }
-                    navControllerGlobal?.popBackStack()
-                    navControllerGlobal?.navigate("events")
                 },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = RsDarkOrange,
@@ -382,9 +393,9 @@ fun AddEventScreen_Preview() {
             emptyList<Game>(
 
             ),
-            { _, _, _, _, _, _ -> },
+            { _, _, _, _, _, _, _ -> },
             { _, _, _, _, _ -> },
-            {_ ->},
+            { _ -> },
             {})
     }
 }

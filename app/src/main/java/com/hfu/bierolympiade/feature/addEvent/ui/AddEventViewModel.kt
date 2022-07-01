@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.*
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,15 +62,15 @@ class AddEventViewModel @Inject constructor(
         }
     }
 
-    fun saveEvent(eventId: EventId, name: String, location: String, date: String, fees: Int, isTemporary: Boolean){
+    fun saveEvent(eventId: EventId, name: String, location: String, date: String, fees: Int, isTemporary: Boolean, route: String){
         viewModelScope.launch {
             updateEvent(eventId, name, location, date, fees, isTemporary)
+            navControllerGlobal?.navigate(route)
         }
     }
 
     fun onSaveEvent(eventId: EventId, name: String, location: String, date: String, fees: Int) {
         viewModelScope.launch {
-            Timber.log(Log.INFO, eventId.value)
             val event = getEventById(eventId) ?: return@launch
 
             getGamesFromEvent(event).map { game ->
@@ -122,7 +123,10 @@ class AddEventViewModel @Inject constructor(
                     }
                 }
             }
+            Timber.log(Log.INFO, "EventUpdate" + eventId.value)
             updateEvent(eventId, name, location, date, fees, false)
+            navControllerGlobal?.popBackStack()
+            navControllerGlobal?.navigate("events")
         }
     }
 
