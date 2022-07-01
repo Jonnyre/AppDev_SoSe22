@@ -41,8 +41,6 @@ fun MainScreen() {
                             "players" -> {
                                 navigateToRoute("addPlayer")
                             }
-                            "leaderboard" -> { /* Action for Screen 3 */
-                            }
                         }
                     },
                     backgroundColor = RsDarkOrange,
@@ -51,7 +49,6 @@ fun MainScreen() {
                         val iconId = when (currentRoute.value?.destination?.route) {
                             "events" -> R.drawable.ic_plus
                             "players" -> R.drawable.ic_plus
-                            "leaderboard" -> R.drawable.ic_refresh
                             else -> R.drawable.ic_plus
                         }
                         Icon(
@@ -80,7 +77,7 @@ fun MainScreen_Preview() {
 
 fun isScreenWithFloatingAction(route: String?): Boolean {
     return when (route) {
-        "events", "players", "leaderboard" -> true
+        "events", "players" -> true
         else -> false
     }
 }

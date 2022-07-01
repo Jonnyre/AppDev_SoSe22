@@ -21,7 +21,6 @@ class AddGameUseCase @Inject constructor(
             GameId(uniqueID),
             gameTypeId = gameTypeId,
             status = status,
-            // TODO Parameter übergeben
             eventId = eventId,
             matches = emptyList(),
             teamSize = teamSize,

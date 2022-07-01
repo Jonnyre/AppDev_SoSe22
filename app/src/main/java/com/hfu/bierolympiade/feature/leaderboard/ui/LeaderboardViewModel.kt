@@ -1,7 +1,6 @@
 package com.hfu.bierolympiade.feature.leaderboard.ui
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.EventId
@@ -9,7 +8,6 @@ import com.hfu.bierolympiade.domain.model.MatchScore
 import com.hfu.bierolympiade.domain.model.MatchScoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

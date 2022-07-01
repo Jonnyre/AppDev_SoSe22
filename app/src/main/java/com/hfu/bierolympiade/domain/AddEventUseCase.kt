@@ -23,7 +23,6 @@ class AddEventUseCase @Inject constructor(
             fees = fees,
             matches = emptyList(),
             isTemporary = isTemporary,
-            // TODO
             players = emptyList(),
             games = emptyList()
         )
