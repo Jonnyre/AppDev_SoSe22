@@ -18,7 +18,8 @@ class GameDetailViewModel @Inject constructor(
     private val getPlayerFromMatchParticipant: GetPlayerFromMatchParticipantUseCase,
     private val updateMatchScore: UpdateMatchScoreUseCase,
     private val getMatchScoreFromTeam: GetMatchScoreFromTeamUseCase,
-    private val getTeamById: GetTeamByIdUseCase
+    private val getTeamById: GetTeamByIdUseCase,
+    private val getGameTypeById: GetGameTypeByIdUseCase
 ) : ViewModel() {
     fun bindUi(context: Context): LiveData<List<MatchUI>> = liveData {
         val id = savedStateHandle.get<String>("id").orEmpty()
@@ -30,6 +31,28 @@ class GameDetailViewModel @Inject constructor(
                 }
 
                 val teamId = players.distinctBy { player -> player?.teamId }
+
+                if(getGameTypeById(game.gameTypeId)?.isHighScore == true) {
+                    return@map teamId[0]?.let { teamPlayer ->
+                        val team = getTeamById(teamPlayer.teamId)
+                        team?.let { it1 -> getMatchScoreFromTeam(it1) }?.get(0)?.let { it2 ->
+                            MatchUI(
+                                id= match.id,
+                                state = match.state,
+                                type = match.type,
+                                winCondition = 0,
+                                playerNamesTeam1 = players.mapNotNull { it?.player?.name },
+                                playerNamesTeam2 = emptyList(),
+                                team1 = teamPlayer.teamId,
+                                team2 = TeamId(""),
+                                score1 = it2.value,
+                                score2 = 0,
+                                isHighScoreGame = true
+                            )
+                        }
+                    }
+                }
+
                 val playerWithTeam1 = players.filter{player -> player?.teamId == teamId[0]?.teamId}
                 val playerWithTeam2 = players.filter{player -> player?.teamId == teamId[1]?.teamId}
 
@@ -56,7 +79,8 @@ class GameDetailViewModel @Inject constructor(
                                         team1 = teamId1,
                                         team2 = teamId2,
                                         score1 = matchScoreValue1,
-                                        score2 = matchScoreValue2
+                                        score2 = matchScoreValue2,
+                                        isHighScoreGame = false
                                     )
                                 }
                             }

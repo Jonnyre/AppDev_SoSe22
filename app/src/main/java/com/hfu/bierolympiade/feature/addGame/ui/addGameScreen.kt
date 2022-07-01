@@ -69,39 +69,40 @@ fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winConditi
                 )
             }
         }
+        if(!addGameUI.isHighScore) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Teamsize", fontSize = 20.sp)
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                plusMinusCounter(
+                    teamSize,
+                    { teamSize += 1 },
+                    { if (teamSize > 1) teamSize -= 1 else return@plusMinusCounter })
+            }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Teamsize", fontSize = 20.sp)
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            plusMinusCounter(
-                teamSize,
-                { teamSize += 1 },
-                { if (teamSize > 1) teamSize -= 1 else return@plusMinusCounter })
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Win Condition", fontSize = 20.sp)
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            plusMinusCounter(
-                winCondition,
-                { winCondition += 1 },
-                { if (winCondition > 1) winCondition -= 1 else return@plusMinusCounter })
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Win Condition", fontSize = 20.sp)
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                plusMinusCounter(
+                    winCondition,
+                    { winCondition += 1 },
+                    { if (winCondition > 1) winCondition -= 1 else return@plusMinusCounter })
+            }
         }
 
         Row(
@@ -161,7 +162,7 @@ fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winConditi
 @Preview
 @Composable
 fun AddGameScreen_Preview() {
-    AddGameScreenUi(AddGameUI(EventId("foo"), "test")) { _, _, _, _ -> }
+    AddGameScreenUi(AddGameUI(EventId("foo"), "test", true)) { _, _, _, _ -> }
 }
 
 @Composable

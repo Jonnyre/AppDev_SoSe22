@@ -17,20 +17,33 @@ class AddGameViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     fun bindUi(context: Context): LiveData<AddGameUI> = liveData {
-        val result = getGameTypeById(GameTypeId(savedStateHandle.get("gameTypeId")?:""))?.rules?.let {
-            AddGameUI(EventId(savedStateHandle.get("eventId")?:"") ,
-                it
-            )
-        }
+        val result =
+            getGameTypeById(GameTypeId(savedStateHandle["gameTypeId"] ?: "")).let { gameType ->
+                gameType?.let {
+                    AddGameUI(
+                        EventId(savedStateHandle["eventId"] ?: ""),
+                        it.rules,
+                        it.isHighScore
+                    )
+                }
+            }
         if (result != null) {
             emit(result)
         }
     }
 
     fun onSaveGame(teamSize: Int, winCondition: Int, points: Int, rules: String) {
-        val eventId = EventId(savedStateHandle.get("eventId")?: "")
+        val eventId = EventId(savedStateHandle.get("eventId") ?: "")
         viewModelScope.launch {
-            addGame(status = "notStarted", points =  points, eventId = eventId, winCondition = winCondition, teamSize = teamSize, rules = rules, gameTypeId = GameTypeId(savedStateHandle.get("gameTypeId")?:""))
+            addGame(
+                status = "Not yet started",
+                points = points,
+                eventId = eventId,
+                winCondition = winCondition,
+                teamSize = teamSize,
+                rules = rules,
+                gameTypeId = GameTypeId(savedStateHandle.get("gameTypeId") ?: "")
+            )
         }
     }
 }

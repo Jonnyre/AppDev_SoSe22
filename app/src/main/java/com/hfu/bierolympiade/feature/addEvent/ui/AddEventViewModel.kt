@@ -3,10 +3,8 @@ package com.hfu.bierolympiade.feature.addEvent.ui
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
-import com.hfu.bierolympiade.data.database.event.EventWithMatchesAndGamesAndPlayers
 import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.*
-import com.hfu.bierolympiade.feature.addplayertoevent.ui.AddPlayerToEventUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +23,8 @@ class AddEventViewModel @Inject constructor(
     private val deleteEventById: DeleteEventByIdUseCase,
     private val savedStateHandle: SavedStateHandle,
     private val addMatchScore: AddMatchScoreUseCase,
-    private val deleteGameById: DeleteGameByIdUseCase
+    private val deleteGameById: DeleteGameByIdUseCase,
+    private val getGameTypeById: GetGameTypeByIdUseCase
 ) : ViewModel() {
 
     var eventId: String? = savedStateHandle.get<String>("eventId")
@@ -73,48 +72,62 @@ class AddEventViewModel @Inject constructor(
             Timber.log(Log.INFO, eventId.value)
             val event = getEventById(eventId) ?: return@launch
 
-            val players = event.players.shuffled()
             getGamesFromEvent(event).map { game ->
-                val teamCount: Int = roundLowerEven((players.size.toDouble() / (game?.teamSize ?: 1.0).toDouble()))
-                Timber.log(Log.INFO, teamCount.toString())
-                var teams: List<String> = emptyList()
-                for (i in 0 until teamCount) {
-                    val team = addTeam()
-                    if (team != null)
-                        teams = teams.plus(team)
-                }
-                val matchCount = teamCount / 2
-                var matches: List<String> = emptyList()
-                for (i in 0 until matchCount) {
-                    val match = game?.let { addMatch(eventId, it.id) }
-                    if (match != null)
-                        matches = matches.plus(match)
-                }
-                var count = 0
-                players.map {
-                    if (game != null) {
-                        if (count == game.teamSize && game.teamSize != 1 || count == teamCount)
-                            count = 0
+                val players = event.players.shuffled()
+                if (game != null) {
+                    if (getGameTypeById(game.gameTypeId)?.isHighScore == true) {
+                        players.map {
+                            addTeam()?.let { it1 -> TeamId(it1) }?.let { it2 ->
+                                addMatch(eventId, game.id)?.let { it1 -> MatchId(it1) }
+                                    ?.let { it3 ->
+                                        addMatchParticipant(it3, PlayerId(it), it2)
+                                        addMatchScore(it3, it2, PlayerId(it), 0)
+                                    }
+                            }
+                        }
+                    } else {
+                        val teamCount: Int =
+                            roundLowerEven((players.size.toDouble() / game.teamSize.toDouble()))
+                        Timber.log(Log.INFO, "Teams: $teamCount")
+                        var teams: List<String> = emptyList()
+                        for (i in 0 until teamCount) {
+                            val team = addTeam()
+                            if (team != null)
+                                teams = teams.plus(team)
+                        }
+                        val matchCount = teamCount / 2
+                        var matches: List<String> = emptyList()
+                        for (i in 0 until matchCount) {
+                            val match = addMatch(eventId, game.id)
+                            if (match != null)
+                                matches = matches.plus(match)
+                        }
+                        var count = 0
+                        players.map {
+                            if (count == game.teamSize && game.teamSize != 1 || count == teamCount)
+                                count = 0
+                            addMatchParticipant(
+                                MatchId(matches[count / 2]),
+                                PlayerId(it),
+                                TeamId(teams[count])
+                            )
+                            addMatchScore(
+                                MatchId(matches[count / 2]),
+                                TeamId(teams[count]),
+                                PlayerId(it),
+                                0
+                            )
+                            count++
+                        }
                     }
-                    addMatchParticipant(
-                        MatchId(matches[count / 2]),
-                        PlayerId(it),
-                        TeamId(teams[count])
-                    )
-                    addMatchScore(
-                        MatchId(matches[count / 2]),
-                        TeamId(teams[count]),
-                        PlayerId(it),
-                        0
-                    )
-                    count++
                 }
             }
-            saveEvent(eventId, name, location, date, fees, false)
+            updateEvent(eventId, name, location, date, fees, false)
         }
     }
+
     fun onDiscard(){
-        val safeId = eventId ?: "";
+        val safeId = eventId ?: ""
         viewModelScope.launch{
             if(safeId != "")
                 deleteEventById(EventId(safeId))

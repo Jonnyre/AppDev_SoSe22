@@ -11,14 +11,16 @@ import javax.inject.Inject
 class AddGameTypeUseCase @Inject constructor(
     private val gameTypeRepository: GameTypeRepository
 ){
-    suspend operator fun invoke(name: String, icon: String, rules: String): Boolean = withContext(
+    suspend operator fun invoke(name: String, icon: String, rules: String, isHighScore: Boolean, isWinnerHighest: Boolean): Boolean = withContext(
         Dispatchers.Default) {
         val uniqueID: String = UUID.randomUUID().toString()
         val newGameType = GameType.create(
             GameTypeId(uniqueID),
             name = name,
             icon = icon,
-            rules = rules
+            rules = rules,
+            isHighScore = isHighScore,
+            isWinnerHighest = isWinnerHighest
         )
         if(newGameType != null)  {
             gameTypeRepository.addGameType(newGameType)

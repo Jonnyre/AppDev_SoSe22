@@ -10,4 +10,6 @@ data class GameTypeDb(
     val name: String,
     val icon: String,
     val rules: String,
+    val isHighScore: Boolean,
+    val isWinnerHighest: Boolean,
 )

@@ -29,7 +29,6 @@ import com.hfu.bierolympiade.domain.model.Event
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
-import com.hfu.bierolympiade.feature.addplayertoevent.ui.PlayerItem
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.*
 import java.time.LocalDate
@@ -68,7 +67,7 @@ fun AddEventScreenUi(
 
     val gamesList: MutableState<List<Game>> = remember { mutableStateOf(emptyList()) }
     if(games != null){
-        gamesList.value = games;
+        gamesList.value = games
     }
 
     val scrollState = rememberLazyListState()
@@ -342,6 +341,7 @@ fun AddEventScreenUi(
                                 onSaveEvent(it, name, location, date, 0)
                             }
                         }
+                    navControllerGlobal?.popBackStack()
                     navControllerGlobal?.navigate("events")
                 },
                 colors = ButtonDefaults.buttonColors(

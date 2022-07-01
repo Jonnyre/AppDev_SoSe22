@@ -7,7 +7,9 @@ fun gameTypeToDb(gameType: GameType): GameTypeDb = GameTypeDb(
     gameTypeId = gameType.gameTypeId.value,
     name = gameType.name,
     icon= gameType.icon,
-    rules = gameType.rules
+    rules = gameType.rules,
+    isHighScore = gameType.isHighScore,
+    isWinnerHighest = gameType.isWinnerHighest
 )
 
 fun gameTypeFromDb(gameTypeDb: GameTypeDb): GameType {
@@ -15,6 +17,8 @@ fun gameTypeFromDb(gameTypeDb: GameTypeDb): GameType {
         gameTypeId = GameTypeId(gameTypeDb.gameTypeId),
         name = gameTypeDb.name,
         icon = gameTypeDb.icon,
-        rules = gameTypeDb.rules
+        rules = gameTypeDb.rules,
+        isHighScore = gameTypeDb.isHighScore,
+        isWinnerHighest = gameTypeDb.isWinnerHighest
     )
 }

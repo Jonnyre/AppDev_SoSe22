@@ -14,4 +14,5 @@ class MatchUI(
     val team2: TeamId,
     val score1: Int,
     val score2: Int,
+    val isHighScoreGame: Boolean
 )

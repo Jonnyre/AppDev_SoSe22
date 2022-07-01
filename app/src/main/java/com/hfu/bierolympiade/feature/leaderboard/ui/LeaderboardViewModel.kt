@@ -1,12 +1,15 @@
 package com.hfu.bierolympiade.feature.leaderboard.ui
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.EventId
+import com.hfu.bierolympiade.domain.model.MatchScore
 import com.hfu.bierolympiade.domain.model.MatchScoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +20,8 @@ class LeaderboardViewModel @Inject constructor(
     private val getMatchScoreById: GetMatchScoreByIdUseCase,
     private val getGamesFromEvent: GetGamesFromEventUseCase,
     private val getMatchesFromGame: GetMatchesFromGameUseCase,
-    private val getPlayerById: GetPlayerByIdUseCase
+    private val getPlayerById: GetPlayerByIdUseCase,
+    private val getGameTypeById: GetGameTypeByIdUseCase
 ) : ViewModel() {
     fun bindUi(context: Context): LiveData<List<LeaderboardUI>> = liveData {
         val result = getEventsWithoutTemporary().map {
@@ -40,19 +44,45 @@ class LeaderboardViewModel @Inject constructor(
             getGamesFromEvent(event).mapNotNull { game ->
                 if (game != null) {
                     val matches = getMatchesFromGame(game)
-                    matches.map { match ->
-                        val matchScores =
-                            match?.matchScores?.mapNotNull {
+
+                    if (getGameTypeById(game.gameTypeId)?.isHighScore == true) {
+                        Timber.log(Log.INFO, "HighScoreGame: ")
+                        val matchScores: MutableList<MatchScore> =
+                            emptyList<MatchScore>().toMutableList()
+                        matches.map { match ->
+                            val matchScoresForMatch = match?.matchScores?.mapNotNull {
                                 getMatchScoreById(MatchScoreId(it))
                             }
-                        val winnerMatchScores =
-                            matchScores?.filter { score -> score.value == game.winCondition }
-                        winnerMatchScores?.map { winnerMatchScore ->
+                            matchScoresForMatch?.map {
+                                if (it.value != 0)
+                                    matchScores.add(it)
+                            }
+                        }
+                        val sortedMatchScores =
+                            matchScores.toList().sortedByDescending { it.value }
+                        sortedMatchScores.mapIndexed { index, matchScore ->
                             leaderBoard.set(
-                                winnerMatchScore.playerId,
-                                leaderBoard[winnerMatchScore.playerId]?.plus(game.points)
+                                matchScore.playerId,
+                                leaderBoard[matchScore.playerId]?.plus(game.points - index)
                                     ?: 0
                             )
+                        }
+                    } else {
+                        matches.map { match ->
+                            val matchScores =
+                                match?.matchScores?.mapNotNull {
+                                    getMatchScoreById(MatchScoreId(it))
+                                }
+
+                            val winnerMatchScores =
+                                matchScores?.filter { score -> score.value == game.winCondition }
+                            winnerMatchScores?.map { winnerMatchScore ->
+                                leaderBoard.set(
+                                    winnerMatchScore.playerId,
+                                    leaderBoard[winnerMatchScore.playerId]?.plus(game.points)
+                                        ?: 0
+                                )
+                            }
                         }
                     }
                 }
