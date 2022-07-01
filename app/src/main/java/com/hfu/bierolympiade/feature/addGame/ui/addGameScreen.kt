@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import com.hfu.bierolympiade.domain.UpdateGameUseCase
 import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import com.hfu.bierolympiade.ui.theme.RsDarkOrange
@@ -30,18 +31,21 @@ import com.hfu.bierolympiade.ui.theme.RsWhite
 @Composable
 fun AddGameScreen(viewModel: AddGameViewModel = viewModel()) {
     val addGameUi by viewModel.bindUi(LocalContext.current).observeAsState()
-    addGameUi?.let { AddGameScreenUi(it, viewModel::onSaveGame) }
+    addGameUi?.let { AddGameScreenUi(it, viewModel::onSaveGame, viewModel::onUpdateGame) }
 }
 
 @Composable
-fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winCondition: Int, points: Int, rules: String) -> Unit) {
-    var teamSize by remember { mutableStateOf(1) }
-    var winCondition by remember { mutableStateOf(0) }
-    var points by remember { mutableStateOf(0) }
+fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winCondition: Int, points: Int, rules: String) -> Unit, updateGame: (teamSize: Int, winCondition: Int, points: Int, rules: String) -> Unit) {
+    var teamSize by remember { mutableStateOf(addGameUI.teamSize) }
+    var winCondition by remember { mutableStateOf(addGameUI.winCondition) }
+    var points by remember { mutableStateOf(addGameUI.points) }
     var rules: String? by remember { mutableStateOf(addGameUI.rules) }
 
-    if (rules == null && addGameUI.rules != null) {
-        rules = addGameUI.rules;
+    if (addGameUI.rules != null && teamSize == null) {
+        rules = addGameUI.rules
+        teamSize = addGameUI.teamSize
+        winCondition = addGameUI.winCondition
+        points = addGameUI.points
     }
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -141,7 +145,11 @@ fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winConditi
         }
         Button(
             onClick = {
-                rules?.let { onSaveGame(teamSize, winCondition, points, it) }
+                if(addGameUI.gameId != null){
+                    rules?.let { updateGame(teamSize, winCondition, points, it) }
+                } else {
+                    rules?.let { onSaveGame(teamSize, winCondition, points, it) }
+                }
                 navControllerGlobal?.navigate("addEvent?eventId=${addGameUI.eventId.value}")
             },
             colors = ButtonDefaults.buttonColors(
@@ -162,7 +170,7 @@ fun AddGameScreenUi(addGameUI: AddGameUI, onSaveGame: (teamSize: Int, winConditi
 @Preview
 @Composable
 fun AddGameScreen_Preview() {
-    AddGameScreenUi(AddGameUI(EventId("foo"), "test", true)) { _, _, _, _ -> }
+    AddGameScreenUi(AddGameUI(null, EventId("foo"), "test", 0,0,0,true), { _, _, _, _ -> }) { _, _, _, _ -> }
 }
 
 @Composable

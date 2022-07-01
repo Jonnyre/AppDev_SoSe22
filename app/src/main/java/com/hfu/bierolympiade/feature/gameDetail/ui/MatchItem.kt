@@ -76,7 +76,7 @@ fun MatchItem(
             OutlinedTextField(
                 value = score1, onValueChange = {
                     score1 = it
-                    if (it.isNotEmpty()) updateMatchScoreValue(match.team1, it.toInt())
+                    if (it.isNotEmpty()) updateMatchScoreValue(match.team1, it.toIntOrNull() ?: 0)
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.widthIn(

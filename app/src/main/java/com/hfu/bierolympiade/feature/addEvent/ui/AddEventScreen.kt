@@ -337,7 +337,6 @@ fun AddEventScreenUi(
                             game.name,
                             game.id,
                             deleteGameById,
-                            {},
                             gamesList
                         )
                     }

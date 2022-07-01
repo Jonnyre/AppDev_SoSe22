@@ -10,5 +10,5 @@ val RsLightOrange = Color(0xFFF2C299)
 val RsDarkBlue = Color(0xFF0C2645)
 val RsDarkOrange = Color(0xFFEC814C)
 val RsDarkRed = Color(0xFFCF524E)
-
+val RsGreen = Color(0xFF8BC34A)
 

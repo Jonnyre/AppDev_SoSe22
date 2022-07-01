@@ -39,5 +39,7 @@ class GameRepository @Inject constructor(
         dao.insert(gameToDb(game))
     }
 
+    suspend fun updateGame(game: Game) = dao.update(gameToDb(game))
+
     suspend fun deleteGameById(id: GameId) = dao.deleteByGameId(id.value)
 }

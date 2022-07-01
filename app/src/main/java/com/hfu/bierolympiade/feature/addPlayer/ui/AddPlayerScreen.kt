@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -21,10 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
-import com.hfu.bierolympiade.ui.theme.RsButtonBackground
-import com.hfu.bierolympiade.ui.theme.RsDarkOrange
-import com.hfu.bierolympiade.ui.theme.RsDarkRed
-import com.hfu.bierolympiade.ui.theme.RsLightOrange
+import com.hfu.bierolympiade.ui.theme.*
 
 @Composable
 fun AddPlayerScreen(viewModel: AddPlayerViewModel = viewModel()) {
@@ -121,6 +115,7 @@ fun AddPlayerScreenUi(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
+                    .clip(shape = MaterialTheme.shapes.small)
             ) {
                 Text(text = "No games played yet")
             }
@@ -130,6 +125,7 @@ fun AddPlayerScreenUi(
                     .fillMaxWidth()
                     .height(50.dp)
                     .background(RsButtonBackground)
+                    .clip(shape = MaterialTheme.shapes.small)
             ) {
                 if (winningMatches == 0)
                     Text(text = "Wins $winningMatches", modifier = Modifier.align(Alignment.Center))
@@ -138,7 +134,8 @@ fun AddPlayerScreenUi(
                         Modifier
                             .fillMaxWidth(fraction = (winningMatches.toFloat() / (losingMatches.toFloat() + winningMatches.toFloat())))
                             .fillMaxHeight()
-                            .background(Color.Green)
+                            .background(RsGreen)
+                            .clip(shape = MaterialTheme.shapes.small)
                     ) {
                         Text(
                             text = "Wins $winningMatches",
@@ -153,6 +150,7 @@ fun AddPlayerScreenUi(
                     .fillMaxWidth()
                     .height(50.dp)
                     .background(RsButtonBackground)
+                    .clip(shape = MaterialTheme.shapes.small)
             ) {
                 if (losingMatches == 0)
                     Text(text = "Loses $losingMatches", modifier = Modifier.align(Alignment.Center))
@@ -162,6 +160,7 @@ fun AddPlayerScreenUi(
                             .fillMaxWidth(fraction = (losingMatches.toFloat() / (losingMatches.toFloat() + winningMatches.toFloat())))
                             .fillMaxHeight()
                             .background(RsDarkRed)
+                            .clip(shape = MaterialTheme.shapes.small)
                     ) {
                         Text(
                             text = "Loses $losingMatches",
@@ -183,6 +182,7 @@ fun AddPlayerScreenUi(
                 .fillMaxWidth()
                 .padding(top = 5.dp)
                 .height(75.dp)
+                .clip(shape = MaterialTheme.shapes.small)
         ) {
             Text(text = "Save")
         }

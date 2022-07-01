@@ -14,13 +14,15 @@ import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
 import com.hfu.bierolympiade.domain.model.PlayerId
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
+import com.hfu.bierolympiade.feature.main.ui.navigateToRoute
 import com.hfu.bierolympiade.ui.theme.BierolympiadeTheme
 import com.hfu.bierolympiade.ui.theme.RsButtonBackground
 import com.hfu.bierolympiade.ui.theme.RsDarkBlue
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
-fun GameItem(gameName: String, gameId: GameId, deleteFunction: (gameId: GameId) -> Unit, editFunction: () -> Unit, games: MutableState<List<Game>>) {
+fun GameItem(gameName: String, gameId: GameId, deleteFunction: (gameId: GameId) -> Unit, games: MutableState<List<Game>>) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -40,7 +42,7 @@ fun GameItem(gameName: String, gameId: GameId, deleteFunction: (gameId: GameId) 
         )
         Button(
             onClick = {
-                editFunction()
+                navControllerGlobal?.navigate("addGame?eventId=&gameTypeId=&gameId=${gameId.value}")
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = RsButtonBackground),
             modifier = Modifier
@@ -85,7 +87,6 @@ fun GameItem_Preview() {
         GameItem(
             "Flip Cup",
             GameId("aösfsaöf"),
-            {},
             {},
             TODO(),
         )

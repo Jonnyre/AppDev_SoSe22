@@ -1,15 +1,12 @@
 package com.hfu.bierolympiade.data.database.gameType
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
+import com.hfu.bierolympiade.data.database.player.PlayerDb
 
 @Dao
 interface GameTypeDao {
     @Insert
     suspend fun insert(gameType: GameTypeDb)
-
     @Transaction
     @Query("SELECT * FROM gameType")
     suspend fun getAll(): List<GameTypeDb>

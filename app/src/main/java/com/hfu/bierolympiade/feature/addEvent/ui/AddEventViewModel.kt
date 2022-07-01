@@ -25,7 +25,7 @@ class AddEventViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val addMatchScore: AddMatchScoreUseCase,
     private val deleteGameById: DeleteGameByIdUseCase,
-    private val getGameTypeById: GetGameTypeByIdUseCase
+    private val getGameTypeById: GetGameTypeByIdUseCase,
 ) : ViewModel() {
 
     var eventId: String? = savedStateHandle.get<String>("eventId")
