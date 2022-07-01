@@ -36,9 +36,16 @@ private val PlusJarkataSans = FontFamily(
 )
 
 val PlusJarkataSansTypography = Typography(
+
     defaultFontFamily = PlusJarkataSans,
     h1 = TextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 25.sp
+        fontSize = 25.sp,
+        color = RsDarkBlue
+    ),
+    h3 = TextStyle(
+        fontWeight = FontWeight.Medium,
+        fontSize = 18.sp,
+        color = RsDarkBlue
     )
 )

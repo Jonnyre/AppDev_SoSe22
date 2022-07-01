@@ -1,9 +1,7 @@
 package com.hfu.bierolympiade.data.database.game
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
+import com.hfu.bierolympiade.domain.model.Game
 
 @Dao
 interface GameDao {
@@ -17,4 +15,8 @@ interface GameDao {
     @Transaction
     @Query("SELECT * FROM game WHERE gameId = :id")
     suspend fun getById(id: String): GameWithMatchesAndType?
+
+
+    @Query("DELETE FROM game WHERE gameId = :gameId")
+    fun deleteByGameId(gameId: String)
 }

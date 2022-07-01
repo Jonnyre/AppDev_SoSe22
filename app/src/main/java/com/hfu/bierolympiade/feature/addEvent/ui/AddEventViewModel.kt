@@ -24,7 +24,8 @@ class AddEventViewModel @Inject constructor(
     private val updateEvent: UpdateEventUseCase,
     private val deleteEventById: DeleteEventByIdUseCase,
     private val savedStateHandle: SavedStateHandle,
-    private val addMatchScore: AddMatchScoreUseCase
+    private val addMatchScore: AddMatchScoreUseCase,
+    private val deleteGameById: DeleteGameByIdUseCase
 ) : ViewModel() {
 
     var eventId: String? = savedStateHandle.get<String>("eventId")
@@ -41,6 +42,15 @@ class AddEventViewModel @Inject constructor(
         emit(result)
     }
 
+    fun bindUiGames(context: Context): LiveData<List<Game>> = liveData {
+        val safeEventId = eventId?: ""
+        val event = getEvent(safeEventId)
+        if(event != null){
+            val result = getGamesFromEvent(event)
+            emit(result)
+        }
+    }
+
     private suspend fun initialAddEvent(
         name: String,
         location: String,
@@ -52,6 +62,11 @@ class AddEventViewModel @Inject constructor(
         }
     }
 
+    fun saveEvent(eventId: EventId, name: String, location: String, date: String, fees: Int, isTemporary: Boolean){
+        viewModelScope.launch {
+            updateEvent(eventId, name, location, date, fees, isTemporary)
+        }
+    }
 
     fun onSaveEvent(eventId: EventId, name: String, location: String, date: String, fees: Int) {
         viewModelScope.launch {
@@ -59,7 +74,7 @@ class AddEventViewModel @Inject constructor(
             val event = getEventById(eventId) ?: return@launch
 
             val players = event.players.shuffled()
-            getGamesFromEvent(event).mapNotNull { game ->
+            getGamesFromEvent(event).map { game ->
                 val teamCount: Int = roundLowerEven((players.size.toDouble() / (game?.teamSize ?: 1.0).toDouble()))
                 Timber.log(Log.INFO, teamCount.toString())
                 var teams: List<String> = emptyList()
@@ -95,7 +110,7 @@ class AddEventViewModel @Inject constructor(
                     count++
                 }
             }
-            updateEvent(eventId, name, location, date, fees, false)
+            saveEvent(eventId, name, location, date, fees, false)
         }
     }
     fun onDiscard(){
@@ -108,7 +123,16 @@ class AddEventViewModel @Inject constructor(
 
     private fun roundLowerEven(value: Double): Int = (kotlin.math.floor(value / 2) * 2).toInt()
 
-    suspend fun getEvent(eventId: String): Event?{
+    private suspend fun getEvent(eventId: String): Event?{
         return getEventById(EventId(eventId))
     }
+
+    fun deleteGame(gameId: GameId){
+        viewModelScope.launch {
+            deleteGameById(gameId)
+        }
+    }
+
+
+
 }
