@@ -10,28 +10,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class App : Application() {
     @Inject
-    lateinit var addDemoEventsUseCase: AddDemoEventsUseCase
-
-    @Inject
-    lateinit var addDemoPlayerUseCase: AddDemoPlayerUseCase
-
-    @Inject
-    lateinit var addDemoGamesUseCase: AddDemoGamesUseCase
-
-    @Inject
     lateinit var addDemoGameTypes: AddDemoGameTypes
-
-    @Inject
-    lateinit var addDemoTeamsUseCase: AddDemoTeamsUseCase
-
-    @Inject
-    lateinit var addDemoMatchParticipants: AddDemoMatchParticipants
-
-    @Inject
-    lateinit var addDemoMatchesUseCase: AddDemoMatchesUseCase
-
-    @Inject
-    lateinit var addDemoMatchScoresUseCase: AddDemoMatchScoresUseCase
 
     override fun onCreate() {
         super.onCreate()
@@ -39,17 +18,6 @@ class App : Application() {
 
         runBlocking {
             addDemoGameTypes()
-
-            addDemoPlayerUseCase()
-
-            /*addDemoGamesUseCase()
-            addDemoEventsUseCase()
-
-
-            addDemoTeamsUseCase()
-            addDemoMatchParticipants()
-            addDemoMatchesUseCase()
-            addDemoMatchScoresUseCase()*/
         }
     }
 }

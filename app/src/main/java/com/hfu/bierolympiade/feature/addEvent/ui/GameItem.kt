@@ -1,25 +1,24 @@
 package com.hfu.bierolympiade.feature.addEvent.ui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hfu.bierolympiade.R
-import com.hfu.bierolympiade.domain.model.EventId
 import com.hfu.bierolympiade.domain.model.Game
 import com.hfu.bierolympiade.domain.model.GameId
-import com.hfu.bierolympiade.domain.model.PlayerId
 import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
-import com.hfu.bierolympiade.feature.main.ui.navigateToRoute
 import com.hfu.bierolympiade.ui.theme.BierolympiadeTheme
 import com.hfu.bierolympiade.ui.theme.RsButtonBackground
 import com.hfu.bierolympiade.ui.theme.RsDarkBlue
-import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
 fun GameItem(gameName: String, gameId: GameId, deleteFunction: (gameId: GameId) -> Unit, games: MutableState<List<Game>>) {
@@ -83,7 +82,7 @@ fun GameItem(gameName: String, gameId: GameId, deleteFunction: (gameId: GameId) 
 @Preview
 @Composable
 fun GameItem_Preview() {
-    BierolympiadeTheme() {
+    BierolympiadeTheme {
         GameItem(
             "Flip Cup",
             GameId("aösfsaöf"),
