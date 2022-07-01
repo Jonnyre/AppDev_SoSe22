@@ -35,7 +35,7 @@ fun BierolympiadeTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Com
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = PlusJarkataSansTypography,
         shapes = Shapes,
         content = content
     )
