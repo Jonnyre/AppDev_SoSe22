@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun EventScreen(viewModel: EventViewModel = viewModel()) {
@@ -31,24 +33,31 @@ fun EventScreen(viewModel: EventViewModel = viewModel()) {
 @Composable
 private fun EventScreenUI(events: List<EventUI>) {
     val scrollState = rememberLazyListState()
+
+    var formatter = DateTimeFormatter.ofPattern("EEEE, dd.MM.yyyy")
+    var date = LocalDate.now().format(formatter)
+
     Scaffold() {
         Column(modifier = Modifier.padding(10.dp)) {
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_logo),
-                    contentDescription = "logo",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .weight(1.0f)
-                        .padding(10.dp)
-                )
+                Column(
+                    modifier = Modifier.weight(1.0f)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_logo),
+                        contentDescription = "logo",
+                        modifier = Modifier
+                            .size(80.dp)
+                            .padding(10.dp)
+                    )
+                }
                 Column(
                     modifier = Modifier.weight(2.0f)
                 ) {
-                    Text(text = "Wednesday, 14 July 2022")
+                    Text(text = date)
                     Text("Hi Felix!", fontWeight = FontWeight.Bold)
                 }
             }
