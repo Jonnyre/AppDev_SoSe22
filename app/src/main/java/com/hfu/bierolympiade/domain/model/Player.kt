@@ -10,6 +10,7 @@ value class PlayerId(val value: String)
 class Player private constructor(
     val id: PlayerId,
     val name: String,
+    val music: String,
     val description: String,
     val events: List<String>,
     val matchScores: List<String>,
@@ -36,6 +37,7 @@ class Player private constructor(
         fun create(
             id: PlayerId,
             name: String,
+            music: String,
             description: String,
             events: List<String>,
             matchScores: List<String>,
@@ -45,7 +47,7 @@ class Player private constructor(
             deleted: ZonedDateTime = ZonedDateTime.now(),
         ): Player? {
             if (name.isBlank()) return null
-            return Player(id, name, description, events, matchScores, matchParticipants, created, updated, deleted)
+            return Player(id, name, music, description, events, matchScores, matchParticipants, created, updated, deleted)
         }
     }
 }

@@ -18,6 +18,7 @@ class AddPlayerUseCase @Inject constructor(
             PlayerId(uniqueID),
             name = name,
             description = description,
+            music = music,
             events = emptyList(),
             matchScores = emptyList(),
             matchParticipants = emptyList()

@@ -45,8 +45,8 @@ class LeaderboardViewModel @Inject constructor(
                 if (game != null) {
                     val matches = getMatchesFromGame(game)
 
-                    if (getGameTypeById(game.gameTypeId)?.isHighScore == true) {
-                        Timber.log(Log.INFO, "HighScoreGame: ")
+                    val gameType = getGameTypeById(game.gameTypeId)
+                    if (gameType?.isHighScore == true) {
                         val matchScores: MutableList<MatchScore> =
                             emptyList<MatchScore>().toMutableList()
                         matches.map { match ->
@@ -58,8 +58,11 @@ class LeaderboardViewModel @Inject constructor(
                                     matchScores.add(it)
                             }
                         }
-                        val sortedMatchScores =
-                            matchScores.toList().sortedByDescending { it.value }
+                        val sortedMatchScores = when(gameType.isWinnerHighest) {
+                            true -> matchScores.toList().sortedByDescending { it.value }
+                            false -> matchScores.toList().sortedBy { it.value }
+                        }.take(game.points)
+
                         sortedMatchScores.mapIndexed { index, matchScore ->
                             leaderBoard.set(
                                 matchScore.playerId,

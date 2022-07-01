@@ -13,6 +13,7 @@ data class PlayerDb(
     @PrimaryKey
     val playerId: String,
     val name: String,
+    val music: String,
     val description: String,
     val created: ZonedDateTime,
     val updated: ZonedDateTime,

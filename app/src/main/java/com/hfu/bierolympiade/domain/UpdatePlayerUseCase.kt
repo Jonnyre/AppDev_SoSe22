@@ -10,11 +10,12 @@ import javax.inject.Inject
 class UpdatePlayerUseCase @Inject constructor(
     private val playerRepository: PlayerRepository
 ) {
-    suspend operator fun invoke(playerId: PlayerId, name: String, description: String): Boolean = withContext(
+    suspend operator fun invoke(playerId: PlayerId, name: String, music: String, description: String): Boolean = withContext(
         Dispatchers.Default) {
         val newPlayer = Player.create(
             id = playerId,
             name = name,
+            music = music,
             description = description,
             matchScores = emptyList(),
             events = emptyList(),

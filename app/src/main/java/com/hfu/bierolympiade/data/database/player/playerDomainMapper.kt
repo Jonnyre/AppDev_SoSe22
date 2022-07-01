@@ -6,6 +6,7 @@ import com.hfu.bierolympiade.domain.model.PlayerId
 fun playerToDb(player: Player): PlayerDb = PlayerDb(
     playerId = player.id.value,
     name = player.name,
+    music = player.music,
     description = player.description,
     created = player.created,
     updated = player.updated,
@@ -16,6 +17,7 @@ fun playerFromDb(playerWithEventAndMatches: PlayerWithEventAndMatchScoreAndMatch
     return Player.create(
         id = PlayerId(playerWithEventAndMatches.player.player.player.playerId),
         name = playerWithEventAndMatches.player.player.player.name,
+        music = playerWithEventAndMatches.player.player.player.music,
         description = playerWithEventAndMatches.player.player.player.description,
         events = playerWithEventAndMatches.player.player.events.mapNotNull { it.eventId },
         matchScores = playerWithEventAndMatches.player.matchScores.mapNotNull { it.matchScoreId },

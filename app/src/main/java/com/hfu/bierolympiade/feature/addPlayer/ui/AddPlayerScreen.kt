@@ -21,8 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfu.bierolympiade.R
-import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
+import com.hfu.bierolympiade.ui.theme.RsButtonBackground
 import com.hfu.bierolympiade.ui.theme.RsDarkOrange
+import com.hfu.bierolympiade.ui.theme.RsDarkRed
 import com.hfu.bierolympiade.ui.theme.RsLightOrange
 
 @Composable
@@ -32,12 +33,26 @@ fun AddPlayerScreen(viewModel: AddPlayerViewModel = viewModel()) {
 }
 
 @Composable
-fun AddPlayerScreenUi(player: AddPlayerUI?, onSavePlayer: (name: String, music: String, description: String) -> Unit) {
+fun AddPlayerScreenUi(
+    player: AddPlayerUI?,
+    onSavePlayer: (name: String, music: String, description: String) -> Unit
+) {
     var name by remember { mutableStateOf("") }
     var music by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
-    if(player != null && name == "") {
+    var winningMatches by remember { mutableStateOf(0) }
+    var losingMatches by remember { mutableStateOf(0) }
+
+    if (player != null && player.winningMatches != 0) {
+        winningMatches = player.winningMatches
+    }
+
+    if (player != null && player.losingMatches != 0) {
+        losingMatches = player.losingMatches
+    }
+
+    if (player != null && name == "") {
         name = player.name
         music = player.music
         description = player.description
@@ -99,16 +114,66 @@ fun AddPlayerScreenUi(player: AddPlayerUI?, onSavePlayer: (name: String, music: 
                 onValueChange = { description = it },
                 label = { Text("Description") })
         }
-
-
-        Text(text = "Stats", fontSize = 20.sp)
-        Text(text = "Wins" + player?.winningMatches)
-        Text(text = "Loses" + player?.losingMatches)
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(text = "Stats:", fontSize = 20.sp)
+        if ((winningMatches + losingMatches) == 0) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+            ) {
+                Text(text = "No games played yet")
+            }
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(RsButtonBackground)
+            ) {
+                if (winningMatches == 0)
+                    Text(text = "Wins $winningMatches", modifier = Modifier.align(Alignment.Center))
+                else {
+                    Box(
+                        Modifier
+                            .fillMaxWidth(fraction = (winningMatches.toFloat() / (losingMatches.toFloat() + winningMatches.toFloat())))
+                            .fillMaxHeight()
+                            .background(Color.Green)
+                    ) {
+                        Text(
+                            text = "Wins $winningMatches",
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(RsButtonBackground)
+            ) {
+                if (losingMatches == 0)
+                    Text(text = "Loses $losingMatches", modifier = Modifier.align(Alignment.Center))
+                else {
+                    Box(
+                        Modifier
+                            .fillMaxWidth(fraction = (losingMatches.toFloat() / (losingMatches.toFloat() + winningMatches.toFloat())))
+                            .fillMaxHeight()
+                            .background(RsDarkRed)
+                    ) {
+                        Text(
+                            text = "Loses $losingMatches",
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
+            }
+        }
         Button(
             onClick = {
                 onSavePlayer(name, music, description)
-                navControllerGlobal?.popBackStack()
-                navControllerGlobal?.navigate("players")
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = RsDarkOrange,
@@ -127,7 +192,9 @@ fun AddPlayerScreenUi(player: AddPlayerUI?, onSavePlayer: (name: String, music: 
 @Preview
 @Composable
 fun AddPlayerScreen_Preview() {
-    AddPlayerScreenUi(AddPlayerUI(
-        null, "Test", "TestMusik", "TestDescr", 0, 0
-    )) { _, _, _ -> }
+    AddPlayerScreenUi(
+        AddPlayerUI(
+            null, "Test", "TestMusik", "TestDescr", 0, 0
+        )
+    ) { _, _, _ -> }
 }

@@ -52,7 +52,7 @@ class AddDemoGameTypes @Inject constructor(
                 icon = "ressource1",
                 rules = "Laufen Springen und saufen",
                 isHighScore = true,
-                isWinnerHighest = true
+                isWinnerHighest = false
             )
 
         ).forEach {

@@ -6,6 +6,7 @@ import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.MatchParticipantId
 import com.hfu.bierolympiade.domain.model.MatchScoreId
 import com.hfu.bierolympiade.domain.model.PlayerId
+import com.hfu.bierolympiade.feature.main.ui.navControllerGlobal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,7 +45,7 @@ class AddPlayerViewModel @Inject constructor(
                     val game = getGameById(match.gameId)
                     val winnerMatchScores =
                         matchScores.filter { score -> score.value == game?.winCondition }
-                    val isWinner = winnerMatchScores?.find { matchScore ->
+                    val isWinner = winnerMatchScores.find { matchScore ->
                         matchScore.playerId == player.id
                     }
                     if (isWinner != null) winningMatches += 1
@@ -53,7 +54,7 @@ class AddPlayerViewModel @Inject constructor(
                 AddPlayerUI(
                     player.id,
                     player.name,
-                    "",
+                    player.music,
                     player.description,
                     winningMatches,
                     losingMatches
@@ -69,7 +70,9 @@ class AddPlayerViewModel @Inject constructor(
             if (playerId == null)
                 AddPlayer(name, music, description)
             else
-                UpdatePlayer(PlayerId(playerId), name, description)
+                UpdatePlayer(PlayerId(playerId), name, music ,description)
+            navControllerGlobal?.popBackStack()
+            navControllerGlobal?.navigate("players")
         }
     }
 }
