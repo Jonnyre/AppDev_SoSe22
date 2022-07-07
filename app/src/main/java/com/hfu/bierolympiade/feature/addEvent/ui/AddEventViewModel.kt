@@ -103,22 +103,30 @@ class AddEventViewModel @Inject constructor(
                             if (match != null)
                                 matches = matches.plus(match)
                         }
-                        var count = 0
+                        var teamCounter = 0
+                        var matchCounter = 0
                         players.map {
-                            if (count == game.teamSize && game.teamSize != 1 || count == teamCount)
-                                count = 0
+                            if (teamCounter == teamCount)
+                                teamCounter = 0
+
+                            if(teamCounter % 2 == 0)
+                                matchCounter++
+
+                            if(matchCounter == matchCount)
+                                matchCounter = 0
+
                             addMatchParticipant(
-                                MatchId(matches[count / 2]),
+                                MatchId(matches[matchCounter]),
                                 PlayerId(it),
-                                TeamId(teams[count])
+                                TeamId(teams[teamCounter])
                             )
                             addMatchScore(
-                                MatchId(matches[count / 2]),
-                                TeamId(teams[count]),
+                                MatchId(matches[matchCounter]),
+                                TeamId(teams[teamCounter]),
                                 PlayerId(it),
                                 0
                             )
-                            count++
+                            teamCounter++
                         }
                     }
                 }

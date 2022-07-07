@@ -1,5 +1,6 @@
 package com.hfu.bierolympiade.feature.gameDetail.ui
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.hfu.bierolympiade.domain.*
 import com.hfu.bierolympiade.domain.model.GameId
@@ -7,6 +8,7 @@ import com.hfu.bierolympiade.domain.model.MatchParticipantId
 import com.hfu.bierolympiade.domain.model.TeamId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -65,6 +67,7 @@ class GameDetailViewModel @Inject constructor(
                             val matchScore2 = getMatchScoreFromTeam(team2)
                             matchScore1[0]?.value?.let { matchScoreValue1 ->
                                 matchScore2[0]?.value?.let { matchScoreValue2 ->
+
                                     return@map MatchUI(
                                         id = it.id,
                                         state = match.state,
